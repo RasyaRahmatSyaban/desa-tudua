@@ -2,64 +2,63 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\SuratKeluar;
 use Illuminate\Http\Request;
+use App\Services\SuratKeluarService;
 
 class SuratKeluarController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    protected $service;
+
+    public function __construct(SuratKeluarService $service)
+    {
+        $this->service = $service;
+    }
+
     public function index()
     {
-        //
+        $suratKeluar = $this->service->getAll();
+        return view('suratkeluar.index', compact('suratKeluar'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function show($id)
     {
-        //
+        $data = $this->service->getById($id);
+        return view('suratkeluar.show', compact('data'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'nomor_surat' => 'required|string|max:100',
+            'penerima' => 'required|string|max:255',
+            'perihal' => 'required|string|max:255',
+            'tanggal_kirim' => 'required|date',
+            'file' => 'nullable|url',
+        ]);
+
+        $this->service->create($validated);
+
+        return redirect()->route('suratkeluar.index')->with('success', 'Data surat keluar berhasil ditambahkan');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(SuratKeluar $suratKeluar)
+    public function update(Request $request, $id)
     {
-        //
+        $validated = $request->validate([
+            'nomor_surat' => 'required|string|max:100',
+            'penerima' => 'required|string|max:255',
+            'perihal' => 'required|string|max:255',
+            'tanggal_kirim' => 'required|date',
+            'file' => 'nullable|url',
+        ]);
+
+        $this->service->update($id, $validated);
+
+        return redirect()->route('suratkeluar.index')->with('success', 'Data surat keluar berhasil diperbarui');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(SuratKeluar $suratKeluar)
+    public function destroy($id)
     {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, SuratKeluar $suratKeluar)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(SuratKeluar $suratKeluar)
-    {
-        //
+        $this->service->delete($id);
+        return redirect()->route('suratkeluar.index')->with('success', 'Data surat keluar berhasil dihapus');
     }
 }

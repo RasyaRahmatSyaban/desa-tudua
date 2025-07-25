@@ -2,64 +2,65 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Berita;
 use Illuminate\Http\Request;
+use App\Services\BeritaService;
 
 class BeritaController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    protected $service;
+
+    public function __construct(BeritaService $service)
+    {
+        $this->service = $service;
+    }
+
     public function index()
     {
-        //
+        $berita = $this->service->getAll();
+        return view('berita.index', compact('berita'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function show($id)
     {
-        //
+        $data = $this->service->getById($id);
+        return view('berita.show', compact('data'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'foto' => 'nullable|url',
+            'judul' => 'required|string|max:255',
+            'isi' => 'required|string',
+            'tanggal_terbit' => 'required|date',
+            'penulis' => 'required|string|max:100',
+            'status' => 'required|in:Draft,Published',
+        ]);
+
+        $this->service->create($validated);
+
+        return redirect()->route('berita.index')->with('success', 'Berita berhasil ditambahkan');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Berita $berita)
+    public function update(Request $request, $id)
     {
-        //
+        $validated = $request->validate([
+            'foto' => 'nullable|url',
+            'judul' => 'required|string|max:255',
+            'isi' => 'required|string',
+            'tanggal_terbit' => 'required|date',
+            'penulis' => 'required|string|max:100',
+            'status' => 'required|in:Draft,Published',
+        ]);
+
+        $this->service->update($id, $validated);
+
+        return redirect()->route('berita.index')->with('success', 'Berita berhasil diperbarui');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Berita $berita)
+    public function destroy($id)
     {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Berita $berita)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Berita $berita)
-    {
-        //
+        $this->service->delete($id);
+        return redirect()->route('berita.index')->with('success', 'Berita berhasil dihapus');
     }
 }

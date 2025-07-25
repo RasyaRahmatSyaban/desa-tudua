@@ -2,64 +2,55 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\KepalaKeluarga;
+use App\Services\KepalaKeluargaService;
 use Illuminate\Http\Request;
 
 class KepalaKeluargaController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    protected $kepalaKeluargaService;
+
+    public function __construct(KepalaKeluargaService $kepalaKeluargaService)
+    {
+        $this->kepalaKeluargaService = $kepalaKeluargaService;
+    }
+
     public function index()
     {
-        //
+        $items = $this->kepalaKeluargaService->getAll();
+        return view('kepalakeluarga.index', compact('items'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function show($id)
     {
-        //
+        $item = $this->kepalaKeluargaService->getById($id);
+        return view('kepalakeluarga.show', compact('item'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'nama' => 'required|string|max:100',
+            'nik' => 'required|string|max:50',
+        ]);
+
+        $this->kepalaKeluargaService->create($validated);
+        return redirect()->route('kepalakeluarga.index')->with('success', 'Data kepala keluarga ditambahkan');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(KepalaKeluarga $kepalaKeluarga)
+    public function update(Request $request, $id)
     {
-        //
+        $validated = $request->validate([
+            'nama' => 'required|string|max:100',
+            'nik' => 'required|string|max:50',
+        ]);
+
+        $this->kepalaKeluargaService->update($id, $validated);
+        return redirect()->route('kepalakeluarga.index')->with('success', 'Data kepala keluarga diperbarui');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(KepalaKeluarga $kepalaKeluarga)
+    public function destroy($id)
     {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, KepalaKeluarga $kepalaKeluarga)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(KepalaKeluarga $kepalaKeluarga)
-    {
-        //
+        $this->kepalaKeluargaService->delete($id);
+        return redirect()->route('kepalakeluarga.index')->with('success', 'Data kepala keluarga dihapus');
     }
 }

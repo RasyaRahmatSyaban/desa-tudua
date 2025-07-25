@@ -2,64 +2,59 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Pelayanan;
+use App\Services\PelayananService;
 use Illuminate\Http\Request;
 
 class PelayananController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    protected $pelayananService;
+
+    public function __construct(PelayananService $pelayananService)
+    {
+        $this->pelayananService = $pelayananService;
+    }
+
     public function index()
     {
-        //
+        $items = $this->pelayananService->getAll();
+        return view('pelayanan.index', compact('items'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function show($id)
     {
-        //
+        $item = $this->pelayananService->getById($id);
+        return view('pelayanan.show', compact('item'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'nama_layanan' => 'required|string|max:255',
+            'kategori' => 'required|in:Dokumen Identitas,Kependudukan,Pencatatan Sipil',
+            'deskripsi' => 'required|string',
+            'link_google_form' => 'required|string',
+        ]);
+
+        $this->pelayananService->create($validated);
+        return redirect()->route('pelayanan.index')->with('success', 'Pelayanan berhasil ditambahkan');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Pelayanan $pelayanan)
+    public function update(Request $request, $id)
     {
-        //
+        $validated = $request->validate([
+            'nama_layanan' => 'required|string|max:255',
+            'kategori' => 'required|in:Dokumen Identitas,Kependudukan,Pencatatan Sipil',
+            'deskripsi' => 'required|string',
+            'link_google_form' => 'required|string',
+        ]);
+
+        $this->pelayananService->update($id, $validated);
+        return redirect()->route('pelayanan.index')->with('success', 'Pelayanan berhasil diperbarui');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Pelayanan $pelayanan)
+    public function destroy($id)
     {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Pelayanan $pelayanan)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Pelayanan $pelayanan)
-    {
-        //
+        $this->pelayananService->delete($id);
+        return redirect()->route('pelayanan.index')->with('success', 'Pelayanan berhasil dihapus');
     }
 }

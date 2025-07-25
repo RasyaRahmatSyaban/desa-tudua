@@ -2,64 +2,61 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Pengumuman;
 use Illuminate\Http\Request;
+use App\Services\PengumumanService;
 
 class PengumumanController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    protected $service;
+
+    public function __construct(PengumumanService $service)
+    {
+        $this->service = $service;
+    }
+
     public function index()
     {
-        //
+        $pengumuman = $this->service->getAll();
+        return view('pengumuman.index', compact('pengumuman'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function show($id)
     {
-        //
+        $data = $this->service->getById($id);
+        return view('pengumuman.show', compact('data'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'judul' => 'required|string|max:255',
+            'isi' => 'required|string',
+            'tanggal_mulai' => 'required|date',
+            'tanggal_selesai' => 'required|date|after_or_equal:tanggal_mulai',
+        ]);
+
+        $this->service->create($validated);
+
+        return redirect()->route('pengumuman.index')->with('success', 'Data pengumuman berhasil ditambahkan');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Pengumuman $pengumuman)
+    public function update(Request $request, $id)
     {
-        //
+        $validated = $request->validate([
+            'judul' => 'required|string|max:255',
+            'isi' => 'required|string',
+            'tanggal_mulai' => 'required|date',
+            'tanggal_selesai' => 'required|date|after_or_equal:tanggal_mulai',
+        ]);
+
+        $this->service->update($id, $validated);
+
+        return redirect()->route('pengumuman.index')->with('success', 'Data pengumuman berhasil diperbarui');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Pengumuman $pengumuman)
+    public function destroy($id)
     {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Pengumuman $pengumuman)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Pengumuman $pengumuman)
-    {
-        //
+        $this->service->delete($id);
+        return redirect()->route('pengumuman.index')->with('success', 'Data pengumuman berhasil dihapus');
     }
 }

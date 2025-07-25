@@ -2,64 +2,59 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Media;
+use App\Services\MediaService;
 use Illuminate\Http\Request;
 
 class MediaController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    protected $mediaService;
+
+    public function __construct(MediaService $mediaService)
+    {
+        $this->mediaService = $mediaService;
+    }
+
     public function index()
     {
-        //
+        $items = $this->mediaService->getAll();
+        return view('media.index', compact('items'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function show($id)
     {
-        //
+        $item = $this->mediaService->getById($id);
+        return view('media.show', compact('item'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'nama' => 'required|string|max:100',
+            'tipe' => 'required|in:foto,video,dokumen',
+            'deskripsi' => 'nullable|string',
+            'thumbnail' => 'nullable|string',
+        ]);
+
+        $this->mediaService->create($validated);
+        return redirect()->route('media.index')->with('success', 'Media berhasil ditambahkan');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Media $media)
+    public function update(Request $request, $id)
     {
-        //
+        $validated = $request->validate([
+            'nama' => 'required|string|max:100',
+            'tipe' => 'required|in:foto,video,dokumen',
+            'deskripsi' => 'nullable|string',
+            'thumbnail' => 'nullable|string',
+        ]);
+
+        $this->mediaService->update($id, $validated);
+        return redirect()->route('media.index')->with('success', 'Media berhasil diperbarui');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Media $media)
+    public function destroy($id)
     {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Media $media)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Media $media)
-    {
-        //
+        $this->mediaService->delete($id);
+        return redirect()->route('media.index')->with('success', 'Media berhasil dihapus');
     }
 }

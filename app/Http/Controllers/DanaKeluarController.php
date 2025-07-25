@@ -2,64 +2,61 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\DanaKeluar;
+use App\Services\DanaKeluarService;
 use Illuminate\Http\Request;
 
 class DanaKeluarController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    protected $danaKeluarService;
+
+    public function __construct(DanaKeluarService $danaKeluarService)
+    {
+        $this->danaKeluarService = $danaKeluarService;
+    }
+
     public function index()
     {
-        //
+        $items = $this->danaKeluarService->getAll();
+        return view('danakeluar.index', compact('items'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function show($id)
     {
-        //
+        $item = $this->danaKeluarService->getById($id);
+        return view('danakeluar.show', compact('item'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'tahun' => 'required|integer',
+            'bulan' => 'required|integer|min:1|max:12',
+            'jumlah' => 'required|numeric',
+            'kategori' => 'required|string|max:255',
+            'keterangan' => 'nullable|string',
+        ]);
+
+        $this->danaKeluarService->create($validated);
+        return redirect()->route('danakeluar.index')->with('success', 'Dana keluar berhasil ditambahkan');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(DanaKeluar $danaKeluar)
+    public function update(Request $request, $id)
     {
-        //
+        $validated = $request->validate([
+            'tahun' => 'required|integer',
+            'bulan' => 'required|integer|min:1|max:12',
+            'jumlah' => 'required|numeric',
+            'kategori' => 'required|string|max:255',
+            'keterangan' => 'nullable|string',
+        ]);
+
+        $this->danaKeluarService->update($id, $validated);
+        return redirect()->route('danakeluar.index')->with('success', 'Dana keluar berhasil diperbarui');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(DanaKeluar $danaKeluar)
+    public function destroy($id)
     {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, DanaKeluar $danaKeluar)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(DanaKeluar $danaKeluar)
-    {
-        //
+        $this->danaKeluarService->delete($id);
+        return redirect()->route('danakeluar.index')->with('success', 'Dana keluar berhasil dihapus');
     }
 }
