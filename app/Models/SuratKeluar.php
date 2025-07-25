@@ -9,6 +9,6 @@ class SuratKeluar extends Model
     protected $table = 'suratkeluar';
 
     protected $fillable = [
-        'nomorSurat', 'penerima', 'perihal', 'tanggalKirim', 'file'
+        'nomor_surat', 'penerima', 'perihal', 'tanggal_kirim', 'file'
     ];
 }

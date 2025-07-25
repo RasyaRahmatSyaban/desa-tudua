@@ -10,7 +10,7 @@ class Penduduk extends Model
     protected $table = 'penduduk';
 
     protected $fillable = [
-        'nama', 'nik', 'alamat', 'tanggalLahir', 'jenisKelamin', 'agama', 'id_kepalakeluarga'
+        'nama', 'nik', 'alamat', 'tanggal_lahir', 'jenis_kelamin', 'agama', 'id_kepalakeluarga'
     ];
 
     public function kepalaKeluarga(): BelongsTo
