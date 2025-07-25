@@ -2,64 +2,67 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Penduduk;
+use App\Services\PendudukService;
 use Illuminate\Http\Request;
 
 class PendudukController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    protected $pendudukService;
+
+    public function __construct(PendudukService $pendudukService)
+    {
+        $this->pendudukService = $pendudukService;
+    }
+
     public function index()
     {
-        //
+        $penduduk = $this->pendudukService->getAll();
+        return view('penduduk.index', compact('penduduk'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function show($id)
     {
-        //
+        $data = $this->pendudukService->getById($id);
+        return view('penduduk.show', compact('data'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'nama' => 'required|string|max:100',
+            'nik' => 'required|string|max:16|unique:penduduk',
+            'alamat' => 'required|string',
+            'tanggal_lahir' => 'required|date',
+            'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
+            'agama' => 'required|string|max:50',
+            'id_kepalakeluarga' => 'nullable|exists:kepala_keluarga,id',
+        ]);
+
+        $this->pendudukService->create($validated);
+
+        return redirect()->route('penduduk.index')->with('success', 'Data penduduk berhasil ditambahkan');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Penduduk $penduduk)
+    public function update(Request $request, $id)
     {
-        //
+        $validated = $request->validate([
+            'nama' => 'required|string|max:100',
+            'nik' => 'required|string|max:16|unique:penduduk,nik,' . $id,
+            'alamat' => 'required|string',
+            'tanggal_lahir' => 'required|date',
+            'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
+            'agama' => 'required|string|max:50',
+            'id_kepalakeluarga' => 'nullable|exists:kepala_keluarga,id',
+        ]);
+
+        $this->pendudukService->update($id, $validated);
+
+        return redirect()->route('penduduk.index')->with('success', 'Data penduduk berhasil diperbarui');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Penduduk $penduduk)
+    public function destroy($id)
     {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Penduduk $penduduk)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Penduduk $penduduk)
-    {
-        //
+        $this->pendudukService->delete($id);
+        return redirect()->route('penduduk.index')->with('success', 'Data penduduk berhasil dihapus');
     }
 }
