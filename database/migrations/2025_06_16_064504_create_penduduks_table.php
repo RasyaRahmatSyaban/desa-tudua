@@ -13,7 +13,13 @@ return new class extends Migration
     {
         Schema::create('penduduk', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->string('nama', 100);
+            $table->string('nik', 16);
+            $table->text('alamat');
+            $table->date('tanggal_lahir');
+            $table->enum('jenis_kelamin', ['Laki-laki', 'Perempuan']);
+            $table->string('agama', 50);
+            $table->foreignId('id_kepalakeluarga')->nullable()->constrained('kepala_keluarga')->onDelete('set null');
         });
     }
 

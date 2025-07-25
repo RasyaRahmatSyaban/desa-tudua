@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('kepala_keluarga', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->string('nama', 100);
+            $table->string('nik', 50);
         });
     }
 

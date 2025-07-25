@@ -13,6 +13,12 @@ return new class extends Migration
     {
         Schema::create('berita', function (Blueprint $table) {
             $table->id();
+            $table->string('foto');
+            $table->string('judul');
+            $table->text('isi');
+            $table->date('tanggal_terbit');
+            $table->string('penulis', 100);
+            $table->enum('status', ['Dipublikasi', 'Draft'])->default('Dipublikasi');
             $table->timestamps();
         });
     }

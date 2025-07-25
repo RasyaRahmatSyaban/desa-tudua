@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('media', function (Blueprint $table) {
             $table->id();
+            $table->string('nama', 100);
+            $table->enum('tipe', ['foto', 'video', 'dokumen']);
+            $table->string('file');
+            $table->text('deskripsi')->nullable();
+            $table->string('thumbnail')->nullable();
             $table->timestamps();
         });
     }

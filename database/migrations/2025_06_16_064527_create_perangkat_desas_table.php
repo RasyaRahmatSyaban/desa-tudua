@@ -13,7 +13,10 @@ return new class extends Migration
     {
         Schema::create('perangkat_desa', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->string('nama', 100);
+            $table->string('nip', 30);
+            $table->string('jabatan', 100);
+            $table->string('foto')->nullable();
         });
     }
 

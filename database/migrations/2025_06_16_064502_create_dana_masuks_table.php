@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('dana_masuk', function (Blueprint $table) {
             $table->id();
+            $table->integer('tahun');
+            $table->integer('bulan');
+            $table->decimal('jumlah', 15, 2);
+            $table->string('sumber');
+            $table->text('keterangan')->nullable();
             $table->timestamps();
         });
     }

@@ -13,7 +13,10 @@ return new class extends Migration
     {
         Schema::create('pengumuman', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->string('judul');
+            $table->text('isi');
+            $table->date('tanggal_mulai');
+            $table->date('tanggal_selesai');
         });
     }
 

@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('pelayanan', function (Blueprint $table) {
             $table->id();
+            $table->string('nama_layanan');
+            $table->enum('kategori', ['Dokumen Identitas', 'Kependudukan', 'Pencatatan Sipil']);
+            $table->text('deskripsi');
+            $table->text('link_google_form');
             $table->timestamps();
         });
     }
