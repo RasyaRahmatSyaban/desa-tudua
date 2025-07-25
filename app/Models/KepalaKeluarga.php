@@ -3,8 +3,18 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class KepalaKeluarga extends Model
 {
-    //
+    protected $table = 'kepalakeluarga';
+
+    protected $fillable = [
+        'nama', 'nik'
+    ];
+
+    public function penduduk(): HasMany
+    {
+        return $this->hasMany(Penduduk::class, 'id_kepalakeluarga');
+    }
 }
