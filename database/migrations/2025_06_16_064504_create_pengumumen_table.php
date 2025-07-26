@@ -17,6 +17,7 @@ return new class extends Migration
             $table->text('isi');
             $table->date('tanggal_mulai');
             $table->date('tanggal_selesai');
+            $table->timestamps();
         });
     }
 

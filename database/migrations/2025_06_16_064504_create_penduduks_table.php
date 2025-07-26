@@ -20,6 +20,7 @@ return new class extends Migration
             $table->enum('jenis_kelamin', ['Laki-laki', 'Perempuan']);
             $table->string('agama', 50);
             $table->foreignId('id_kepalakeluarga')->nullable()->constrained('kepala_keluarga')->onDelete('set null');
+            $table->timestamps();
         });
     }
 

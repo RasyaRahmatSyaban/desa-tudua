@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('nama', 100);
             $table->string('nik', 50);
+            $table->timestamps();
         });
     }
 

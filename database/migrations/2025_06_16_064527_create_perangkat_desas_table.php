@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('nip', 30);
             $table->string('jabatan', 100);
             $table->string('foto')->nullable();
+            $table->timestamps();
         });
     }
 

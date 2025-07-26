@@ -18,6 +18,7 @@ return new class extends Migration
             $table->text('perihal');
             $table->date('tanggal_terima');
             $table->string('file')->nullable();
+            $table->timestamps();
         });
     }
 
