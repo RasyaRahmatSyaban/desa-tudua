@@ -1,0 +1,203 @@
+@extends('layouts.admin')
+
+@section('title', 'Tambah Berita')
+@section('page-title', 'Tambah Berita')
+@section('page-description', 'Buat berita baru untuk dipublikasikan')
+
+@section('content')
+<div class="max-w-4xl">
+    <form method="POST" action="{{ route('admin.berita.store') }}" enctype="multipart/form-data" class="space-y-6">
+        @csrf
+        
+        <!-- Main Content Card -->
+        <div class="card bg-white rounded-lg shadow-md p-6">
+            <h3 class="text-lg font-semibold text-gray-900 mb-6">Informasi Berita</h3>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- Main Form -->
+                <div class="lg:col-span-2 space-y-6">
+                    <!-- Judul -->
+                    <div>
+                        <label for="judul" class="block text-sm font-medium text-gray-700 mb-2">
+                            Judul Berita <span class="text-red-500">*</span>
+                        </label>
+                        <input type="text" 
+                               id="judul" 
+                               name="judul" 
+                               value="{{ old('judul') }}"
+                               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('judul') border-red-500 @enderror"
+                               placeholder="Masukkan judul berita..."
+                               required>
+                        @error('judul')
+                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
+                    </div>
+                    
+                    <!-- Konten -->
+                    <div>
+                        <label for="konten" class="block text-sm font-medium text-gray-700 mb-2">
+                            Konten Berita <span class="text-red-500">*</span>
+                        </label>
+                        <textarea id="konten" 
+                                  name="konten" 
+                                  rows="12"
+                                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('konten') border-red-500 @enderror"
+                                  placeholder="Tulis konten berita di sini..."
+                                  required>{{ old('konten') }}</textarea>
+                        @error('konten')
+                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
+                    </div>
+                    
+                    <!-- Ringkasan -->
+                    <div>
+                        <label for="ringkasan" class="block text-sm font-medium text-gray-700 mb-2">
+                            Ringkasan
+                        </label>
+                        <textarea id="ringkasan" 
+                                  name="ringkasan" 
+                                  rows="3"
+                                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('ringkasan') border-red-500 @enderror"
+                                  placeholder="Ringkasan singkat berita (opsional)">{{ old('ringkasan') }}</textarea>
+                        @error('ringkasan')
+                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
+                    </div>
+                </div>
+                
+                <!-- Sidebar -->
+                <div class="space-y-6">
+                    <!-- Gambar -->
+                    <div>
+                        <label for="gambar" class="block text-sm font-medium text-gray-700 mb-2">
+                            Gambar Berita
+                        </label>
+                        <div class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-blue-400 transition-colors">
+                            <input type="file" 
+                                   id="gambar" 
+                                   name="gambar" 
+                                   accept="image/*"
+                                   class="hidden"
+                                   onchange="previewImage(this)">
+                            <div id="imagePreview" class="hidden">
+                                <img id="preview" class="w-full h-32 object-cover rounded-lg mb-3">
+                                <button type="button" onclick="removeImage()" class="text-red-600 text-sm hover:text-red-800">
+                                    <i class="fas fa-trash mr-1"></i>Hapus Gambar
+                                </button>
+                            </div>
+                            <div id="uploadPlaceholder">
+                                <i class="fas fa-cloud-upload-alt text-3xl text-gray-400 mb-3"></i>
+                                <p class="text-sm text-gray-600 mb-2">Klik untuk upload gambar</p>
+                                <p class="text-xs text-gray-500">PNG, JPG hingga 2MB</p>
+                            </div>
+                            <label for="gambar" class="cursor-pointer absolute inset-0"></label>
+                        </div>
+                        @error('gambar')
+                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
+                    </div>
+                    
+                    <!-- Kategori -->
+                    <div>
+                        <label for="kategori" class="block text-sm font-medium text-gray-700 mb-2">
+                            Kategori
+                        </label>
+                        <select id="kategori" 
+                                name="kategori"
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('kategori') border-red-500 @enderror">
+                            <option value="">Pilih Kategori</option>
+                            <option value="umum" {{ old('kategori') === 'umum' ? 'selected' : '' }}>Umum</option>
+                            <option value="kegiatan" {{ old('kategori') === 'kegiatan' ? 'selected' : '' }}>Kegiatan</option>
+                            <option value="pembangunan" {{ old('kategori') === 'pembangunan' ? 'selected' : '' }}>Pembangunan</option>
+                            <option value="sosial" {{ old('kategori') === 'sosial' ? 'selected' : '' }}>Sosial</option>
+                            <option value="ekonomi" {{ old('kategori') === 'ekonomi' ? 'selected' : '' }}>Ekonomi</option>
+                        </select>
+                        @error('kategori')
+                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
+                    </div>
+                    
+                    <!-- Status -->
+                    <div>
+                        <label for="status" class="block text-sm font-medium text-gray-700 mb-2">
+                            Status Publikasi
+                        </label>
+                        <select id="status" 
+                                name="status"
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('status') border-red-500 @enderror">
+                            <option value="draft" {{ old('status') === 'draft' ? 'selected' : '' }}>Draft</option>
+                            <option value="published" {{ old('status') === 'published' ? 'selected' : '' }}>Publikasi</option>
+                        </select>
+                        @error('status')
+                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
+                    </div>
+                    
+                    <!-- Tanggal Publikasi -->
+                    <div>
+                        <label for="tanggal_publikasi" class="block text-sm font-medium text-gray-700 mb-2">
+                            Tanggal Publikasi
+                        </label>
+                        <input type="datetime-local" 
+                               id="tanggal_publikasi" 
+                               name="tanggal_publikasi" 
+                               value="{{ old('tanggal_publikasi', now()->format('Y-m-d\TH:i')) }}"
+                               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('tanggal_publikasi') border-red-500 @enderror">
+                        @error('tanggal_publikasi')
+                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Action Buttons -->
+        <div class="flex items-center justify-between">
+            <a href="{{ route('admin.berita.index') }}" 
+               class="px-6 py-3 border border-gray-300 rounded-lg text-gray-700 font-medium hover:bg-gray-50 transition-colors">
+                <i class="fas fa-arrow-left mr-2"></i>Kembali
+            </a>
+            
+            <div class="flex items-center space-x-4">
+                <button type="submit" 
+                        name="action" 
+                        value="draft"
+                        class="px-6 py-3 border border-gray-300 rounded-lg text-gray-700 font-medium hover:bg-gray-50 transition-colors">
+                    <i class="fas fa-save mr-2"></i>Simpan Draft
+                </button>
+                <button type="submit" 
+                        name="action" 
+                        value="publish"
+                        class="btn-primary text-white px-6 py-3 rounded-lg font-medium">
+                    <i class="fas fa-paper-plane mr-2"></i>Publikasi
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script>
+function previewImage(input) {
+    if (input.files && input.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            document.getElementById('preview').src = e.target.result;
+            document.getElementById('imagePreview').classList.remove('hidden');
+            document.getElementById('uploadPlaceholder').classList.add('hidden');
+        }
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+function removeImage() {
+    document.getElementById('gambar').value = '';
+    document.getElementById('imagePreview').classList.add('hidden');
+    document.getElementById('uploadPlaceholder').classList.remove('hidden');
+}
+
+// Auto-generate slug from title
+document.getElementById('judul').addEventListener('input', function(e) {
+    // You can add slug generation logic here if needed
+});
+</script>
+@endsection
