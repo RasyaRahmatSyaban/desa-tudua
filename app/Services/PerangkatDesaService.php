@@ -9,7 +9,7 @@ class PerangkatDesaService
 {
     public function getAll()
     {
-        return PerangkatDesa::select('id', 'nama', 'nip', 'jabatan', 'foto')->latest()->get();
+        return PerangkatDesa::select('id', 'nama', 'nip', 'jabatan', 'foto')->latest()->paginate(10);
     }
 
     public function getById($id)

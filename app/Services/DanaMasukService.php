@@ -8,7 +8,7 @@ class DanaMasukService
 {
     public function getAll()
     {
-        return DanaMasuk::select('id', 'tahun', 'bulan', 'jumlah', 'sumber', 'keterangan')->latest()->get();
+        return DanaMasuk::select('id', 'tahun', 'bulan', 'jumlah', 'sumber', 'keterangan')->latest()->paginate(10);
     }
 
     public function getById($id)

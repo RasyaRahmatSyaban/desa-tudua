@@ -8,7 +8,7 @@ class KepalaKeluargaService
 {
     public function getAll()
     {
-        return KepalaKeluarga::select('id', 'nama', 'nik')->latest()->get();
+        return KepalaKeluarga::select('id', 'nama', 'nik')->latest()->paginate(10);
     }
 
     public function getById($id)

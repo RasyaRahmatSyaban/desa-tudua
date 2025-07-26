@@ -8,7 +8,7 @@ class MediaService
 {
     public function getAll()
     {
-        return Media::select('id', 'nama', 'tipe', 'deskripsi', 'thumbnail')->latest()->get();
+        return Media::select('id', 'nama', 'tipe', 'deskripsi', 'thumbnail')->latest()->paginate(10);
     }
 
     public function getById($id)

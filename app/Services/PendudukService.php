@@ -8,7 +8,7 @@ class PendudukService
 {
     public function getAll()
     {
-        return Penduduk::select('id', 'nama', 'nik', 'alamat', 'tanggal_lahir', 'jenis_kelamin', 'agama', 'id_kepalakeluarga')->latest()->get();
+        return Penduduk::select('id', 'nama', 'nik', 'alamat', 'tanggal_lahir', 'jenis_kelamin', 'agama', 'id_kepalakeluarga')->latest()->paginate(10);
     }
 
     public function getById($id)

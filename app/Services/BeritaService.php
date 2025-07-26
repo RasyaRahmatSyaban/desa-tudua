@@ -8,7 +8,7 @@ class BeritaService
 {
     public function getAll()
     {
-        return Berita::select('id', 'foto', 'judul', 'isi', 'tanggal_terbit', 'penulis', 'status')->latest()->get();
+        return Berita::select('id', 'foto', 'judul', 'isi', 'tanggal_terbit', 'penulis', 'status')->latest()->paginate(10);
     }
 
     public function getById($id)

@@ -8,7 +8,7 @@ class DanaKeluarService
 {
     public function getAll()
     {
-        return DanaKeluar::select('id', 'tahun', 'bulan', 'jumlah', 'keterangan')->latest()->get();
+        return DanaKeluar::select('id', 'tahun', 'bulan', 'jumlah', 'keterangan')->latest()->paginate(10);
     }
 
     public function getById($id)

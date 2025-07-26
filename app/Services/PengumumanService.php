@@ -9,7 +9,7 @@ class PengumumanService
 {
     public function getAll()
     {
-        return Pengumuman::select('id', 'judul', 'isi', 'tanggal_mulai', 'tanggal_selesai')->latest()->get();
+        return Pengumuman::select('id', 'judul', 'isi', 'tanggal_mulai', 'tanggal_selesai')->latest()->paginate(10);
     }
 
     public function getById($id)

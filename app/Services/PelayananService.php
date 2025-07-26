@@ -9,7 +9,7 @@ class PelayananService
 {
     public function getAll()
     {
-        return Pelayanan::select('id', 'nama_layanan', 'kategori', 'deskripsi', 'link_google_form')->latest()->get();
+        return Pelayanan::select('id', 'nama_layanan', 'kategori', 'deskripsi', 'link_google_form')->latest()->paginate(10);
     }
 
     public function getById($id)

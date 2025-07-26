@@ -9,7 +9,7 @@ class SuratKeluarService
 {
     public function getAll()
     {
-        return SuratKeluar::select('id', 'nomor_surat', 'penerima', 'perihal', 'tanggal_kirim', 'file')->latest()->get();
+        return SuratKeluar::select('id', 'nomor_surat', 'penerima', 'perihal', 'tanggal_kirim', 'file')->latest()->paginate(10);
     }
 
     public function getById($id)
