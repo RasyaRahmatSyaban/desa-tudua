@@ -17,7 +17,12 @@ class BeritaController extends Controller
     public function index()
     {
         $berita = $this->service->getAll();
-        return view('berita.index', compact('berita'));
+        $user = auth()->user();
+        if($user){
+            return view('admin.berita.index', compact('berita'));
+        }else{
+            return view('berita.index', compact('berita'));
+        }
     }
 
     public function show($id)

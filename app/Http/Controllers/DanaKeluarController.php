@@ -16,8 +16,15 @@ class DanaKeluarController extends Controller
 
     public function index()
     {
-        $items = $this->danaKeluarService->getAll();
-        return view('danakeluar.index', compact('items'));
+        $danaKeluar = $this->danaKeluarService->getAll();
+        $user = auth()->user();
+        if($user){
+            return view('admin.dana-keluar.index', compact('danaKeluar'));
+        }else{
+            return view('dana-desa.index', compact('danaKeluar'));
+        }
+        // $items = $this->danaKeluarService->getAll();
+        // return view('danakeluar.index', compact('items'));
     }
 
     public function show($id)

@@ -7,22 +7,27 @@ use App\Services\SuratKeluarService;
 
 class SuratKeluarController extends Controller
 {
-    protected $service;
+    protected $suratKeluarService;
 
-    public function __construct(SuratKeluarService $service)
+    public function __construct(SuratKeluarService $suratKeluarService)
     {
-        $this->service = $service;
+        $this->suratKeluarService = $suratKeluarService;
     }
 
     public function index()
     {
-        $suratKeluar = $this->service->getAll();
-        return view('suratkeluar.index', compact('suratKeluar'));
+        $suratKeluar = $this->suratKeluarService->getAll();
+        $user = auth()->user();
+        if($user){
+            return view('admin.surat-keluar.index', compact('suratKeluar'));
+        }else{
+            return view('suratKeluar.index', compact('suratKeluar'));
+        }
     }
 
     public function show($id)
     {
-        $data = $this->service->getById($id);
+        $data = $this->suratKeluarService->getById($id);
         return view('suratkeluar.show', compact('data'));
     }
 
@@ -36,7 +41,7 @@ class SuratKeluarController extends Controller
             'file' => 'nullable|url',
         ]);
 
-        $this->service->create($validated);
+        $this->suratKeluarService->create($validated);
 
         return redirect()->route('suratkeluar.index')->with('success', 'Data surat keluar berhasil ditambahkan');
     }
@@ -51,14 +56,14 @@ class SuratKeluarController extends Controller
             'file' => 'nullable|url',
         ]);
 
-        $this->service->update($id, $validated);
+        $this->suratKeluarService->update($id, $validated);
 
         return redirect()->route('suratkeluar.index')->with('success', 'Data surat keluar berhasil diperbarui');
     }
 
     public function destroy($id)
     {
-        $this->service->delete($id);
+        $this->suratKeluarService->delete($id);
         return redirect()->route('suratkeluar.index')->with('success', 'Data surat keluar berhasil dihapus');
     }
 }

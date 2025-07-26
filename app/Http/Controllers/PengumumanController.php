@@ -7,22 +7,27 @@ use App\Services\PengumumanService;
 
 class PengumumanController extends Controller
 {
-    protected $service;
+    protected $pengumumanService;
 
-    public function __construct(PengumumanService $service)
+    public function __construct(PengumumanService $pengumumanService)
     {
-        $this->service = $service;
+        $this->pengumumanService = $pengumumanService;
     }
 
     public function index()
     {
-        $pengumuman = $this->service->getAll();
-        return view('pengumuman.index', compact('pengumuman'));
+        $pengumuman = $this->pengumumanService->getAll();
+        $user = auth()->user();
+        if($user){
+            return view('admin.pengumuman.index', compact('pengumuman'));
+        }else{            
+            return view('pengumuman.index', compact('pengumuman'));
+        }
     }
 
     public function show($id)
     {
-        $data = $this->service->getById($id);
+        $data = $this->pengumumanService->getById($id);
         return view('pengumuman.show', compact('data'));
     }
 
@@ -35,7 +40,7 @@ class PengumumanController extends Controller
             'tanggal_selesai' => 'required|date|after_or_equal:tanggal_mulai',
         ]);
 
-        $this->service->create($validated);
+        $this->pengumumanService->create($validated);
 
         return redirect()->route('pengumuman.index')->with('success', 'Data pengumuman berhasil ditambahkan');
     }
@@ -49,14 +54,14 @@ class PengumumanController extends Controller
             'tanggal_selesai' => 'required|date|after_or_equal:tanggal_mulai',
         ]);
 
-        $this->service->update($id, $validated);
+        $this->pengumumanService->update($id, $validated);
 
         return redirect()->route('pengumuman.index')->with('success', 'Data pengumuman berhasil diperbarui');
     }
 
     public function destroy($id)
     {
-        $this->service->delete($id);
+        $this->pengumumanService->delete($id);
         return redirect()->route('pengumuman.index')->with('success', 'Data pengumuman berhasil dihapus');
     }
 }

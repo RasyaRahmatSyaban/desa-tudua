@@ -16,8 +16,13 @@ class DanaMasukController extends Controller
 
     public function index()
     {
-        $items = $this->danaMasukService->getAll();
-        return view('danamasuk.index', compact('items'));
+        $danaMasuk = $this->danaMasukService->getAll();
+        $user = auth()->user();
+        if($user){
+            return view('admin.dana-masuk.index', compact('danaMasuk'));
+        }else{
+            return view('dana-desa.index', compact('danaMasuk'));
+        }
     }
 
     public function show($id)

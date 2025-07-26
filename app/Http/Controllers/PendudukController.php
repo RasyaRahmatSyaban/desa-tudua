@@ -17,7 +17,12 @@ class PendudukController extends Controller
     public function index()
     {
         $penduduk = $this->pendudukService->getAll();
-        return view('penduduk.index', compact('penduduk'));
+        $user = auth()->user();
+        if($user){
+            return view('admin.penduduk.index', compact('penduduk'));
+        }else{            
+            return view('penduduk', compact('penduduk'));
+        }
     }
 
     public function show($id)

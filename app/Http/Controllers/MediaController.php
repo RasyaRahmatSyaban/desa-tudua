@@ -16,8 +16,13 @@ class MediaController extends Controller
 
     public function index()
     {
-        $items = $this->mediaService->getAll();
-        return view('media.index', compact('items'));
+        $medias = $this->mediaService->getAll();
+        $user = auth()->user();
+        if($user){
+            return view('admin.media.index', compact('medias'));
+        }else{
+            return view('media', compact('medias'));
+        }
     }
 
     public function show($id)

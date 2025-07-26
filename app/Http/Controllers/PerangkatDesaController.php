@@ -7,22 +7,27 @@ use App\Services\PerangkatDesaService;
 
 class PerangkatDesaController extends Controller
 {
-    protected $service;
+    protected $perangkatDesaService;
 
-    public function __construct(PerangkatDesaService $service)
+    public function __construct(PerangkatDesaService $perangkatDesaService)
     {
-        $this->service = $service;
+        $this->perangkatDesaService = $perangkatDesaService;
     }
 
     public function index()
     {
-        $perangkat = $this->service->getAll();
-        return view('perangkat.index', compact('perangkat'));
+        $perangkatDesa = $this->perangkatDesaService->getAll();
+        $user = auth()->user();
+        if($user){
+            return view('admin.perangkat-desa.index', compact('perangkatDesa'));
+        }else{
+            return view('perangkat.index', compact('perangkatDesa'));
+        }
     }
 
     public function show($id)
     {
-        $data = $this->service->getById($id);
+        $data = $this->perangkatDesaService->getById($id);
         return view('perangkat.show', compact('data'));
     }
 
@@ -35,7 +40,7 @@ class PerangkatDesaController extends Controller
             'foto' => 'nullable|url',
         ]);
 
-        $this->service->create($validated);
+        $this->perangkatDesaService->create($validated);
 
         return redirect()->route('perangkat.index')->with('success', 'Data perangkat desa berhasil ditambahkan');
     }
@@ -49,14 +54,14 @@ class PerangkatDesaController extends Controller
             'foto' => 'nullable|url',
         ]);
 
-        $this->service->update($id, $validated);
+        $this->perangkatDesaService->update($id, $validated);
 
         return redirect()->route('perangkat.index')->with('success', 'Data perangkat desa berhasil diperbarui');
     }
 
     public function destroy($id)
     {
-        $this->service->delete($id);
+        $this->perangkatDesaService->delete($id);
         return redirect()->route('perangkat.index')->with('success', 'Data perangkat desa berhasil dihapus');
     }
 }

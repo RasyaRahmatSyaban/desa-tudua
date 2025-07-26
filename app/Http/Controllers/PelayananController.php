@@ -16,8 +16,13 @@ class PelayananController extends Controller
 
     public function index()
     {
-        $items = $this->pelayananService->getAll();
-        return view('pelayanan.index', compact('items'));
+        $pelayanans = $this->pelayananService->getAll();
+        $user = auth()->user();
+        if($user){
+            return view('admin.pelayanan.index', compact('pelayanans'));
+        }else{
+            return view('pelayanan', compact('pelayanans'));
+        }
     }
 
     public function show($id)

@@ -16,8 +16,13 @@ class KepalaKeluargaController extends Controller
 
     public function index()
     {
-        $items = $this->kepalaKeluargaService->getAll();
-        return view('kepalakeluarga.index', compact('items'));
+        $kepalaKeluarga = $this->kepalaKeluargaService->getAll();
+        $user = auth()->user();
+        if($user){
+            return view('admin.kepala-keluarga.index', compact('kepalaKeluarga'));
+        }else{            
+            return view('kepalakeluarga.index', compact('items'));
+        }
     }
 
     public function show($id)
