@@ -1,6 +1,8 @@
 @extends('layouts.admin')
 
-@section('title', 'Manajemen User')
+@section('title', 'Kelola Users')
+@section('page-title', 'Kelola Users')
+@section('page-description', 'Manajemen data users')
 
 @section('content')
 <div class="container-fluid">
@@ -165,11 +167,13 @@
             </div>
 
             <!-- Pagination -->
-            @if($users->hasPages())
-                <div class="d-flex justify-content-center mt-4">
-                    {{ $users->links() }}
-                </div>
-            @endif
+            <div class="flex items-center justify-between mt-6">
+            <div class="text-sm text-gray-700">
+                Menampilkan {{ $users->firstItem() ?? 0 }} sampai {{ $users->lastItem() ?? 0 }} 
+                dari {{ $users->total() }} data
+            </div>
+            {{ $users->links() }}
+        </div>
         </div>
     </div>
 </div>

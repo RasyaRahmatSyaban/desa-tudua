@@ -18,10 +18,6 @@
                     Akses mudah, transparan, dan terpercaya.
                 </p>
                 <div class="flex flex-col sm:flex-row gap-4">
-                    <a href="{{ route('pelayanan') }}" class="btn-primary text-white px-8 py-3 rounded-lg font-semibold inline-flex items-center justify-center">
-                        <i class="fas fa-concierge-bell mr-2"></i>
-                        Layanan Desa
-                    </a>
                     <a href="{{ route('profil') }}" class="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors inline-flex items-center justify-center">
                         <i class="fas fa-info-circle mr-2"></i>
                         Profil Desa
@@ -132,9 +128,6 @@
                 <p class="text-gray-600 mb-4">
                     Berbagai layanan administrasi dan surat-menyurat untuk masyarakat
                 </p>
-                <a href="{{ route('pelayanan') }}" class="text-blue-600 font-medium hover:text-blue-800">
-                    Akses Layanan <i class="fas fa-arrow-right ml-1"></i>
-                </a>
             </div>
             
             <!-- Data Penduduk -->

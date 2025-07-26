@@ -1,134 +1,171 @@
 @extends('layouts.admin')
 
-@section('title', 'Perangkat Desa')
+@section('title', 'Kelola Perangkat Desa')
+@section('page-title', 'Kelola Perangkat Desa')
+@section('page-description', 'Manajemen data perangkat desa desa')
 
 @section('content')
-<div class="container-fluid">
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Perangkat Desa</h1>
-        <a href="{{ route('admin.perangkat-desa.create') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-            <i class="fas fa-plus fa-sm text-white-50"></i> Tambah Perangkat Desa
-        </a>
-    </div>
-
+<div class="space-y-6">
+    <!-- <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6">
+        <h1 class="text-2xl font-bold text-gray-900 mb-4 sm:mb-0">Perangkat Desa</h1>
+    </div> -->
+    
     @if(session('success'))
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            {{ session('success') }}
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
+    <div class="bg-green-50 border border-green-200 text-green-800 px-4 py-3 rounded-lg mb-6 flex items-center">
+        <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+        </svg>
+        {{ session('success') }}
+        <button type="button" class="ml-auto text-green-600 hover:text-green-800" onclick="this.parentElement.remove()">
+            <span class="sr-only">Close</span>
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+            </svg>
+        </button>
+    </div>
     @endif
 
-    <div class="card shadow mb-4">
-        <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Data Perangkat Desa</h6>
-        </div>
-        <div class="card-body">
-            <div class="row mb-3">
-                <div class="col-md-4">
-                    <form method="GET" action="{{ route('admin.perangkat-desa.index') }}">
-                        <div class="input-group">
-                            <input type="text" class="form-control" name="search" placeholder="Cari nama, jabatan..." value="{{ request('search') }}">
-                            <div class="input-group-append">
-                                <button class="btn btn-primary" type="submit">
-                                    <i class="fas fa-search"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <div class="col-md-3">
-                    <form method="GET" action="{{ route('admin.perangkat-desa.index') }}">
-                        <select name="jabatan" class="form-control" onchange="this.form.submit()">
-                            <option value="">Semua Jabatan</option>
-                            <option value="Kepala Desa" {{ request('jabatan') == 'Kepala Desa' ? 'selected' : '' }}>Kepala Desa</option>
-                            <option value="Sekretaris Desa" {{ request('jabatan') == 'Sekretaris Desa' ? 'selected' : '' }}>Sekretaris Desa</option>
-                            <option value="Kepala Urusan" {{ request('jabatan') == 'Kepala Urusan' ? 'selected' : '' }}>Kepala Urusan</option>
-                            <option value="Kepala Dusun" {{ request('jabatan') == 'Kepala Dusun' ? 'selected' : '' }}>Kepala Dusun</option>
-                            <option value="Staf" {{ request('jabatan') == 'Staf' ? 'selected' : '' }}>Staf</option>
-                        </select>
-                    </form>
-                </div>
-                <div class="col-md-3">
-                    <form method="GET" action="{{ route('admin.perangkat-desa.index') }}">
-                        <select name="status" class="form-control" onchange="this.form.submit()">
-                            <option value="">Semua Status</option>
-                            <option value="aktif" {{ request('status') == 'aktif' ? 'selected' : '' }}>Aktif</option>
-                            <option value="non-aktif" {{ request('status') == 'non-aktif' ? 'selected' : '' }}>Non-Aktif</option>
-                        </select>
-                    </form>
-                </div>
-            </div>
+<div class="px-6">
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6 flex-wrap">
+        <!-- Kiri: Search dan filter -->
+        <div class="flex flex-wrap items-center gap-4">
+            <!-- Search -->
+            <form method="GET" action="{{ route('admin.perangkat-desa.index') }}" class="relative">
+                <input type="text" 
+                       name="search" 
+                       placeholder="Cari nama, jabatan..." 
+                       value="{{ request('search') }}"
+                       class="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+            </form>
 
-            <div class="table-responsive">
-                <table class="table table-bordered" width="100%" cellspacing="0">
-                    <thead>
+            <!-- Jabatan -->
+            <form method="GET" action="{{ route('admin.perangkat-desa.index') }}">
+                <input type="hidden" name="search" value="{{ request('search') }}">
+                <select name="jabatan" 
+                        onchange="this.form.submit()" 
+                        class="border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                    <option value="">Semua Jabatan</option>
+                    <option value="Kepala Desa" {{ request('jabatan') == 'Kepala Desa' ? 'selected' : '' }}>Kepala Desa</option>
+                    <option value="Sekretaris Desa" {{ request('jabatan') == 'Sekretaris Desa' ? 'selected' : '' }}>Sekretaris Desa</option>
+                    <option value="Kepala Urusan" {{ request('jabatan') == 'Kepala Urusan' ? 'selected' : '' }}>Kepala Urusan</option>
+                    <option value="Kepala Dusun" {{ request('jabatan') == 'Kepala Dusun' ? 'selected' : '' }}>Kepala Dusun</option>
+                    <option value="Staf" {{ request('jabatan') == 'Staf' ? 'selected' : '' }}>Staf</option>
+                </select>
+            </form>
+
+            <!-- Status -->
+            <form method="GET" action="{{ route('admin.perangkat-desa.index') }}">
+                <input type="hidden" name="search" value="{{ request('search') }}">
+                <input type="hidden" name="jabatan" value="{{ request('jabatan') }}">
+                <select name="status" 
+                        onchange="this.form.submit()" 
+                        class="border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                    <option value="">Semua Status</option>
+                    <option value="aktif" {{ request('status') == 'aktif' ? 'selected' : '' }}>Aktif</option>
+                    <option value="non-aktif" {{ request('status') == 'non-aktif' ? 'selected' : '' }}>Non-Aktif</option>
+                </select>
+            </form>
+        </div>
+
+        <!-- Kanan: Optional Export Button -->
+        <div class="flex items-center gap-2">
+            <a href="{{ route('admin.perangkat-desa.create') }}" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-medium inline-flex items-center">
+                <i class="fas fa-plus mr-2"></i> Tambah Perangkat Desa
+            </a>
+        </div>
+    </div>
+</div>
+
+    
+    <div class="bg-white shadow-sm rounded-lg border border-gray-200">
+
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
                         <tr>
-                            <th>No</th>
-                            <th>Foto</th>
-                            <th>Nama</th>
-                            <th>Jabatan</th>
-                            <th>NIP</th>
-                            <th>Telepon</th>
-                            <th>Status</th>
-                            <th>Aksi</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">No</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Foto</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nama</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Jabatan</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">NIP</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Telepon</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Aksi</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody class="bg-white divide-y divide-gray-200">
                         @forelse($perangkatDesa ?? [] as $index => $perangkat)
-                        <tr>
-                            <td>{{ $index + 1 }}</td>
-                            <td>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $index + 1 }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap">
                                 @if($perangkat->foto)
-                                    <img src="{{ asset('storage/' . $perangkat->foto) }}" alt="Foto" class="img-thumbnail" style="width: 50px; height: 50px; object-fit: cover;">
+                                    <img src="{{ asset('storage/' . $perangkat->foto) }}" alt="Foto" class="w-12 h-12 rounded-full object-cover">
                                 @else
-                                    <div class="bg-secondary d-flex align-items-center justify-content-center" style="width: 50px; height: 50px; border-radius: 4px;">
-                                        <i class="fas fa-user text-white"></i>
+                                    <div class="w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center">
+                                        <svg class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path>
+                                        </svg>
                                     </div>
                                 @endif
                             </td>
-                            <td>{{ $perangkat->nama }}</td>
-                            <td>{{ $perangkat->jabatan }}</td>
-                            <td>{{ $perangkat->nip ?? '-' }}</td>
-                            <td>{{ $perangkat->telepon ?? '-' }}</td>
-                            <td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ $perangkat->nama }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $perangkat->jabatan }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $perangkat->nip ?? '-' }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $perangkat->telepon ?? '-' }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap">
                                 @if($perangkat->status == 'aktif')
-                                    <span class="badge badge-success">Aktif</span>
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">Aktif</span>
                                 @else
-                                    <span class="badge badge-secondary">Non-Aktif</span>
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">Non-Aktif</span>
                                 @endif
                             </td>
-                            <td>
-                                <a href="{{ route('admin.perangkat-desa.show', $perangkat->id) }}" class="btn btn-info btn-sm">
-                                    <i class="fas fa-eye"></i>
-                                </a>
-                                <a href="{{ route('admin.perangkat-desa.edit', $perangkat->id) }}" class="btn btn-warning btn-sm">
-                                    <i class="fas fa-edit"></i>
-                                </a>
-                                <form action="{{ route('admin.perangkat-desa.destroy', $perangkat->id) }}" method="POST" class="d-inline">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin menghapus?')">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </form>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                <div class="flex space-x-2">
+                                    <a href="{{ route('admin.perangkat-desa.show', $perangkat->id) }}" class="inline-flex items-center px-2 py-1 bg-blue-100 hover:bg-blue-200 text-blue-700 text-xs rounded transition-colors">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                                        </svg>
+                                    </a>
+                                    <a href="{{ route('admin.perangkat-desa.edit', $perangkat->id) }}" class="inline-flex items-center px-2 py-1 bg-yellow-100 hover:bg-yellow-200 text-yellow-700 text-xs rounded transition-colors">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                                        </svg>
+                                    </a>
+                                    <form action="{{ route('admin.perangkat-desa.destroy', $perangkat->id) }}" method="POST" class="inline">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="inline-flex items-center px-2 py-1 bg-red-100 hover:bg-red-200 text-red-700 text-xs rounded transition-colors" onclick="return confirm('Yakin ingin menghapus?')">
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                                            </svg>
+                                        </button>
+                                    </form>
+                                </div>
                             </td>
                         </tr>
                         @empty
                         <tr>
-                            <td colspan="8" class="text-center">Tidak ada data perangkat desa</td>
+                            <td colspan="8" class="px-6 py-12 text-center text-gray-500">
+                                <svg class="mx-auto h-12 w-12 text-gray-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                                </svg>
+                                Tidak ada data perangkat desa
+                            </td>
                         </tr>
                         @endforelse
                     </tbody>
                 </table>
             </div>
 
-            @if(isset($perangkatDesa) && $perangkatDesa->hasPages())
-                <div class="d-flex justify-content-center">
-                    {{ $perangkatDesa->links() }}
-                </div>
-            @endif
+            <div class="flex items-center justify-between mt-6">
+            <div class="text-sm text-gray-700">
+                Menampilkan {{ $perangkatDesa->firstItem() ?? 0 }} sampai {{ $perangkatDesa->lastItem() ?? 0 }} 
+                dari {{ $perangkatDesa->total() }} data
+            </div>
+            {{ $perangkatDesa->links() }}
+        </div>
         </div>
     </div>
 </div>

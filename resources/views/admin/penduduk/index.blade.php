@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
-@section('title', 'Data Penduduk')
-@section('page-title', 'Data Penduduk')
+@section('title', 'Kelola Penduduk')
+@section('page-title', 'Kelola Penduduk')
 @section('page-description', 'Manajemen data penduduk desa')
 
 @section('content')
@@ -93,80 +93,89 @@
     
     <!-- Penduduk Table -->
     <div class="card bg-white rounded-lg shadow-md overflow-hidden">
-        <div class="overflow-x-auto">
-            <table class="w-full">
-                <thead class="bg-gray-50">
-                    <tr>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">NIK/Nama</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Jenis Kelamin</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tempat/Tgl Lahir</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">RT/RW</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Aksi</th>
-                    </tr>
-                </thead>
-                <tbody class="bg-white divide-y divide-gray-200">
-                    @forelse($penduduk ?? [] as $item)
-                    <tr class="hover:bg-gray-50">
-                        <td class="px-6 py-4">
-                            <div>
-                                <div class="text-sm font-medium text-gray-900">{{ $item->nama }}</div>
-                                <div class="text-sm text-gray-500">NIK: {{ $item->nik }}</div>
-                            </div>
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap">
-                            <span class="px-2 py-1 text-xs font-medium {{ $item->jenis_kelamin === 'L' ? 'bg-blue-100 text-blue-800' : 'bg-pink-100 text-pink-800' }} rounded-full">
-                                <i class="fas fa-{{ $item->jenis_kelamin === 'L' ? 'male' : 'female' }} mr-1"></i>
-                                {{ $item->jenis_kelamin === 'L' ? 'Laki-laki' : 'Perempuan' }}
-                            </span>
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                            <div>{{ $item->tempat_lahir }}</div>
-                            <div>{{ \Carbon\Carbon::parse($item->tanggal_lahir)->format('d M Y') }}</div>
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap">
-                            <span class="px-2 py-1 text-xs font-medium bg-gray-100 text-gray-800 rounded-full">
-                                {{ ucfirst(str_replace('_', ' ', $item->status_kawin)) }}
-                            </span>
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                            RT {{ $item->rt ?? '-' }} / RW {{ $item->rw ?? '-' }}
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                            <div class="flex items-center space-x-2">
-                                <a href="{{ route('admin.penduduk.show', $item->id) }}" 
-                                   class="text-blue-600 hover:text-blue-900 p-2 rounded-lg hover:bg-blue-50">
-                                    <i class="fas fa-eye"></i>
-                                </a>
-                                <a href="{{ route('admin.penduduk.edit', $item->id) }}" 
-                                   class="text-yellow-600 hover:text-yellow-900 p-2 rounded-lg hover:bg-yellow-50">
-                                    <i class="fas fa-edit"></i>
-                                </a>
-                                <form method="POST" action="{{ route('admin.penduduk.destroy', $item->id) }}" class="inline">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" 
-                                            class="text-red-600 hover:text-red-900 p-2 rounded-lg hover:bg-red-50"
-                                            onclick="return confirm('Yakin ingin menghapus data penduduk ini?')">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </form>
-                            </div>
-                        </td>
-                    </tr>
-                    @empty
-                    <tr>
-                        <td colspan="6" class="px-6 py-12 text-center">
-                            <div class="text-gray-500">
-                                <i class="fas fa-users text-4xl mb-4"></i>
-                                <p class="text-lg font-medium mb-2">Belum ada data penduduk</p>
-                                <p class="text-sm">Mulai dengan menambahkan data penduduk pertama</p>
-                            </div>
-                        </td>
-                    </tr>
-                    @endforelse
-                </tbody>
-            </table>
+        <div class="p-6">
+            <div class="overflow-x-auto">
+                <table class="w-full">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">NIK/Nama</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Jenis Kelamin</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tempat/Tgl Lahir</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">RT/RW</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+                        @forelse($penduduk ?? [] as $item)
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-6 py-4">
+                                <div>
+                                    <div class="text-sm font-medium text-gray-900">{{ $item->nama }}</div>
+                                    <div class="text-sm text-gray-500">NIK: {{ $item->nik }}</div>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <span class="px-2 py-1 text-xs font-medium {{ $item->jenis_kelamin === 'L' ? 'bg-blue-100 text-blue-800' : 'bg-pink-100 text-pink-800' }} rounded-full">
+                                    <i class="fas fa-{{ $item->jenis_kelamin === 'L' ? 'male' : 'female' }} mr-1"></i>
+                                    {{ $item->jenis_kelamin === 'L' ? 'Laki-laki' : 'Perempuan' }}
+                                </span>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                <div>{{ $item->tempat_lahir }}</div>
+                                <div>{{ \Carbon\Carbon::parse($item->tanggal_lahir)->format('d M Y') }}</div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <span class="px-2 py-1 text-xs font-medium bg-gray-100 text-gray-800 rounded-full">
+                                    {{ ucfirst(str_replace('_', ' ', $item->status_kawin)) }}
+                                </span>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                RT {{ $item->rt ?? '-' }} / RW {{ $item->rw ?? '-' }}
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                <div class="flex items-center space-x-2">
+                                    <a href="{{ route('admin.penduduk.show', $item->id) }}" 
+                                       class="text-blue-600 hover:text-blue-900 p-2 rounded-lg hover:bg-blue-50">
+                                        <i class="fas fa-eye"></i>
+                                    </a>
+                                    <a href="{{ route('admin.penduduk.edit', $item->id) }}" 
+                                       class="text-yellow-600 hover:text-yellow-900 p-2 rounded-lg hover:bg-yellow-50">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <form method="POST" action="{{ route('admin.penduduk.destroy', $item->id) }}" class="inline">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" 
+                                                class="text-red-600 hover:text-red-900 p-2 rounded-lg hover:bg-red-50"
+                                                onclick="return confirm('Yakin ingin menghapus data penduduk ini?')">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                        @empty
+                        <tr>
+                            <td colspan="6" class="px-6 py-12 text-center">
+                                <div class="text-gray-500">
+                                    <i class="fas fa-users text-4xl mb-4"></i>
+                                    <p class="text-lg font-medium mb-2">Belum ada data penduduk</p>
+                                    <p class="text-sm">Mulai dengan menambahkan data penduduk pertama</p>
+                                </div>
+                            </td>
+                        </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
+            <div class="flex items-center justify-between mt-6">
+                <div class="text-sm text-gray-700">
+                    Menampilkan {{ $penduduk->firstItem() ?? 0 }} sampai {{ $penduduk->lastItem() ?? 0 }} 
+                    dari {{ $penduduk->total() }} data
+                </div>
+                {{ $penduduk->links() }}
+            </div>
         </div>
     </div>
 </div>

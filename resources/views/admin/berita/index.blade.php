@@ -31,26 +31,27 @@
     
     <!-- Berita Table -->
     <div class="card bg-white rounded-lg shadow-md overflow-hidden">
-        <div class="overflow-x-auto">
-            <table class="w-full">
-                <thead class="bg-gray-50">
-                    <tr>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Berita</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Kategori</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tanggal</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Aksi</th>
-                    </tr>
-                </thead>
-                <tbody class="bg-white divide-y divide-gray-200">
-                    @forelse($berita ?? [] as $item)
-                    <tr class="hover:bg-gray-50">
-                        <td class="px-6 py-4">
-                            <div class="flex items-center">
-                                <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mr-4">
-                                    <i class="fas fa-newspaper text-blue-600"></i>
-                                </div>
-                                <div>
+        <div class="p-6">
+            <div class="overflow-x-auto">
+                <table class="w-full">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Berita</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Kategori</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tanggal</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+                        @forelse($berita ?? [] as $item)
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-6 py-4">
+                                <div class="flex items-center">
+                                    <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mr-4">
+                                        <i class="fas fa-newspaper text-blue-600"></i>
+                                    </div>
+                                    <div>
                                     <div class="text-sm font-medium text-gray-900">{{ $item->judul }}</div>
                                     <div class="text-sm text-gray-500">{{ Str::limit(strip_tags($item->konten), 60) }}</div>
                                 </div>
@@ -63,13 +64,13 @@
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap">
                             @if($item->status === 'published')
-                                <span class="px-2 py-1 text-xs font-medium bg-green-100 text-green-800 rounded-full">
-                                    <i class="fas fa-check-circle mr-1"></i>Dipublikasi
-                                </span>
+                            <span class="px-2 py-1 text-xs font-medium bg-green-100 text-green-800 rounded-full">
+                                <i class="fas fa-check-circle mr-1"></i>Dipublikasi
+                            </span>
                             @else
-                                <span class="px-2 py-1 text-xs font-medium bg-yellow-100 text-yellow-800 rounded-full">
-                                    <i class="fas fa-clock mr-1"></i>Draft
-                                </span>
+                            <span class="px-2 py-1 text-xs font-medium bg-yellow-100 text-yellow-800 rounded-full">
+                                <i class="fas fa-clock mr-1"></i>Draft
+                            </span>
                             @endif
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
@@ -78,46 +79,49 @@
                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                             <div class="flex items-center space-x-2">
                                 <a href="{{ route('admin.berita.show', $item->id) }}" 
-                                   class="text-blue-600 hover:text-blue-900 p-2 rounded-lg hover:bg-blue-50">
-                                    <i class="fas fa-eye"></i>
-                                </a>
-                                <a href="{{ route('admin.berita.edit', $item->id) }}" 
-                                   class="text-yellow-600 hover:text-yellow-900 p-2 rounded-lg hover:bg-yellow-50">
-                                    <i class="fas fa-edit"></i>
-                                </a>
-                                <form method="POST" action="{{ route('admin.berita.destroy', $item->id) }}" class="inline">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" 
-                                            class="text-red-600 hover:text-red-900 p-2 rounded-lg hover:bg-red-50"
-                                            onclick="return confirm('Yakin ingin menghapus berita ini?')">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </form>
-                            </div>
-                        </td>
-                    </tr>
-                    @empty
-                    <tr>
-                        <td colspan="5" class="px-6 py-12 text-center">
-                            <div class="text-gray-500">
-                                <i class="fas fa-newspaper text-4xl mb-4"></i>
-                                <p class="text-lg font-medium mb-2">Belum ada berita</p>
-                                <p class="text-sm">Mulai dengan menambahkan berita pertama</p>
-                            </div>
-                        </td>
-                    </tr>
-                    @endforelse
-                </tbody>
-            </table>
-        </div>
-        
-        <!-- Pagination -->
-        @if(isset($berita) && $berita->hasPages())
-        <div class="px-6 py-4 border-t border-gray-200">
+                                class="text-blue-600 hover:text-blue-900 p-2 rounded-lg hover:bg-blue-50">
+                                <i class="fas fa-eye"></i>
+                            </a>
+                            <a href="{{ route('admin.berita.edit', $item->id) }}" 
+                            class="text-yellow-600 hover:text-yellow-900 p-2 rounded-lg hover:bg-yellow-50">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                        <form method="POST" action="{{ route('admin.berita.destroy', $item->id) }}" class="inline">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" 
+                            class="text-red-600 hover:text-red-900 p-2 rounded-lg hover:bg-red-50"
+                            onclick="return confirm('Yakin ingin menghapus berita ini?')">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </form>
+                </div>
+            </td>
+        </tr>
+        @empty
+        <tr>
+            <td colspan="5" class="px-6 py-12 text-center">
+                <div class="text-gray-500">
+                    <i class="fas fa-newspaper text-4xl mb-4"></i>
+                    <p class="text-lg font-medium mb-2">Belum ada berita</p>
+                    <p class="text-sm">Mulai dengan menambahkan berita pertama</p>
+                </div>
+            </td>
+        </tr>
+        @endforelse
+    </tbody>
+</table>
+</div>
+
+<!-- Pagination -->
+        <div class="flex items-center justify-between mt-6">
+            <div class="text-sm text-gray-700">
+                Menampilkan {{ $berita->firstItem() ?? 0 }} sampai {{ $berita->lastItem() ?? 0 }} 
+                dari {{ $berita->total() }} data
+            </div>
             {{ $berita->links() }}
         </div>
-        @endif
+        </div>
     </div>
 </div>
 

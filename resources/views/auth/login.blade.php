@@ -33,7 +33,7 @@
                 </div>
             @endif
 
-            <form method="POST" action="{{ route('login.post') }}" id="loginForm">
+            <form method="POST" action="{{ route('auth.login') }}" id="loginForm">
                 @csrf
                 
                 <!-- Email Field -->
