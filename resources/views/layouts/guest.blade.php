@@ -109,7 +109,7 @@
             <div class="hidden md:flex items-center space-x-8">
                 <a href="{{ route('home') }}" class="nav-link text-gray-700 font-medium {{ request()->routeIs('home') ? 'active' : '' }}">Beranda</a>
                 <a href="{{ route('profil') }}" class="nav-link text-gray-700 font-medium {{ request()->routeIs('profil') ? 'active' : '' }}">Profil Desa</a>
-                <a href="{{ route('berita') }}" class="nav-link text-gray-700 font-medium {{ request()->routeIs('berita*') ? 'active' : '' }}">Berita</a>
+                <a href="{{ route('berita.index') }}" class="nav-link text-gray-700 font-medium {{ request()->routeIs('berita.index*') ? 'active' : '' }}">Berita</a>
                 <a href="{{ route('pengumuman') }}" class="nav-link text-gray-700 font-medium {{ request()->routeIs('pengumuman*') ? 'active' : '' }}">Pengumuman</a>
                 <a href="{{ route('data-penduduk') }}" class="nav-link text-gray-700 font-medium {{ request()->routeIs('data-penduduk') ? 'active' : '' }}">Data Penduduk</a>
                 <a href="{{ route('dana-desa') }}" class="nav-link text-gray-700 font-medium {{ request()->routeIs('dana-desa') ? 'active' : '' }}">Dana Desa</a>
@@ -146,7 +146,7 @@
             <div class="space-y-4">
                 <a href="{{ route('home') }}" class="block py-3 text-gray-700 font-medium border-b">Beranda</a>
                 <a href="{{ route('profil') }}" class="block py-3 text-gray-700 font-medium border-b">Profil Desa</a>
-                <a href="{{ route('berita') }}" class="block py-3 text-gray-700 font-medium border-b">Berita</a>
+                <a href="{{ route('berita.index') }}" class="block py-3 text-gray-700 font-medium border-b">Berita</a>
                 <a href="{{ route('pengumuman') }}" class="block py-3 text-gray-700 font-medium border-b">Pengumuman</a>
                 <a href="{{ route('data-penduduk') }}" class="block py-3 text-gray-700 font-medium border-b">Data Penduduk</a>
                 <a href="{{ route('dana-desa') }}" class="block py-3 text-gray-700 font-medium border-b">Dana Desa</a>
@@ -202,7 +202,7 @@
                     <ul class="space-y-2">
                         <li><a href="{{ route('home') }}" class="text-gray-300 hover:text-white transition-colors">Beranda</a></li>
                         <li><a href="{{ route('profil') }}" class="text-gray-300 hover:text-white transition-colors">Profil Desa</a></li>
-                        <li><a href="{{ route('berita') }}" class="text-gray-300 hover:text-white transition-colors">Berita</a></li>
+                        <li><a href="{{ route('berita.index') }}" class="text-gray-300 hover:text-white transition-colors">Berita</a></li>
                         <li><a href="{{ route('pengumuman') }}" class="text-gray-300 hover:text-white transition-colors">Pengumuman</a></li>
                     </ul>
                 </div>

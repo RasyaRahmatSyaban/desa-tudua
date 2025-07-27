@@ -100,7 +100,7 @@
                 <p class="text-gray-600 mb-4">
                     Dapatkan informasi terkini seputar kegiatan dan perkembangan desa
                 </p>
-                <a href="{{ route('berita') }}" class="text-blue-600 font-medium hover:text-blue-800">
+                <a href="{{ route('berita.index') }}" class="text-blue-600 font-medium hover:text-blue-800">
                     Baca Selengkapnya <i class="fas fa-arrow-right ml-1"></i>
                 </a>
             </div>
@@ -183,7 +183,7 @@
                 <h2 class="text-3xl font-bold text-gray-900 mb-2">Berita Terbaru</h2>
                 <p class="text-gray-600">Informasi dan kegiatan terkini dari desa</p>
             </div>
-            <a href="{{ route('berita') }}" class="btn-primary text-white px-6 py-2 rounded-lg font-medium">
+            <a href="{{ route('berita.index') }}" class="btn-primary text-white px-6 py-2 rounded-lg font-medium">
                 Lihat Semua Berita
             </a>
         </div>

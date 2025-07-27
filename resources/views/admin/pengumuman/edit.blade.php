@@ -5,7 +5,7 @@
 @section('page-description', 'Ubah informasi pengumuman yang sudah ada')
 
 @section('content')
-<div class="max-w-4xl">
+<div class="space-y-6">
     <form method="POST" action="{{ route('admin.pengumuman.update', $pengumuman->id) }}" class="space-y-6">
         @csrf
         @method('PUT')
@@ -50,34 +50,34 @@
                 </div>
                 
                 <div class="space-y-6">
-                    <!-- Tanggal Mulai -->
                     <div>
-                        <label for="tanggal_mulai" class="block text-sm font-medium text-gray-700 mb-2">
-                            Tanggal Mulai <span class="text-red-500">*</span>
+                        <label for="status" class="block text-sm font-medium text-gray-700 mb-2">
+                            Status
                         </label>
-                        <input type="date" 
-                               id="tanggal_mulai" 
-                               name="tanggal_mulai" 
-                               value="{{ old('tanggal_mulai', $pengumuman->tanggal_mulai ? \Carbon\Carbon::parse($pengumuman->tanggal_mulai)->format('Y-m-d') : '') }}"
-                               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('tanggal_mulai') border-red-500 @enderror"
-                               required>
-                        @error('tanggal_mulai')
+                        <select id="status" 
+                                name="status"
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                                @error('status') border-red-500 @enderror
+                            <option value="Aktif" {{ old('status', $pengumuman->status) === 'Aktif' ? 'selected' : '' }}>Aktif</option>
+                            <option value="Nonaktif" {{ old('status', $pengumuman->status) === 'Nonaktif' ? 'selected' : '' }}>Nonaktif</option>
+                        </select>
+                        @error('status')
                             <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                         @enderror
                     </div>
                     
                     <!-- Tanggal Selesai -->
                     <div>
-                        <label for="tanggal_selesai" class="block text-sm font-medium text-gray-700 mb-2">
-                            Tanggal Selesai <span class="text-red-500">*</span>
+                        <label for="berlaku_hingga" class="block text-sm font-medium text-gray-700 mb-2">
+                            Berlaku Hingga <span class="text-red-500">*</span>
                         </label>
                         <input type="date" 
-                               id="tanggal_selesai" 
-                               name="tanggal_selesai" 
-                               value="{{ old('tanggal_selesai', $pengumuman->tanggal_selesai ? \Carbon\Carbon::parse($pengumuman->tanggal_selesai)->format('Y-m-d') : '') }}"
-                               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('tanggal_selesai') border-red-500 @enderror"
+                               id="berlaku_hingga" 
+                               name="berlaku_hingga" 
+                               value="{{ old('berlaku_hingga', $pengumuman->berlaku_hingga ? \Carbon\Carbon::parse($pengumuman->berlaku_hingga)->format('Y-m-d') : '') }}"
+                               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('berlaku_hingga') border-red-500 @enderror"
                                required>
-                        @error('tanggal_selesai')
+                        @error('berlaku_hingga')
                             <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                         @enderror
                     </div>

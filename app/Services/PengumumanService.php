@@ -3,18 +3,33 @@
 namespace App\Services;
 
 use App\Models\Pengumuman;
+use Illuminate\Http\Request;
 
 
 class PengumumanService
 {
     public function getAll()
     {
-        return Pengumuman::select('id', 'judul', 'isi', 'tanggal_mulai', 'tanggal_selesai')->latest()->paginate(10);
+        return Pengumuman::select('id', 'judul', 'isi', 'status', 'berlaku_hingga')->latest()->paginate(10);
+    }
+
+    public function getFiltered(Request $request)
+    {
+        return Pengumuman::select('id', 'judul', 'isi', 'status', 'berlaku_hingga')
+            ->when($request->filled('search'), function ($query) use ($request) {
+                $query->where('judul', 'like', '%' . $request->search . '%');
+            })
+            ->when($request->filled('status'), function ($query) use ($request) {
+                $query->where('status', $request->status);
+            })
+            ->latest()
+            ->paginate(10)
+            ->withQueryString();
     }
 
     public function getById($id)
     {
-        return Pengumuman::select('id', 'judul', 'isi', 'tanggal_mulai', 'tanggal_selesai')->findOrFail($id);
+        return Pengumuman::select('id', 'judul', 'isi', 'status', 'berlaku_hingga')->findOrFail($id);
     }
     public function create($data)
     {

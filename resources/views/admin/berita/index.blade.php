@@ -8,26 +8,33 @@
 <div class="space-y-6">
     <!-- Header Actions -->
     <div class="flex items-center justify-between">
-        <div class="flex items-center space-x-4">
-            <div class="relative">
-                <input type="text" 
-                       placeholder="Cari berita..." 
-                       class="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                       id="searchInput">
-                <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+        <form method="GET" action="{{ route('admin.berita.index') }}" class="flex items-center space-x-4">
+            <div class="flex items-center space-x-4">
+                <div class="relative">
+                    <input type="text" 
+                    name="search"
+                    placeholder="Cari berita..." 
+                    class="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    id="searchInput">
+                    <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+                </div>
+                <select name="status" 
+                    class="border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                    <option value="">Semua Status</option>
+                    <option value="Draft" {{ request('status') == 'Draft' ? 'selected' : '' }}>Draft</option>
+                    <option value="Dipublikasi" {{ request('status') == 'Dipublikasi' ? 'selected' : '' }}>Dipublikasi</option>
+                </select>
+                <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">
+                    Filter
+                </button>
             </div>
-            <select class="border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                <option value="">Semua Status</option>
-                <option value="Dipublikasi">Dipublikasi</option>
-                <option value="Draft">Draft</option>
-            </select>
+        </form>
+            
+            <a href="{{ route('admin.berita.create') }}" class="btn-primary text-white px-6 py-2 rounded-lg font-medium inline-flex items-center">
+                <i class="fas fa-plus mr-2"></i>
+                Tambah Berita
+            </a>
         </div>
-        
-        <a href="{{ route('admin.berita.create') }}" class="btn-primary text-white px-6 py-2 rounded-lg font-medium inline-flex items-center">
-            <i class="fas fa-plus mr-2"></i>
-            Tambah Berita
-        </a>
-    </div>
     
     <!-- Berita Table -->
     <div class="card bg-white rounded-lg shadow-md overflow-hidden">
@@ -37,7 +44,7 @@
                     <thead class="bg-gray-50">
                         <tr>
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Berita</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Kategori</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Penulis</th>
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tanggal</th>
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Aksi</th>
@@ -58,7 +65,7 @@
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap">
                             <span class="px-2 py-1 text-xs font-medium bg-blue-100 text-blue-800 rounded-full">
-                                {{ $item->kategori ?? 'Umum' }}
+                                {{ $item->penulis }}
                             </span>
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap">

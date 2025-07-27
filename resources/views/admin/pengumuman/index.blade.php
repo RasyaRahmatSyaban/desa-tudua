@@ -8,27 +8,36 @@
 <div class="space-y-6">
     <!-- Header Actions -->
     <div class="flex items-center justify-between">
-        <div class="flex items-center space-x-4">
-            <div class="relative">
-                <input type="text" 
-                       placeholder="Cari pengumuman..." 
-                       class="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                       id="searchInput">
-                <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
-            </div>
-            <select class="border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                <option value="">Semua Prioritas</option>
-                <option value="tinggi">Tinggi</option>
-                <option value="sedang">Sedang</option>
-                <option value="rendah">Rendah</option>
-            </select>
-        </div>
-        
-        <a href="{{ route('admin.pengumuman.create') }}" class="btn-primary text-white px-6 py-2 rounded-lg font-medium inline-flex items-center">
-            <i class="fas fa-plus mr-2"></i>
-            Tambah Pengumuman
-        </a>
+        <!-- Filter Form -->
+<form method="GET" action="{{ route('admin.pengumuman.index') }}" class="flex items-center space-x-4">
+    <div class="relative">
+        <input type="text" 
+               name="search"
+               placeholder="Cari pengumuman..." 
+               value="{{ request('search') }}"
+               class="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+               id="searchInput">
+        <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
     </div>
+
+    <select name="status" 
+            class="border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+        <option value="">Semua Status</option>
+        <option value="Aktif" {{ request('status') == 'Aktif' ? 'selected' : '' }}>Aktif</option>
+        <option value="Nonaktif" {{ request('status') == 'Nonaktif' ? 'selected' : '' }}>Nonaktif</option>
+    </select>
+
+    <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">
+        Filter
+    </button>
+</form>
+
+        
+<a href="{{ route('admin.pengumuman.create') }}" class="btn-primary text-white px-6 py-2 rounded-lg font-medium inline-flex items-center">
+    <i class="fas fa-plus mr-2"></i>
+    Tambah Pengumuman
+</a>
+</div>
     
     <!-- Pengumuman Table -->
     <div class="card bg-white rounded-lg shadow-md overflow-hidden">
@@ -38,7 +47,6 @@
                     <thead class="bg-gray-50">
                         <tr>
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Pengumuman</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Prioritas</th>
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Berlaku Hingga</th>
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Aksi</th>
@@ -59,27 +67,12 @@
                                 </div>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
-                                @if($item->prioritas === 'tinggi')
-                                    <span class="px-2 py-1 text-xs font-medium bg-red-100 text-red-800 rounded-full">
-                                        <i class="fas fa-exclamation-triangle mr-1"></i>Tinggi
-                                    </span>
-                                @elseif($item->prioritas === 'sedang')
-                                    <span class="px-2 py-1 text-xs font-medium bg-yellow-100 text-yellow-800 rounded-full">
-                                        <i class="fas fa-exclamation-circle mr-1"></i>Sedang
-                                    </span>
-                                @else
-                                    <span class="px-2 py-1 text-xs font-medium bg-blue-100 text-blue-800 rounded-full">
-                                        <i class="fas fa-info-circle mr-1"></i>Rendah
-                                    </span>
-                                @endif
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                @if($item->status === 'aktif')
-                                    <span class="px-2 py-1 text-xs font-medium bg-green-100 text-green-800 rounded-full">
+                                @if($item->status === 'Aktif')
+                                    <span class="px-2 py-1 text-xs font-medium bg-green-200 text-green-800 rounded-full">
                                         <i class="fas fa-check-circle mr-1"></i>Aktif
                                     </span>
                                 @else
-                                    <span class="px-2 py-1 text-xs font-medium bg-gray-100 text-gray-800 rounded-full">
+                                    <span class="px-2 py-1 text-xs font-medium bg-gray-200 text-gray-800 rounded-full">
                                         <i class="fas fa-pause-circle mr-1"></i>Nonaktif
                                     </span>
                                 @endif

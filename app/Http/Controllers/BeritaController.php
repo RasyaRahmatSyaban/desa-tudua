@@ -7,16 +7,27 @@ use App\Services\BeritaService;
 
 class BeritaController extends Controller
 {
-    protected $service;
+    protected $beritaService;
 
-    public function __construct(BeritaService $service)
+    public function __construct(BeritaService $beritaService)
     {
-        $this->service = $service;
+        $this->beritaService = $beritaService;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $berita = $this->service->getAll();
+        $request->validate([
+            'search' => 'nullable|string|max:100',
+            'status' => 'nullable|in:Draft,Dipublikasi',
+        ]);
+
+        $hasFilter = $request->filled('search') || $request->filled('status');
+
+        if($hasFilter){
+            $berita = $this->beritaService->getFiltered($request);
+        }else{
+            $berita = $this->beritaService->getAll();
+        }
         $user = auth()->user();
         if($user){
             return view('admin.berita.index', compact('berita'));
@@ -27,7 +38,7 @@ class BeritaController extends Controller
 
     public function show($id)
     {
-        $berita = $this->service->getById($id);
+        $berita = $this->beritaService->getById($id);
         return view('berita.show', compact('berita'));
     }
 
@@ -53,13 +64,13 @@ class BeritaController extends Controller
             $validated['foto'] = $path;
         }
 
-        $this->service->create($validated);
+        $this->beritaService->create($validated);
 
         return redirect()->route('admin.berita.index')->with('success', 'Berita berhasil ditambahkan');
     }
     public function edit($id)
     {
-        $berita = $this->service->getById($id);
+        $berita = $this->beritaService->getById($id);
         return view('admin.berita.edit', compact('berita'));   
     }
     public function update(Request $request, $id)
@@ -79,14 +90,14 @@ class BeritaController extends Controller
             $validated['foto'] = $path;
         }
 
-        $this->service->update($id, $validated);
+        $this->beritaService->update($id, $validated);
 
         return redirect()->route('berita.index')->with('success', 'Berita berhasil diperbarui');
     }
 
     public function destroy($id)
     {
-        $this->service->delete($id);
+        $this->beritaService->delete($id);
         return redirect()->route('berita.index')->with('success', 'Berita berhasil dihapus');
     }
 }

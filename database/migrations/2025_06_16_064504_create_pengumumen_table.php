@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('judul');
             $table->text('isi');
-            $table->date('tanggal_mulai');
-            $table->date('tanggal_selesai');
+            $table->enum('status', ['Aktif', 'Nonaktif'])->default('Aktif');
+            $table->date('berlaku_hingga');
             $table->timestamps();
         });
     }

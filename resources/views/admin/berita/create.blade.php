@@ -101,28 +101,6 @@
                             <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                         @enderror
                     </div>
-                    
-                    <!-- Kategori -->
-                    <div>
-                        <label for="kategori" class="block text-sm font-medium text-gray-700 mb-2">
-                            Kategori
-                        </label>
-                        <select id="kategori" 
-                                name="kategori"
-                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                                @error('kategori') border-red-500 @enderror
-                            <option value="">Pilih Kategori</option>
-                            <option value="umum" {{ old('kategori') === 'umum' ? 'selected' : '' }}>Umum</option>
-                            <option value="kegiatan" {{ old('kategori') === 'kegiatan' ? 'selected' : '' }}>Kegiatan</option>
-                            <option value="pembangunan" {{ old('kategori') === 'pembangunan' ? 'selected' : '' }}>Pembangunan</option>
-                            <option value="sosial" {{ old('kategori') === 'sosial' ? 'selected' : '' }}>Sosial</option>
-                            <option value="ekonomi" {{ old('kategori') === 'ekonomi' ? 'selected' : '' }}>Ekonomi</option>
-                        </select>
-                        @error('kategori')
-                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                        @enderror
-                    </div>
-                    
                     <!-- Status -->
                     <div>
                         <label for="status" class="block text-sm font-medium text-gray-700 mb-2">
