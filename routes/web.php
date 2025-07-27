@@ -29,7 +29,7 @@ Route::get('/kontak', function () {
 })->name('kontak');
 
 // Public Berita Routes
-Route::get('/berita', [BeritaController::class, 'index'])->name('berita');
+Route::get('/berita', [BeritaController::class, 'index'])->name('berita.index');
 Route::get('/berita/{id}', [BeritaController::class, 'show'])->name('berita.show');
 
 // Public Pengumuman Routes

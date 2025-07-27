@@ -5,7 +5,7 @@
 @section('page-description', 'Ubah data penduduk yang sudah ada')
 
 @section('content')
-<div class="max-w-4xl">
+<div class="space-y-6">
     <form method="POST" action="{{ route('admin.penduduk.update', $penduduk->id) }}" class="space-y-6">
         @csrf
         @method('PUT')
@@ -24,7 +24,7 @@
                            id="nik" 
                            name="nik" 
                            value="{{ old('nik', $penduduk->nik) }}"
-                           class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('nik') border-red-500 @enderror"
+                           class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" @error('nik') border-red-500 @enderror
                            placeholder="Masukkan NIK (16 digit)"
                            maxlength="16"
                            required>
@@ -42,7 +42,7 @@
                            id="nama" 
                            name="nama" 
                            value="{{ old('nama', $penduduk->nama) }}"
-                           class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('nama') border-red-500 @enderror"
+                           class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" @error('nama') border-red-500 @enderror
                            placeholder="Masukkan nama lengkap"
                            required>
                     @error('nama')
@@ -57,13 +57,29 @@
                     </label>
                     <select id="jenis_kelamin" 
                             name="jenis_kelamin"
-                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('jenis_kelamin') border-red-500 @enderror"
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" @error('jenis_kelamin') border-red-500 @enderror
                             required>
                         <option value="">Pilih Jenis Kelamin</option>
                         <option value="Laki-laki" {{ old('jenis_kelamin', $penduduk->jenis_kelamin) === 'Laki-laki' ? 'selected' : '' }}>Laki-laki</option>
                         <option value="Perempuan" {{ old('jenis_kelamin', $penduduk->jenis_kelamin) === 'Perempuan' ? 'selected' : '' }}>Perempuan</option>
                     </select>
                     @error('jenis_kelamin')
+                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <div>
+                    <label for="tempat_lahir" class="block text-sm font-medium text-gray-700 mb-2">
+                        Tempat Lahir <span class="text-red-500">*</span>
+                    </label>
+                    <input type="text" 
+                           id="tempat_lahir" 
+                           name="tempat_lahir" 
+                           value="{{ old('tempat_lahir', $penduduk->tempat_lahir) }}"
+                           class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" 
+                           @error('tempat_lahir') border-red-500 @enderror
+                           placeholder="Masukkan tempat lahir" required>
+                    @error('tempat_lahir')
                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                     @enderror
                 </div>
@@ -77,7 +93,7 @@
                            id="tanggal_lahir" 
                            name="tanggal_lahir" 
                            value="{{ old('tanggal_lahir', $penduduk->tanggal_lahir ? \Carbon\Carbon::parse($penduduk->tanggal_lahir)->format('Y-m-d') : '') }}"
-                           class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('tanggal_lahir') border-red-500 @enderror"
+                           class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" @error('tanggal_lahir') border-red-500 @enderror
                            required>
                     @error('tanggal_lahir')
                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
@@ -91,7 +107,7 @@
                     </label>
                     <select id="agama" 
                             name="agama"
-                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('agama') border-red-500 @enderror"
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" @error('agama') border-red-500 @enderror
                             required>
                         <option value="">Pilih Agama</option>
                         <option value="Islam" {{ old('agama', $penduduk->agama) === 'Islam' ? 'selected' : '' }}>Islam</option>
@@ -108,17 +124,38 @@
                 
                 <!-- Kepala Keluarga -->
                 <div>
-                    <label for="id_kepalakeluarga" class="block text-sm font-medium text-gray-700 mb-2">
-                        Kepala Keluarga
+                    <label class="flex items-center space-x-2">
+                        <input type="checkbox"
+                            name="isKepalaKeluarga"
+                            id="isKepalaKeluarga"
+                            value="1"
+                            class="h-5 w-5 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+                            {{ old('isKepalaKeluarga') ? 'checked' : '' }}>
+                        <span class="text-sm text-gray-700">Kepala Keluarga</span>
                     </label>
-                    <select id="id_kepalakeluarga" 
-                            name="id_kepalakeluarga"
-                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('id_kepalakeluarga') border-red-500 @enderror">
-                        <option value="">Pilih Kepala Keluarga</option>
-                        <!-- Options akan diisi dari database -->
+                    @error('isKepalaKeluarga')
+                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <div id="kepalaKeluargaSelectWrapper" style="{{ old('isKepalaKeluarga') ? 'display:none;' : '' }}">
+                    <label for="id_kepalakeluarga" class="block text-sm font-medium text-gray-700 mb-2">
+                        Kepala Keluarga <span class="text-red-500">*</span>
+                    </label>
+                    <select name="id_kepalakeluarga" id="id_kepalakeluarga"
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                            @error('id_kepalakeluarga') border-red-500 @enderror>
+                        <option value="" class="text-gray-400">Pilih Kepala Keluarga</option>
+                        @foreach($listKepalaKeluarga as $k)
+                            <option value="{{ $k->id }}"
+                                {{ old('id_kepalakeluarga', $penduduk->id_kepalakeluarga ?? '') == $k->id ? 'selected' : '' }}
+                                class="text-gray-700 py-2">
+                                {{ $k->nama }}
+                            </option>
+                        @endforeach
                     </select>
                     @error('id_kepalakeluarga')
-                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                     @enderror
                 </div>
             </div>
@@ -137,7 +174,7 @@
                     <textarea id="alamat" 
                               name="alamat" 
                               rows="3"
-                              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('alamat') border-red-500 @enderror"
+                              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" @error('alamat') border-red-500 @enderror
                               placeholder="Masukkan alamat lengkap"
                               required>{{ old('alamat', $penduduk->alamat) }}</textarea>
                     @error('alamat')

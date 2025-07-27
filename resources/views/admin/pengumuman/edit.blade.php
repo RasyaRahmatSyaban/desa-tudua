@@ -24,7 +24,7 @@
                                id="judul" 
                                name="judul" 
                                value="{{ old('judul', $pengumuman->judul) }}"
-                               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('judul') border-red-500 @enderror"
+                               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" @error('judul') border-red-500 @enderror
                                placeholder="Masukkan judul pengumuman..."
                                required>
                         @error('judul')
@@ -40,7 +40,7 @@
                         <textarea id="isi" 
                                   name="isi" 
                                   rows="10"
-                                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('isi') border-red-500 @enderror"
+                                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" @error('isi') border-red-500 @enderror
                                   placeholder="Tulis isi pengumuman di sini..."
                                   required>{{ old('isi', $pengumuman->isi) }}</textarea>
                         @error('isi')
@@ -75,7 +75,7 @@
                                id="berlaku_hingga" 
                                name="berlaku_hingga" 
                                value="{{ old('berlaku_hingga', $pengumuman->berlaku_hingga ? \Carbon\Carbon::parse($pengumuman->berlaku_hingga)->format('Y-m-d') : '') }}"
-                               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('berlaku_hingga') border-red-500 @enderror"
+                               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" @error('berlaku_hingga') border-red-500 @enderror
                                required>
                         @error('berlaku_hingga')
                             <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
