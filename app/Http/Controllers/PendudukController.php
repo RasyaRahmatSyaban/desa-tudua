@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\KepalaKeluarga;
+use App\Models\Penduduk;
 use App\Services\KepalaKeluargaService;
 use App\Services\PendudukService;
 use Illuminate\Http\Request;
@@ -28,10 +30,16 @@ class PendudukController extends Controller
             $penduduk = $this->pendudukService->getFiltered($request);
         }else{
             $penduduk = $this->pendudukService->getAll();
-        }   
+        }
+
+        $totalPenduduk = Penduduk::count();
+        $totalLakiLaki = $this->pendudukService->getTotalLaki();
+        $totalPerempuan = $this->pendudukService->getTotalPerempuan();
+        $totalKepalaKeluarga = KepalaKeluarga::count();
+
         $user = auth()->user();
         if($user){
-            return view('admin.penduduk.index', compact('penduduk'));
+            return view('admin.penduduk.index', compact('penduduk', 'totalPenduduk', 'totalLakiLaki', 'totalPerempuan', 'totalKepalaKeluarga'));
         }else{            
             return view('penduduk', compact('penduduk'));
         }

@@ -12,7 +12,7 @@
             <div class="flex items-center justify-between">
                 <div>
                     <p class="text-sm font-medium text-gray-600">Total Penduduk</p>
-                    <p class="text-2xl font-bold text-gray-900">{{ $totalPenduduk ?? 0 }}</p>
+                    <p class="text-2xl font-bold text-gray-900">{{ $totalPenduduk }}</p>
                 </div>
                 <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
                     <i class="fas fa-users text-blue-600"></i>
@@ -24,7 +24,7 @@
             <div class="flex items-center justify-between">
                 <div>
                     <p class="text-sm font-medium text-gray-600">Laki-laki</p>
-                    <p class="text-2xl font-bold text-gray-900">{{ $totalLakiLaki ?? 0 }}</p>
+                    <p class="text-2xl font-bold text-gray-900">{{ $totalLakiLaki }}</p>
                 </div>
                 <div class="w-12 h-12 bg-green-200 rounded-lg flex items-center justify-center">
                     <i class="fas fa-male text-green-600"></i>
@@ -36,7 +36,7 @@
             <div class="flex items-center justify-between">
                 <div>
                     <p class="text-sm font-medium text-gray-600">Perempuan</p>
-                    <p class="text-2xl font-bold text-gray-900">{{ $totalPerempuan ?? 0 }}</p>
+                    <p class="text-2xl font-bold text-gray-900">{{ $totalPerempuan }}</p>
                 </div>
                 <div class="w-12 h-12 bg-pink-100 rounded-lg flex items-center justify-center">
                     <i class="fas fa-female text-pink-600"></i>
@@ -48,7 +48,7 @@
             <div class="flex items-center justify-between">
                 <div>
                     <p class="text-sm font-medium text-gray-600">Kepala Keluarga</p>
-                    <p class="text-2xl font-bold text-gray-900">{{ $totalKepalaKeluarga ?? 0 }}</p>
+                    <p class="text-2xl font-bold text-gray-900">{{ $totalKepalaKeluarga }}</p>
                 </div>
                 <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
                     <i class="fas fa-user-tie text-purple-600"></i>

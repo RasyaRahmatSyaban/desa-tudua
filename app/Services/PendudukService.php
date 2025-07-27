@@ -25,11 +25,18 @@ class PendudukService
             ->paginate(10)
             ->withQueryString();
     }
-
     public function getById($id)
     {
         return Penduduk::select('id', 'nama', 'nik', 'alamat', 'tempat_lahir', 'tanggal_lahir', 'jenis_kelamin', 'agama', 'id_kepalakeluarga')->findOrFail($id);
-    }
+    }    
+    public function getTotalLaki()
+    {
+        return Penduduk::where('jenis_kelamin', 'Laki-laki')->count();
+    }    
+    public function getTotalPerempuan()
+    {
+        return Penduduk::where('jenis_kelamin', 'Perempuan')->count();
+    }    
     public function create($data)
     {
         return Penduduk::create($data);
