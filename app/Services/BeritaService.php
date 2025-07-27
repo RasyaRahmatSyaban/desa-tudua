@@ -8,12 +8,12 @@ class BeritaService
 {
     public function getAll()
     {
-        return Berita::select('id', 'foto', 'judul', 'isi', 'tanggal_terbit', 'penulis', 'status')->latest()->paginate(10);
+        return Berita::select('id', 'foto', 'judul', 'isi', 'tanggal_terbit', 'penulis', 'status', 'created_at')->latest()->paginate(10);
     }
 
     public function getById($id)
     {
-        return Berita::select('id', 'foto', 'judul', 'isi', 'tanggal_terbit', 'penulis', 'status')->findOrFail($id);
+        return Berita::select('id', 'foto', 'judul', 'isi', 'tanggal_terbit', 'penulis', 'status', 'created_at')->findOrFail($id);
     }
     public function create($data)
     {

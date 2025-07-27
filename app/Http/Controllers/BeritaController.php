@@ -27,36 +27,57 @@ class BeritaController extends Controller
 
     public function show($id)
     {
-        $data = $this->service->getById($id);
-        return view('berita.show', compact('data'));
+        $berita = $this->service->getById($id);
+        return view('berita.show', compact('berita'));
+    }
+
+    public function create()
+    {
+        return view('admin.berita.create');   
     }
 
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'foto' => 'nullable|url',
+            'foto' => 'required|image|mimes:jpg,jpeg,png,webp|max:2048', // max 2MB
             'judul' => 'required|string|max:255',
             'isi' => 'required|string',
             'tanggal_terbit' => 'required|date',
             'penulis' => 'required|string|max:100',
-            'status' => 'required|in:Draft,Published',
+            'status' => 'required|in:Draft,Dipublikasi',
         ]);
+        
+        if ($request->hasFile('foto')) {
+            $file = $request->file('foto');
+            $path = $file->store('uploads/berita', 'public'); // disimpan di storage/app/public/uploads/berita
+            $validated['foto'] = $path;
+        }
 
         $this->service->create($validated);
 
-        return redirect()->route('berita.index')->with('success', 'Berita berhasil ditambahkan');
+        return redirect()->route('admin.berita.index')->with('success', 'Berita berhasil ditambahkan');
     }
-
+    public function edit($id)
+    {
+        $berita = $this->service->getById($id);
+        return view('admin.berita.edit', compact('berita'));   
+    }
     public function update(Request $request, $id)
     {
         $validated = $request->validate([
-            'foto' => 'nullable|url',
+            'foto' => 'required|image|mimes:jpg,jpeg,png,webp|max:2048', // max 2MB
             'judul' => 'required|string|max:255',
             'isi' => 'required|string',
             'tanggal_terbit' => 'required|date',
             'penulis' => 'required|string|max:100',
-            'status' => 'required|in:Draft,Published',
+            'status' => 'required|in:Draft,Dipublikasi',
         ]);
+
+        if ($request->hasFile('foto')) {
+            $file = $request->file('foto');
+            $path = $file->store('uploads/berita', 'public'); // disimpan di storage/app/public/uploads/berita
+            $validated['foto'] = $path;
+        }
 
         $this->service->update($id, $validated);
 

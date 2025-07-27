@@ -5,7 +5,7 @@
 @section('page-description', 'Ubah informasi berita yang sudah ada')
 
 @section('content')
-<div class="max-w-4xl">
+<div class="space-y-6">
     <form method="POST" action="{{ route('admin.berita.update', $berita->id) }}" enctype="multipart/form-data" class="space-y-6">
         @csrf
         @method('PUT')
@@ -80,7 +80,7 @@
                         
                         @if($berita->foto)
                         <div class="mb-4">
-                            <img src="{{ $berita->foto }}" alt="Current image" class="w-full h-32 object-cover rounded-lg">
+                            <img src="{{ asset('storage/' . $berita->foto) }}" alt="Foto Berita" class="w-full h-auto" />
                             <p class="text-xs text-gray-500 mt-1">Gambar saat ini</p>
                         </div>
                         @endif
@@ -98,12 +98,14 @@
                                     <i class="fas fa-trash mr-1"></i>Hapus Gambar
                                 </button>
                             </div>
+                            <label for="foto" class="block rounded-lg p-6 text-center transition-colors cursor-pointer">
                             <div id="uploadPlaceholder">
                                 <i class="fas fa-cloud-upload-alt text-3xl text-gray-400 mb-3"></i>
                                 <p class="text-sm text-gray-600 mb-2">Klik untuk upload gambar baru</p>
                                 <p class="text-xs text-gray-500">PNG, JPG hingga 2MB</p>
                             </div>
-                            <label for="foto" class="cursor-pointer absolute inset-0"></label>
+
+                            </label>
                         </div>
                         @error('foto')
                             <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
@@ -121,7 +123,7 @@
                                 @error('status') border-red-500 @enderror
                                 required>
                             <option value="Draft" {{ old('status', $berita->status) === 'Draft' ? 'selected' : '' }}>Draft</option>
-                            <option value="Published" {{ old('status', $berita->status) === 'Published' ? 'selected' : '' }}>Published</option>
+                            <option value="Dipublikasi" {{ old('status', $berita->status) === 'Dipublikasi' ? 'selected' : '' }}>Dipublikasi</option>
                         </select>
                         @error('status')
                             <p class="mt-1 text-sm text-red-600">{{ $message }}</p>

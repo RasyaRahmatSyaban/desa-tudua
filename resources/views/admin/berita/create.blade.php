@@ -5,7 +5,7 @@
 @section('page-description', 'Buat berita baru untuk dipublikasikan')
 
 @section('content')
-<div class="max-w-4xl">
+<div class="space-y-6">
     <form method="POST" action="{{ route('admin.berita.store') }}" enctype="multipart/form-data" class="space-y-6">
         @csrf
         
@@ -16,7 +16,23 @@
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 <!-- Main Form -->
                 <div class="lg:col-span-2 space-y-6">
-                    <!-- Judul -->
+                    <!-- Penulis -->
+                    <div>
+                        <label for="penulis" class="block text-sm font-medium text-gray-700 mb-2">
+                            Penulis <span class="text-red-500">*</span>
+                        </label>
+                        <input type="text" 
+                               id="penulis" 
+                               name="penulis" 
+                               value="{{ old('penulis') }}"
+                               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                               @error('penulis') border-red-500 @enderror
+                               placeholder="Isi Nama Penulis..."
+                               required>
+                        @error('penulis')
+                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
+                    </div>
                     <div>
                         <label for="judul" class="block text-sm font-medium text-gray-700 mb-2">
                             Judul Berita <span class="text-red-500">*</span>
@@ -25,7 +41,8 @@
                                id="judul" 
                                name="judul" 
                                value="{{ old('judul') }}"
-                               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('judul') border-red-500 @enderror"
+                               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                               @error('judul') border-red-500 @enderror
                                placeholder="Masukkan judul berita..."
                                required>
                         @error('judul')
@@ -35,34 +52,21 @@
                     
                     <!-- Konten -->
                     <div>
-                        <label for="konten" class="block text-sm font-medium text-gray-700 mb-2">
-                            Konten Berita <span class="text-red-500">*</span>
+                        <label for="isi" class="block text-sm font-medium text-gray-700 mb-2">
+                            isi Berita <span class="text-red-500">*</span>
                         </label>
-                        <textarea id="konten" 
-                                  name="konten" 
+                        <textarea id="isi" 
+                                  name="isi" 
                                   rows="12"
-                                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('konten') border-red-500 @enderror"
-                                  placeholder="Tulis konten berita di sini..."
-                                  required>{{ old('konten') }}</textarea>
-                        @error('konten')
+                                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" 
+                                  @error('isi') border-red-500 @enderror
+                                  placeholder="Tulis isi berita di sini..."
+                                  required>{{ old('isi') }}</textarea>
+                        @error('isi')
                             <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                         @enderror
                     </div>
                     
-                    <!-- Ringkasan -->
-                    <div>
-                        <label for="ringkasan" class="block text-sm font-medium text-gray-700 mb-2">
-                            Ringkasan
-                        </label>
-                        <textarea id="ringkasan" 
-                                  name="ringkasan" 
-                                  rows="3"
-                                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('ringkasan') border-red-500 @enderror"
-                                  placeholder="Ringkasan singkat berita (opsional)">{{ old('ringkasan') }}</textarea>
-                        @error('ringkasan')
-                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                        @enderror
-                    </div>
                 </div>
                 
                 <!-- Sidebar -->
@@ -72,27 +76,28 @@
                         <label for="gambar" class="block text-sm font-medium text-gray-700 mb-2">
                             Gambar Berita
                         </label>
-                        <div class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-blue-400 transition-colors">
+
+                        <label for="foto" class="block border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-blue-400 transition-colors cursor-pointer">
                             <input type="file" 
-                                   id="gambar" 
-                                   name="gambar" 
-                                   accept="image/*"
-                                   class="hidden"
-                                   onchange="previewImage(this)">
+                                id="foto" 
+                                name="foto" 
+                                accept="image/*"
+                                class="hidden"
+                                onchange="previewImage(this)">
                             <div id="imagePreview" class="hidden">
                                 <img id="preview" class="w-full h-32 object-cover rounded-lg mb-3">
                                 <button type="button" onclick="removeImage()" class="text-red-600 text-sm hover:text-red-800">
-                                    <i class="fas fa-trash mr-1"></i>Hapus Gambar
+                                    <i class="fas fa-trash mr-1"></i>Hapus foto
                                 </button>
                             </div>
                             <div id="uploadPlaceholder">
                                 <i class="fas fa-cloud-upload-alt text-3xl text-gray-400 mb-3"></i>
-                                <p class="text-sm text-gray-600 mb-2">Klik untuk upload gambar</p>
+                                <p class="text-sm text-gray-600 mb-2">Klik untuk upload foto</p>
                                 <p class="text-xs text-gray-500">PNG, JPG hingga 2MB</p>
                             </div>
-                            <label for="gambar" class="cursor-pointer absolute inset-0"></label>
-                        </div>
-                        @error('gambar')
+                        </label>
+
+                        @error('foto')
                             <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                         @enderror
                     </div>
@@ -104,7 +109,8 @@
                         </label>
                         <select id="kategori" 
                                 name="kategori"
-                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('kategori') border-red-500 @enderror">
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                                @error('kategori') border-red-500 @enderror
                             <option value="">Pilih Kategori</option>
                             <option value="umum" {{ old('kategori') === 'umum' ? 'selected' : '' }}>Umum</option>
                             <option value="kegiatan" {{ old('kategori') === 'kegiatan' ? 'selected' : '' }}>Kegiatan</option>
@@ -124,9 +130,10 @@
                         </label>
                         <select id="status" 
                                 name="status"
-                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('status') border-red-500 @enderror">
-                            <option value="draft" {{ old('status') === 'draft' ? 'selected' : '' }}>Draft</option>
-                            <option value="published" {{ old('status') === 'published' ? 'selected' : '' }}>Publikasi</option>
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                                @error('status') border-red-500 @enderror
+                            <option value="Draft" {{ old('status') === 'Draft' ? 'selected' : '' }}>Draft</option>
+                            <option value="Dipublikasi" {{ old('status') === 'Dipublikasi' ? 'selected' : '' }}>Dipublikasi</option>
                         </select>
                         @error('status')
                             <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
@@ -135,15 +142,16 @@
                     
                     <!-- Tanggal Publikasi -->
                     <div>
-                        <label for="tanggal_publikasi" class="block text-sm font-medium text-gray-700 mb-2">
+                        <label for="tanggal_terbit" class="block text-sm font-medium text-gray-700 mb-2">
                             Tanggal Publikasi
                         </label>
-                        <input type="datetime-local" 
-                               id="tanggal_publikasi" 
-                               name="tanggal_publikasi" 
-                               value="{{ old('tanggal_publikasi', now()->format('Y-m-d\TH:i')) }}"
-                               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('tanggal_publikasi') border-red-500 @enderror">
-                        @error('tanggal_publikasi')
+                        <input type="date" 
+                               id="tanggal_terbit" 
+                               name="tanggal_terbit" 
+                               value="{{ old('tanggal_terbit', now()->format('Y-m-d')) }}"
+                               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"> 
+                               @error('tanggal_terbit') border-red-500 @enderror
+                        @error('tanggal_terbit')
                             <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                         @enderror
                     </div>

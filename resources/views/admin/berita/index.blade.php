@@ -18,8 +18,8 @@
             </div>
             <select class="border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent">
                 <option value="">Semua Status</option>
-                <option value="published">Dipublikasi</option>
-                <option value="draft">Draft</option>
+                <option value="Dipublikasi">Dipublikasi</option>
+                <option value="Draft">Draft</option>
             </select>
         </div>
         
@@ -44,16 +44,15 @@
                         </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">
-                        @forelse($berita ?? [] as $item)
+                        @forelse($berita as $item)
                         <tr class="hover:bg-gray-50">
                             <td class="px-6 py-4">
                                 <div class="flex items-center">
                                     <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mr-4">
-                                        <i class="fas fa-newspaper text-blue-600"></i>
+                                        <img src="{{ asset('storage/' . $item->foto) }}" alt="Foto Berita" class="w-32 h-auto" />
                                     </div>
                                     <div>
                                     <div class="text-sm font-medium text-gray-900">{{ $item->judul }}</div>
-                                    <div class="text-sm text-gray-500">{{ Str::limit(strip_tags($item->konten), 60) }}</div>
                                 </div>
                             </div>
                         </td>
@@ -63,12 +62,12 @@
                             </span>
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap">
-                            @if($item->status === 'published')
-                            <span class="px-2 py-1 text-xs font-medium bg-green-100 text-green-800 rounded-full">
+                            @if($item->status === 'Dipublikasi')
+                            <span class="px-2 py-1 text-xs font-medium bg-green-200 text-green-800 rounded-full">
                                 <i class="fas fa-check-circle mr-1"></i>Dipublikasi
                             </span>
                             @else
-                            <span class="px-2 py-1 text-xs font-medium bg-yellow-100 text-yellow-800 rounded-full">
+                            <span class="px-2 py-1 text-xs font-medium bg-yellow-200 text-yellow-800 rounded-full">
                                 <i class="fas fa-clock mr-1"></i>Draft
                             </span>
                             @endif
