@@ -25,12 +25,15 @@ class PendudukController extends Controller
         ]);
 
         $hasFilter = $request->filled('search') || $request->filled('jenis_kelamin');
-
+        
         if($hasFilter){
             $penduduk = $this->pendudukService->getFiltered($request);
         }else{
-            $penduduk = $this->pendudukService->getAll();
+            $penduduk = $this->pendudukService->getPaginated();
         }
+
+        $kepalaKeluarga = (new KepalaKeluargaService())->getAll();
+        $kepalaKeluargaByNik = $kepalaKeluarga->keyBy('nik');
 
         $totalPenduduk = Penduduk::count();
         $totalLakiLaki = $this->pendudukService->getTotalLaki();
@@ -39,7 +42,7 @@ class PendudukController extends Controller
 
         $user = auth()->user();
         if($user){
-            return view('admin.penduduk.index', compact('penduduk', 'totalPenduduk', 'totalLakiLaki', 'totalPerempuan', 'totalKepalaKeluarga'));
+            return view('admin.penduduk.index', compact('penduduk', 'kepalaKeluargaByNik','totalPenduduk', 'totalLakiLaki', 'totalPerempuan', 'totalKepalaKeluarga'));
         }else{            
             return view('penduduk', compact('penduduk'));
         }
@@ -67,6 +70,7 @@ class PendudukController extends Controller
             'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
             'agama' => 'required|string|max:50',
             'id_kepalakeluarga' => 'nullable|exists:kepala_keluarga,id',
+            'nomorKK' => 'required|string|max:16|unique:kepala_keluarga,nomor_kk',
             'isKepalaKeluarga' => 'nullable|boolean',
         ]);
 
@@ -75,6 +79,7 @@ class PendudukController extends Controller
         if(!empty($validated['isKepalaKeluarga'])){
             $kepalaKeluargaSerice = new KepalaKeluargaService();
             $kepalaKeluargaSerice->create([
+                'nomor_kk' => $validated['nomorKK'],
                 'nama' => $validated['nama'],
                 'nik' => $validated['nik'],
             ]);
@@ -100,9 +105,31 @@ class PendudukController extends Controller
             'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
             'agama' => 'required|string|max:50',
             'id_kepalakeluarga' => 'nullable|exists:kepala_keluarga,id',
+            'nomorKK' => 'required|string|max:16|unique:kepala_keluarga,nomor_kk,' . $id,
         ]);
 
         $this->pendudukService->update($id, $validated);
+
+        if(!empty($validated['isKepalaKeluarga'])){
+            $kepalaKeluargaService = new KepalaKeluargaService();
+            $kk = KepalaKeluarga::where('nik', $validated['nik'])->first();
+            if ($kk) {
+                $kepalaKeluargaService->update($kk->id, [
+                    'nomor_kk' => $validated['nomorKK'],
+                    'nama' => $validated['nama'],
+                    'nik' => $validated['nik'],
+                ]);
+            } else {
+                $kepalaKeluargaService->create([
+                    'nomor_kk' => $validated['nomorKK'],
+                    'nama' => $validated['nama'],
+                    'nik' => $validated['nik'],
+                ]);
+            }
+        }else{
+            $kepalaKeluargaService = new KepalaKeluargaService();
+            $kepalaKeluargaService->deleteByNik($validated['nik']);
+        }
 
         return redirect()->route('penduduk.index')->with('success', 'Data penduduk berhasil diperbarui');
     }

@@ -123,7 +123,49 @@
                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                     @enderror
                 </div>
+
+                <!-- Dropdown Pilih kepala -->
                 <div>
+                    <div id="kepalaKeluargaSelectWrapper" style="{{ old('isKepalaKeluarga') ? 'display:none;' : '' }}">
+                        <label for="id_kepalakeluarga" class="block text-sm font-medium text-gray-700 mb-2">
+                            Kepala Keluarga <span class="text-red-500">*</span>
+                        </label>
+                            <select name="id_kepalakeluarga" id="id_kepalakeluarga"
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                            @error('id_kepalakeluarga') border-red-500 @enderror>
+                            <option value="" class="text-gray-400">Pilih Kepala Keluarga</option>
+                            @foreach($listKepalaKeluarga as $k)
+                            <option value="{{ $k->id }}"
+                            {{ old('id_kepalakeluarga') == $k->id ? 'selected' : '' }}
+                            class="text-gray-700 py-2">
+                            {{ $k->nama }}
+                            </option>
+                            @endforeach
+                        </select>
+                @error('id_kepalakeluarga')
+                <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                @enderror
+                </div>
+
+                <!-- Nomor KK -->
+                <div id="nomorKKSelectWrapper" style="{{ old('isKepalaKeluarga') ? '' : 'display:none;' }}">
+                    <label for="nomorKK" class="block text-sm font-medium text-gray-700 mb-2">
+                        Nomor Kartu Keluarga <span class="text-red-500">*</span>
+                    </label>
+                    <input type="text" 
+                           id="nomorKK" 
+                           name="nomorKK" 
+                           value="{{ old('nomorKK') }}"
+                           class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" 
+                           @error('nomorKK') border-red-500 @enderror
+                           placeholder="Masukkan Nomor Kartu Keluarga (16 digit)" maxlength="16" required>
+                    @error('nomorKK')
+                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <!-- Checkbox -->
+                <div class="mt-4">
                     <label class="flex items-center space-x-2">
                         <input type="checkbox"
                             name="isKepalaKeluarga"
@@ -137,48 +179,25 @@
                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                     @enderror
                 </div>
+                </div>
 
-                <div id="kepalaKeluargaSelectWrapper" style="{{ old('isKepalaKeluarga') ? 'display:none;' : '' }}">
-                    <label for="id_kepalakeluarga" class="block text-sm font-medium text-gray-700 mb-2">
-                        Kepala Keluarga <span class="text-red-500">*</span>
+                <!-- Alamat -->
+                <div>
+                    <label for="alamat" class="block text-sm font-medium text-gray-700 mb-2">
+                        Alamat <span class="text-red-500">*</span>
                     </label>
-                    <select name="id_kepalakeluarga" id="id_kepalakeluarga"
-                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                            @error('id_kepalakeluarga') border-red-500 @enderror>
-                        <option value="" class="text-gray-400">Pilih Kepala Keluarga</option>
-                        @foreach($listKepalaKeluarga as $k)
-                            <option value="{{ $k->id }}"
-                                {{ old('id_kepalakeluarga') == $k->id ? 'selected' : '' }}
-                                class="text-gray-700 py-2">
-                                {{ $k->nama }}
-                            </option>
-                        @endforeach
-                    </select>
-                    @error('id_kepalakeluarga')
-                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                    <input type="text" 
+                           id="alamat" 
+                           name="alamat" 
+                           value="{{ old('alamat') }}"
+                           class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" 
+                           @error('alamat') border-red-500 @enderror
+                           placeholder="Masukkan alamat lengkap" required>
+                    @error('alamat')
+                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                     @enderror
                 </div>
-            </div>
-        </div>
-
-        <!-- Data Alamat -->
-        <div class="bg-white rounded-lg shadow-md p-6">
-            <h3 class="text-lg font-semibold text-gray-900 mb-6">Data Alamat</h3>
-
-            <div>
-                <label for="alamat" class="block text-sm font-medium text-gray-700 mb-2">
-                    Alamat Lengkap <span class="text-red-500">*</span>
-                </label>
-                <textarea id="alamat" 
-                          name="alamat" 
-                          rows="3"
-                          class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" 
-                          @error('alamat') border-red-500 @enderror
-                          placeholder="Masukkan alamat lengkap" required>{{ old('alamat') }}</textarea>
-                @error('alamat')
-                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                @enderror
-            </div>
+            </div>    
         </div>
 
         <!-- Tombol Aksi -->
@@ -198,13 +217,16 @@
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         const checkbox = document.getElementById('isKepalaKeluarga');
-        const selectWrapper = document.getElementById('kepalaKeluargaSelectWrapper');
+        const kepKelWrapper = document.getElementById('kepalaKeluargaSelectWrapper');
+        const nomorKKWrapper = document.getElementById('nomorKKSelectWrapper');
 
         checkbox.addEventListener('change', function () {
             if (checkbox.checked) {
-                selectWrapper.style.display = 'none';
+                kepKelWrapper.style.display = 'none';
+                nomorKKWrapper.style.display = 'block'
             } else {
-                selectWrapper.style.display = 'block';
+                kepKelWrapper.style.display = 'block';
+                nomorKKWrapper.style.display = 'none'
             }
         });
     });
