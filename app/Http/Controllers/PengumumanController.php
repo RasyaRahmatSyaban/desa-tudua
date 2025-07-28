@@ -26,7 +26,7 @@ class PengumumanController extends Controller
         if($hasFilter){
             $pengumuman = $this->pengumumanService->getFiltered($request);
         }else{
-            $pengumuman = $this->pengumumanService->getAll();
+            $pengumuman = $this->pengumumanService->getPaginated();
         }
         $user = auth()->user();
         if($user){

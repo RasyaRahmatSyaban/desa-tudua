@@ -26,7 +26,7 @@ class BeritaController extends Controller
         if($hasFilter){
             $berita = $this->beritaService->getFiltered($request);
         }else{
-            $berita = $this->beritaService->getAll();
+            $berita = $this->beritaService->getPaginated();
         }
         $user = auth()->user();
         if($user){
