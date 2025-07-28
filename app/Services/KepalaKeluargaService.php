@@ -20,6 +20,10 @@ class KepalaKeluargaService
     {
         return KepalaKeluarga::select('id', 'nama', 'nik', 'nomor_kk')->findOrFail($id);
     }
+    public function getByNik($nik)
+    {
+        return KepalaKeluarga::select('id', 'nama', 'nik', 'nomor_kk')->findOrFail($nik);
+    }
     public function create($data)
     {
         return KepalaKeluarga::create($data);
