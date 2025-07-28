@@ -14,7 +14,8 @@ return new class extends Migration
         Schema::create('kepala_keluarga', function (Blueprint $table) {
             $table->id();
             $table->string('nama', 100);
-            $table->string('nik', 50);
+            $table->string('nik', 16)->unique();
+            $table->string('nomor_kk', 16)->unique();
             $table->timestamps();
         });
     }

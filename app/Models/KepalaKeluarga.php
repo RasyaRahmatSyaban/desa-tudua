@@ -10,7 +10,7 @@ class KepalaKeluarga extends Model
     protected $table = 'kepala_keluarga';
 
     protected $fillable = [
-        'nama', 'nik'
+        'nama', 'nomor_kk', 'nik'
     ];
 
     public function penduduk(): HasMany
