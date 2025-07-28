@@ -70,7 +70,7 @@ class PendudukController extends Controller
             'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
             'agama' => 'required|string|max:50',
             'id_kepalakeluarga' => 'nullable|exists:kepala_keluarga,id',
-            'nomorKK' => 'required|string|max:16|unique:kepala_keluarga,nomor_kk',
+            'nomorKK' => 'nullable|string|max:16|unique:kepala_keluarga,nomor_kk',
             'isKepalaKeluarga' => 'nullable|boolean',
         ]);
 
@@ -96,6 +96,8 @@ class PendudukController extends Controller
     }
     public function update(Request $request, $id)
     {
+        $penduduk = Penduduk::with('kepalaKeluarga')->findOrFail($id);
+        $idKK = optional($penduduk->kepalaKeluarga)->id;
         $validated = $request->validate([
             'nama' => 'required|string|max:100',
             'nik' => 'required|string|max:16|unique:penduduk,nik,' . $id,
@@ -105,13 +107,17 @@ class PendudukController extends Controller
             'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
             'agama' => 'required|string|max:50',
             'id_kepalakeluarga' => 'nullable|exists:kepala_keluarga,id',
-            'nomorKK' => 'required|string|max:16|unique:kepala_keluarga,nomor_kk,' . $id,
+            'nomorKK' => 'required|string|max:16|unique:kepala_keluarga,nomor_kk,' . $idKK,
         ]);
 
+        if ($request->filled('isKepalaKeluarga')) {
+            $validated['id_kepalakeluarga'] = null;
+        }
         $this->pendudukService->update($id, $validated);
 
-        if(!empty($validated['isKepalaKeluarga'])){
-            $kepalaKeluargaService = new KepalaKeluargaService();
+        $kepalaKeluargaService = new KepalaKeluargaService();
+
+        if ($request->filled('isKepalaKeluarga')) {
             $kk = KepalaKeluarga::where('nik', $validated['nik'])->first();
             if ($kk) {
                 $kepalaKeluargaService->update($kk->id, [
@@ -126,17 +132,16 @@ class PendudukController extends Controller
                     'nik' => $validated['nik'],
                 ]);
             }
-        }else{
-            $kepalaKeluargaService = new KepalaKeluargaService();
+        } else {
             $kepalaKeluargaService->deleteByNik($validated['nik']);
         }
 
-        return redirect()->route('penduduk.index')->with('success', 'Data penduduk berhasil diperbarui');
+        return redirect()->route('admin.penduduk.index')->with('success', 'Data penduduk berhasil diperbarui');
     }
 
     public function destroy($id)
     {
         $this->pendudukService->delete($id);
-        return redirect()->route('penduduk.index')->with('success', 'Data penduduk berhasil dihapus');
+        return redirect()->route('admin.penduduk.index')->with('success', 'Data penduduk berhasil dihapus');
     }
 }

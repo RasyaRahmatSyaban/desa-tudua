@@ -219,16 +219,21 @@
         const checkbox = document.getElementById('isKepalaKeluarga');
         const kepKelWrapper = document.getElementById('kepalaKeluargaSelectWrapper');
         const nomorKKWrapper = document.getElementById('nomorKKSelectWrapper');
+        const nomorKKInput = document.getElementById('nomorKK');
 
-        checkbox.addEventListener('change', function () {
+        function toggleKepalaKeluarga() {
             if (checkbox.checked) {
                 kepKelWrapper.style.display = 'none';
-                nomorKKWrapper.style.display = 'block'
+                nomorKKWrapper.style.display = 'block';
+                nomorKKInput.setAttribute('required', 'required');
             } else {
                 kepKelWrapper.style.display = 'block';
-                nomorKKWrapper.style.display = 'none'
+                nomorKKWrapper.style.display = 'none';
+                nomorKKInput.removeAttribute('required');
             }
-        });
+        }
+        toggleKepalaKeluarga();
+        checkbox.addEventListener('change', toggleKepalaKeluarga);
     });
 </script>
 @endsection

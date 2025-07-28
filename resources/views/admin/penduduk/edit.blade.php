@@ -129,17 +129,17 @@
                             Kepala Keluarga <span class="text-red-500">*</span>
                         </label>
                             <select name="id_kepalakeluarga" id="id_kepalakeluarga"
-                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                            @error('id_kepalakeluarga') border-red-500 @enderror>
-                            <option value="" class="text-gray-400">Pilih Kepala Keluarga</option>
-                            @foreach($listKepalaKeluarga as $k)
-                            <option value="{{ $k->id }}"
-                            {{ old('id_kepalakeluarga') == $k->id ? 'selected' : '' }}
-                            class="text-gray-700 py-2">
-                            {{ $k->nama }}
-                            </option>
-                            @endforeach
-                        </select>
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                @error('id_kepalakeluarga') border-red-500 @enderror>
+                                <option value="" class="text-gray-400">Pilih Kepala Keluarga</option>
+                                @foreach($listKepalaKeluarga as $k)
+                                <option value="{{ $k->id }}"
+                                {{ old('id_kepalakeluarga', $penduduk->id_kepalakeluarga) == $k->id ? 'selected' : '' }}
+                                class="text-gray-700 py-2">
+                                {{ $k->nama }}
+                                </option>
+                                @endforeach
+                            </select>
                 @error('id_kepalakeluarga')
                 <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                 @enderror
@@ -153,7 +153,7 @@
                     <input type="text" 
                            id="nomorKK" 
                            name="nomorKK" 
-                           value="{{ old('nomorKK') }}"
+                           value="{{ old('nomorKK', $penduduk->kepalaKeluarga->nomor_kk) }}"
                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" 
                            @error('nomorKK') border-red-500 @enderror
                            placeholder="Masukkan Nomor Kartu Keluarga (16 digit)" maxlength="16" required>
@@ -217,16 +217,25 @@
         const checkbox = document.getElementById('isKepalaKeluarga');
         const kepKelWrapper = document.getElementById('kepalaKeluargaSelectWrapper');
         const nomorKKWrapper = document.getElementById('nomorKKSelectWrapper');
+        const nomorKKInput = document.getElementById('nomorKK');
 
-        checkbox.addEventListener('change', function () {
+        function toggleKepalaKeluarga() {
             if (checkbox.checked) {
                 kepKelWrapper.style.display = 'none';
-                nomorKKWrapper.style.display = 'block'
+                nomorKKWrapper.style.display = 'block';
+                nomorKKInput.setAttribute('required', 'required');
             } else {
                 kepKelWrapper.style.display = 'block';
-                nomorKKWrapper.style.display = 'none'
+                nomorKKWrapper.style.display = 'none';
+                nomorKKInput.removeAttribute('required');
             }
-        });
+        }
+
+        // Trigger saat halaman dimuat
+        toggleKepalaKeluarga();
+
+        // Trigger saat checkbox berubah
+        checkbox.addEventListener('change', toggleKepalaKeluarga);
     });
 </script>
 @endsection

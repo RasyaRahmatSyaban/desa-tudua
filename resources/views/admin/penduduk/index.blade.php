@@ -112,7 +112,7 @@
                                     <div class="text-sm font-medium text-gray-900">{{ $item->nama }}</div>
                                     <div class="text-sm text-gray-500">NIK: {{ $item->nik }}</div>
                                     <div class="text-sm text-gray-500">
-                                        Nomor KK: {{ $kepalaKeluargaByNik[$item->nik]->nomor_kk ?? '-' }}
+                                        Nomor KK: {{ $kepalaKeluargaByNik[$item->nik]->nomor_kk ?? $item->kepalaKeluarga->nomor_kk ?? '-' }}
                                     </div>
                                     <!-- <div class="text-sm text-gray-500">Nomor KK: {{ $item->nik }}</div> -->
                                 </div>
@@ -131,7 +131,7 @@
                                 {{ $item->alamat }}
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                {{ $item->kepalaKeluarga->nama ?? 'Ya' }}
+                                {{ $item->kepalaKeluarga->nama ?? '-' }}
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                                 <div class="flex items-center space-x-2">
