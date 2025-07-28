@@ -9,7 +9,11 @@ class BeritaService
 {
     public function getAll()
     {
-        return Berita::select('id', 'foto', 'judul', 'isi', 'tanggal_terbit', 'penulis', 'status', 'created_at')->latest()->paginate(10);
+        return Berita::select('id', 'foto', 'judul', 'isi', 'tanggal_terbit', 'penulis', 'status', 'created_at')->get();
+    }
+    public function getPaginated($perPage = 10)
+    {
+        return Berita::select('id', 'foto', 'judul', 'isi', 'tanggal_terbit', 'penulis', 'status', 'created_at')->latest()->paginate($perPage);
     }
 
     public function getFiltered(Request $request)

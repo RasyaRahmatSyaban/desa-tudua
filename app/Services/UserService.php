@@ -10,6 +10,10 @@ class UserService
     {
         return User::select('id', 'name', 'email', 'role')->latest()->get();
     }
+    public function getPaginated($perPage = 10)
+    {
+        return User::select('id', 'name', 'email', 'role')->latest()->paginated($perPage);
+    }
     public function getById($id)
     {
         return User::select('id', 'name', 'email', 'role')->findOrfail($id);

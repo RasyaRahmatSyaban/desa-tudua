@@ -10,7 +10,11 @@ class PengumumanService
 {
     public function getAll()
     {
-        return Pengumuman::select('id', 'judul', 'isi', 'status', 'berlaku_hingga')->latest()->paginate(10);
+        return Pengumuman::select('id', 'judul', 'isi', 'status', 'berlaku_hingga')->get();
+    }
+    public function getPaginated($perPage = 10)
+    {
+        return Pengumuman::select('id', 'judul', 'isi', 'status', 'berlaku_hingga')->latest()->paginate($perPage);
     }
 
     public function getFiltered(Request $request)

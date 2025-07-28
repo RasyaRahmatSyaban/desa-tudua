@@ -8,7 +8,11 @@ class DanaMasukService
 {
     public function getAll()
     {
-        return DanaMasuk::select('id', 'tahun', 'bulan', 'jumlah', 'sumber', 'keterangan')->latest()->paginate(10);
+        return DanaMasuk::select('id', 'tahun', 'bulan', 'jumlah', 'sumber', 'keterangan')->get();
+    }
+    public function getPaginated($perPage = 10)
+    {
+        return DanaMasuk::select('id', 'tahun', 'bulan', 'jumlah', 'sumber', 'keterangan')->latest()->paginate($perPage);
     }
 
     public function getById($id)

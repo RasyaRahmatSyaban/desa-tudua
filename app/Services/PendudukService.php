@@ -9,7 +9,11 @@ class PendudukService
 {
     public function getAll()
     {
-        return Penduduk::select('id', 'nama', 'nik', 'alamat', 'tempat_lahir', 'tanggal_lahir', 'jenis_kelamin', 'agama', 'id_kepalakeluarga')->latest()->paginate(10);
+        return Penduduk::select('id', 'nama', 'nik', 'alamat', 'tempat_lahir', 'tanggal_lahir', 'jenis_kelamin', 'agama', 'id_kepalakeluarga')->with('kepalaKeluarga')->get();
+    }
+    public function getPaginated($perPage = 10)
+    {
+        return Penduduk::select('id', 'nama', 'nik', 'alamat', 'tempat_lahir', 'tanggal_lahir', 'jenis_kelamin', 'agama', 'id_kepalakeluarga')->with('kepalaKeluarga')->latest()->paginate($perPage);
     }
 
     public function getFiltered(Request $request)

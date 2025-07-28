@@ -9,7 +9,11 @@ class PerangkatDesaService
 {
     public function getAll()
     {
-        return PerangkatDesa::select('id', 'nama', 'nip', 'jabatan', 'foto')->latest()->paginate(10);
+        return PerangkatDesa::select('id', 'nama', 'nip', 'jabatan', 'foto')->get();
+    }
+    public function getPaginated($perPage = 10)
+    {
+        return PerangkatDesa::select('id', 'nama', 'nip', 'jabatan', 'foto')->latest()->paginate($perPage);
     }
 
     public function getById($id)

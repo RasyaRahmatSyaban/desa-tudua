@@ -8,12 +8,17 @@ class KepalaKeluargaService
 {
     public function getAll()
     {
-        return KepalaKeluarga::select('id', 'nama', 'nik')->latest()->paginate(10);
+        return KepalaKeluarga::select('id', 'nama', 'nik', 'nomor_kk')->get();
+    }
+
+    public function getPaginated($perPage = 10)
+    {
+        return KepalaKeluarga::select('id', 'nama', 'nik', 'nomor_kk')->latest()->paginate($perPage);
     }
 
     public function getById($id)
     {
-        return KepalaKeluarga::select('id', 'nama', 'nik')->findOrFail($id);
+        return KepalaKeluarga::select('id', 'nama', 'nik', 'nomor_kk')->findOrFail($id);
     }
     public function create($data)
     {
@@ -30,5 +35,8 @@ class KepalaKeluargaService
     {
         return KepalaKeluarga::destroy($id);
     }
-
+    public function deleteByNik($nik)
+    {
+        return KepalaKeluarga::where('nik', $nik)->delete();
+    }
 }

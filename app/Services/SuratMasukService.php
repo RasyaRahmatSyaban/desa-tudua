@@ -9,7 +9,11 @@ class SuratMasukService
 {
     public function getAll()
     {
-        return SuratMasuk::select('id', 'nomor_surat', 'pengirim', 'perihal', 'tanggal_terima', 'file')->latest()->paginate(10);
+        return SuratMasuk::select('id', 'nomor_surat', 'pengirim', 'perihal', 'tanggal_terima', 'file')->get();
+    }
+    public function getPaginated($perPage = 10)
+    {
+        return SuratMasuk::select('id', 'nomor_surat', 'pengirim', 'perihal', 'tanggal_terima', 'file')->latest()->paginate($perPage);
     }
 
     public function getById($id)
