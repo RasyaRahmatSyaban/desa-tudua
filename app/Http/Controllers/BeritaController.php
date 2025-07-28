@@ -60,7 +60,8 @@ class BeritaController extends Controller
         
         if ($request->hasFile('foto')) {
             $file = $request->file('foto');
-            $path = $file->store('uploads/berita', 'public'); // disimpan di storage/app/public/uploads/berita
+            $originalName = $file->getClientOriginalName(); // nama asli file
+            $path = $file->storeAs('uploads/berita', $originalName, 'public');
             $validated['foto'] = $path;
         }
 

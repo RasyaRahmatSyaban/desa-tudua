@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\SuratMasuk;
+use Illuminate\Http\Request;
 
 
 class SuratMasukService
@@ -14,6 +15,21 @@ class SuratMasukService
     public function getPaginated($perPage = 10)
     {
         return SuratMasuk::select('id', 'nomor_surat', 'pengirim', 'perihal', 'tanggal_terima', 'file')->latest()->paginate($perPage);
+    }
+    public function getFiltered(Request $request)
+    {
+        return SuratMasuk::select('id', 'nomor_surat', 'pengirim', 'perihal', 'tanggal_terima', 'file')
+            ->when($request->filled('search'), function ($query) use ($request) {
+                $query->where('nomor_surat', 'like', '%' . $request->search . '%')
+                    ->orWhere('pengirim', 'like', '%' . $request->search . '%')
+                    ->orWhere('perihal', 'like', '%' . $request->search . '%');
+            })
+            ->when($request->filled('status'), function ($query) use ($request) {
+                $query->where('status', $request->status);
+            })
+            ->latest()
+            ->paginate(10)
+            ->withQueryString();
     }
 
     public function getById($id)

@@ -85,12 +85,7 @@
                 
                 <a href="{{ route('admin.penduduk.index') }}" class="sidebar-item flex items-center px-6 py-3 text-white transition-all duration-200 {{ request()->routeIs('admin.penduduk.*') ? 'active' : '' }}">
                     <i class="fas fa-users w-5"></i>
-                    <span class="ml-3">Data Penduduk</span>
-                </a>
-                
-                <a href="{{ route('admin.kepala-keluarga.index') }}" class="sidebar-item flex items-center px-6 py-3 text-white transition-all duration-200 {{ request()->routeIs('admin.kepala-keluarga.*') ? 'active' : '' }}">
-                    <i class="fas fa-user-tie w-5"></i>
-                    <span class="ml-3">Kepala Keluarga</span>
+                    <span class="ml-3">Penduduk</span>
                 </a>
                 
                 <a href="{{ route('admin.surat-masuk.index') }}" class="sidebar-item flex items-center px-6 py-3 text-white transition-all duration-200 {{ request()->routeIs('admin.surat-masuk.*') ? 'active' : '' }}">
