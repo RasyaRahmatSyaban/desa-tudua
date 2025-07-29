@@ -1,6 +1,8 @@
 @extends('layouts.admin')
 
 @section('title', 'Edit Surat Keluar')
+@section('page-title', 'Edit Surat Keluar')
+@section('page-description', 'Ubah informasi surat keluar yang sudah ada')
 
 @section('content')
 <div class="space-y-6">
