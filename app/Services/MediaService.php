@@ -3,21 +3,34 @@
 namespace App\Services;
 
 use App\Models\Media;
+use Illuminate\Http\Request;
 
 class MediaService
 {
     public function getAll()
     {
-        return Media::select('id', 'nama', 'tipe', 'deskripsi', 'thumbnail')->get();
+        return Media::select('id', 'nama', 'tipe', 'file', 'deskripsi', 'thumbnail')->get();
     }
     public function getPaginated($perPage = 10)
     {
-        return Media::select('id', 'nama', 'tipe', 'deskripsi', 'thumbnail')->latest()->paginate($perPage);
+        return Media::select('id', 'nama', 'tipe', 'file', 'deskripsi', 'thumbnail')->latest()->paginate($perPage);
     }
-
+    public function getFiltered(Request $request)
+    {
+        return Media::select('id', 'nama', 'tipe', 'file', 'deskripsi', 'thumbnail')
+            ->when($request->filled('search'), function ($query) use ($request) {
+                $query->where('nama', 'like', '%' . $request->search . '%');
+            })
+            ->when($request->filled('tipe'), function ($query) use ($request) {
+                $query->where('tipe', $request->tipe);
+            })
+            ->latest()
+            ->paginate(10)
+            ->withQueryString();
+    }
     public function getById($id)
     {
-        return Media::select('id', 'nama', 'tipe', 'deskripsi', 'thumbnail')->findOrFail($id);
+        return Media::select('id', 'nama', 'tipe', 'file', 'deskripsi', 'thumbnail')->findOrFail($id);
     }
     public function create($data)
     {

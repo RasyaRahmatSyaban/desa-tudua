@@ -1,189 +1,115 @@
 @extends('layouts.admin')
 
 @section('title', 'Edit Media')
-@section('page-title', 'Edit Media')
-@section('page-description', 'Ubah data media yang sudah ada')
 
 @section('content')
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-12">
-            <div class="page-title-box">
-                <div class="page-title-right">
-                    <ol class="breadcrumb m-0">
-                        <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('admin.media.index') }}">Media</a></li>
-                        <li class="breadcrumb-item active">Edit</li>
-                    </ol>
+    <div class="space-y-6">
+        <!-- Form Edit -->
+        <div class="bg-white p-6 rounded-lg shadow-md">
+            @if ($errors->any())
+                <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-6">
+                    <ul class="list-disc pl-5 space-y-1">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
                 </div>
-                <h4 class="page-title">Edit Media</h4>
-            </div>
-        </div>
-    </div>
+            @endif
 
-    <div class="row">
-        <div class="col-12">
-            <div class="card">
-                <div class="card-header">
-                    <h4 class="card-title">Form Edit Media</h4>
-                </div>
-                <div class="card-body">
-                    @if ($errors->any())
-                        <div class="alert alert-danger">
-                            <ul class="mb-0">
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
+            <form action="{{ route('admin.media.update', $media->id) }}" method="POST" enctype="multipart/form-data"
+                class="space-y-6">
+                @csrf
+                @method('PUT')
 
-                    <form action="{{ route('admin.media.update', $media->id) }}" method="POST" enctype="multipart/form-data">
-                        @csrf
-                        @method('PUT')
-                        
-                        <div class="row">
-                            <div class="col-md-8">
-                                <div class="mb-3">
-                                    <label for="judul" class="form-label">Judul Media <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control @error('judul') is-invalid @enderror" 
-                                           id="judul" name="judul" value="{{ old('judul', $media->judul) }}" required>
-                                    @error('judul')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="mb-3">
-                                    <label for="tipe" class="form-label">Tipe Media <span class="text-danger">*</span></label>
-                                    <select class="form-select @error('tipe') is-invalid @enderror" id="tipe" name="tipe" required>
-                                        <option value="">Pilih Tipe</option>
-                                        <option value="foto" {{ old('tipe', $media->tipe) == 'foto' ? 'selected' : '' }}>Foto</option>
-                                        <option value="video" {{ old('tipe', $media->tipe) == 'video' ? 'selected' : '' }}>Video</option>
-                                        <option value="dokumen" {{ old('tipe', $media->tipe) == 'dokumen' ? 'selected' : '' }}>Dokumen</option>
-                                    </select>
-                                    @error('tipe')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
-                        </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Nama -->
+                    <div>
+                        <label for="nama" class="block text-sm font-medium text-gray-700 mb-2">Nama Media <span
+                                class="text-red-500">*</span></label>
+                        <input type="text" id="nama" name="nama" value="{{ old('nama', $media->nama) }}"
+                            class="w-full px-4 py-3 border rounded-lg @error('nama') border-red-500 @enderror" required>
+                        @error('nama')
+                            <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
+                        @enderror
+                    </div>
 
-                        <div class="mb-3">
-                            <label for="deskripsi" class="form-label">Deskripsi</label>
-                            <textarea class="form-control @error('deskripsi') is-invalid @enderror" 
-                                      id="deskripsi" name="deskripsi" rows="4">{{ old('deskripsi', $media->deskripsi) }}</textarea>
-                            @error('deskripsi')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
+                    <!-- Tipe -->
+                    <div>
+                        <label for="tipe" class="block text-sm font-medium text-gray-700 mb-2">Tipe <span
+                                class="text-red-500">*</span></label>
+                        <select id="tipe" name="tipe"
+                            class="w-full px-4 py-3 border rounded-lg @error('tipe') border-red-500 @enderror" required>
+                            <option value="">Pilih tipe</option>
+                            <option value="Foto" {{ old('tipe', $media->tipe) == 'Foto' ? 'selected' : '' }}>Foto</option>
+                            <option value="Video" {{ old('tipe', $media->tipe) == 'Video' ? 'selected' : '' }}>Video</option>
+                            <option value="Dokumen" {{ old('tipe', $media->tipe) == 'Dokumen' ? 'selected' : '' }}>Dokumen
+                            </option>
+                        </select>
+                        @error('tipe')
+                            <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
+                        @enderror
+                    </div>
 
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label for="kategori" class="form-label">Kategori</label>
-                                    <select class="form-select @error('kategori') is-invalid @enderror" id="kategori" name="kategori">
-                                        <option value="">Pilih Kategori</option>
-                                        <option value="kegiatan" {{ old('kategori', $media->kategori) == 'kegiatan' ? 'selected' : '' }}>Kegiatan</option>
-                                        <option value="pembangunan" {{ old('kategori', $media->kategori) == 'pembangunan' ? 'selected' : '' }}>Pembangunan</option>
-                                        <option value="budaya" {{ old('kategori', $media->kategori) == 'budaya' ? 'selected' : '' }}>Budaya</option>
-                                        <option value="sosial" {{ old('kategori', $media->kategori) == 'sosial' ? 'selected' : '' }}>Sosial</option>
-                                        <option value="ekonomi" {{ old('kategori', $media->kategori) == 'ekonomi' ? 'selected' : '' }}>Ekonomi</option>
-                                        <option value="pendidikan" {{ old('kategori', $media->kategori) == 'pendidikan' ? 'selected' : '' }}>Pendidikan</option>
-                                        <option value="kesehatan" {{ old('kategori', $media->kategori) == 'kesehatan' ? 'selected' : '' }}>Kesehatan</option>
-                                        <option value="lainnya" {{ old('kategori', $media->kategori) == 'lainnya' ? 'selected' : '' }}>Lainnya</option>
-                                    </select>
-                                    @error('kategori')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label for="tanggal" class="form-label">Tanggal <span class="text-danger">*</span></label>
-                                    <input type="date" class="form-control @error('tanggal') is-invalid @enderror" 
-                                           id="tanggal" name="tanggal" 
-                                           value="{{ old('tanggal', $media->tanggal ? $media->tanggal->format('Y-m-d') : '') }}" required>
-                                    @error('tanggal')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label for="file" class="form-label">File Media</label>
-                                    <input type="file" class="form-control @error('file') is-invalid @enderror" 
-                                           id="file" name="file" accept="image/*,video/*,.pdf,.doc,.docx">
-                                    <small class="text-muted">Kosongkan jika tidak ingin mengubah file. Format: JPG, PNG, MP4, PDF, DOC (Max: 10MB)</small>
-                                    @error('file')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label for="status" class="form-label">Status <span class="text-danger">*</span></label>
-                                    <select class="form-select @error('status') is-invalid @enderror" id="status" name="status" required>
-                                        <option value="aktif" {{ old('status', $media->status) == 'aktif' ? 'selected' : '' }}>Aktif</option>
-                                        <option value="tidak_aktif" {{ old('status', $media->status) == 'tidak_aktif' ? 'selected' : '' }}>Tidak Aktif</option>
-                                    </select>
-                                    @error('status')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
-                        </div>
-
-                        @if($media->file_path)
-                        <div class="mb-3">
-                            <label class="form-label">File Saat Ini</label>
-                            <div class="border rounded p-3">
-                                @if($media->tipe == 'foto')
-                                    <img src="{{ Storage::url($media->file_path) }}" alt="{{ $media->judul }}" 
-                                         class="img-thumbnail" style="max-height: 200px;">
-                                @elseif($media->tipe == 'video')
-                                    <video controls style="max-height: 200px;">
-                                        <source src="{{ Storage::url($media->file_path) }}" type="video/mp4">
-                                        Browser Anda tidak mendukung video.
+                    <!-- File -->
+                    <div>
+                        @if($media->file)
+                            <label class="block text-sm font-medium text-gray-700 mb-2">File Saat Ini</label>
+                            <div class="border p-2 rounded mb-2 inline-block">
+                                @if($media->tipe === 'Foto')
+                                    <img src="{{ asset('storage/' . $media->file) }}" alt="{{ $media->nama }}"
+                                        class="max-h-52 w-full object-contain rounded">
+                                @elseif($media->tipe === 'Video')
+                                    <video controls class="max-h-52 rounded">
+                                        <source src="{{ asset('storage/' . $media->file) }}" type="video/mp4">
+                                        Browser tidak mendukung video.
                                     </video>
                                 @else
-                                    <div class="d-flex align-items-center">
-                                        <i class="fas fa-file-alt fa-2x text-primary me-2"></i>
+                                    <div class="flex items-center space-x-3 mb-2">
+                                        <i class="fas fa-file-alt text-4xl mr-2"></i>
                                         <div>
-                                            <strong>{{ basename($media->file_path) }}</strong><br>
-                                            <small class="text-muted">{{ $media->tipe }}</small>
+                                            <p class="font-semibold">{{ basename($media->file) }}</p>
+                                            <p class="text-xs text-gray-500">{{ $media->tipe }}</p>
                                         </div>
+                                    </div>
+                                    <div>
+                                        <a href="{{ asset('storage/' . $media->file) }}" target="_blank">Lihat File</a>
                                     </div>
                                 @endif
                             </div>
-                        </div>
                         @endif
+                        <label for="file" class="block text-sm font-medium text-gray-700 mb-2">File Media</label>
+                        <input type="file" id="file" name="file" accept="image/*,video/*,.pdf,.doc,.docx"
+                            class="block w-full text-sm text-gray-700 file:border file:border-gray-300 file:rounded-lg file:py-2 file:px-4 file:text-sm file:bg-white file:hover:bg-gray-50 @error('file') border-red-500 @enderror">
+                        <p class="text-xs text-gray-500 mt-1">Kosongkan jika tidak ingin mengubah file. Max 10MB.</p>
+                        @error('file')
+                            <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
+                        @enderror
+                    </div>
 
-                        <div class="mb-3">
-                            <label for="tags" class="form-label">Tags</label>
-                            <input type="text" class="form-control @error('tags') is-invalid @enderror" 
-                                   id="tags" name="tags" value="{{ old('tags', $media->tags) }}" 
-                                   placeholder="Pisahkan dengan koma (contoh: desa, kegiatan, pembangunan)">
-                            @error('tags')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-                        <div class="d-flex justify-content-between">
-                            <a href="{{ route('admin.media.index') }}" class="btn btn-secondary">
-                                <i class="fas fa-arrow-left me-1"></i> Kembali
-                            </a>
-                            <button type="submit" class="btn btn-primary">
-                                <i class="fas fa-save me-1"></i> Simpan Perubahan
-                            </button>
-                        </div>
-                    </form>
+                    <!-- Deskripsi -->
+                    <div>
+                        <label for="deskripsi" class="block text-sm font-medium text-gray-700 mb-2">Deskripsi</label>
+                        <textarea id="deskripsi" name="deskripsi" rows="4"
+                            class="w-full px-4 py-3 border rounded-lg @error('deskripsi') border-red-500 @enderror"
+                            placeholder="Deskripsikan media ini...">{{ old('deskripsi', $media->deskripsi) }}</textarea>
+                        @error('deskripsi')
+                            <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
+                        @enderror
+                    </div>
                 </div>
-            </div>
+
+                <!-- Buttons -->
+                <div class="flex justify-end gap-3 pt-4">
+                    <a href="{{ route('admin.media.index') }}"
+                        class="inline-flex items-center px-6 py-3 border border-gray-300 rounded-lg text-gray-700 font-medium hover:bg-gray-50 transition">
+                        <i class="fas fa-arrow-left mr-2"></i>Kembali
+                    </a>
+                    <button type="submit"
+                        class="inline-flex items-center px-6 py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition">
+                        <i class="fas fa-save mr-2"></i>Simpan Perubahan
+                    </button>
+                </div>
+            </form>
         </div>
     </div>
-</div>
 @endsection
