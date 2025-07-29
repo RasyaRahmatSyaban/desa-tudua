@@ -18,9 +18,7 @@ class DanaMasukController extends Controller
     {
         $request->validate([
             'search' => 'nullable|string|max:100',
-        ]);
-
-        $hasFilter = $request->filled('search');
+        ]);        
 
         $hasFilter = $request->filled('search') || $request->filled('bulan') || $request->filled('tahun');
 
