@@ -1,6 +1,8 @@
 @extends('layouts.admin')
 
 @section('title', 'Upload Media')
+@section('page-title', 'Upload Media')
+@section('page-description', 'Tambah media')
 
 @section('content')
 <div class="container-fluid">

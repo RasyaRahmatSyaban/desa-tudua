@@ -1,6 +1,8 @@
 @extends('layouts.admin')
 
 @section('title', 'Tambah Dana Keluar')
+@section('page-title', 'Tambah Dana Keluar')
+@section('page-description', 'Tambah data dana keluar')
 
 @section('content')
 <div class="space-y-6">

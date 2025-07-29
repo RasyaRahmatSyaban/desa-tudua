@@ -14,9 +14,20 @@ class PelayananController extends Controller
         $this->pelayananService = $pelayananService;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $pelayanans = $this->pelayananService->getAll();
+        $request->validate([
+            'search' => 'nullable|string|max:100',
+            'kategori' => 'nullable|in:Dokumen Identitas,Kependudukan,Pencatatan Sipil',
+        ]);        
+
+        $hasFilter = $request->filled('search') || $request->filled('kategori');
+
+        if($hasFilter){
+            $pelayanans = $this->pelayananService->getFiltered($request);
+        }else{
+            $pelayanans = $this->pelayananService->getPaginated();
+        }
         $user = auth()->user();
         if($user){
             return view('admin.pelayanan.index', compact('pelayanans'));
@@ -30,7 +41,10 @@ class PelayananController extends Controller
         $item = $this->pelayananService->getById($id);
         return view('pelayanan.show', compact('item'));
     }
-
+    public function create()
+    {
+        return view('admin.pelayanan.create');   
+    }
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -41,9 +55,13 @@ class PelayananController extends Controller
         ]);
 
         $this->pelayananService->create($validated);
-        return redirect()->route('pelayanan.index')->with('success', 'Pelayanan berhasil ditambahkan');
+        return redirect()->route('admin.pelayanan.index')->with('success', 'Pelayanan berhasil ditambahkan');
     }
-
+    public function edit($id)
+    {
+        $pelayanan = $this->pelayananService->getById($id);
+        return view('admin.pelayanan.edit', compact('pelayanan'));   
+    }
     public function update(Request $request, $id)
     {
         $validated = $request->validate([
@@ -54,12 +72,12 @@ class PelayananController extends Controller
         ]);
 
         $this->pelayananService->update($id, $validated);
-        return redirect()->route('pelayanan.index')->with('success', 'Pelayanan berhasil diperbarui');
+        return redirect()->route('admin.pelayanan.index')->with('success', 'Pelayanan berhasil diperbarui');
     }
 
     public function destroy($id)
     {
         $this->pelayananService->delete($id);
-        return redirect()->route('pelayanan.index')->with('success', 'Pelayanan berhasil dihapus');
+        return redirect()->route('admin.pelayanan.index')->with('success', 'Pelayanan berhasil dihapus');
     }
 }

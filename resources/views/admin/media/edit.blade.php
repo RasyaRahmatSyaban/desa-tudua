@@ -1,6 +1,8 @@
 @extends('layouts.admin')
 
 @section('title', 'Edit Media')
+@section('page-title', 'Edit Media')
+@section('page-description', 'Ubah data media yang sudah ada')
 
 @section('content')
 <div class="container-fluid">

@@ -1,6 +1,8 @@
 @extends('layouts.admin')
 
 @section('title', 'Edit Kepala Keluarga')
+@section('page-title', 'Edit Kepala Keluarga')
+@section('page-description', 'Ubah data kepala keluarga yang sudah ada')
 
 @section('content')
 <div class="container-fluid">

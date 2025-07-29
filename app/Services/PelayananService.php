@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Pelayanan;
+use Illuminate\Http\Request;
 
 
 class PelayananService
@@ -15,7 +16,19 @@ class PelayananService
     {
         return Pelayanan::select('id', 'nama_layanan', 'kategori', 'deskripsi', 'link_google_form')->latest()->paginate($perPage);
     }
-
+    public function getFiltered(Request $request)
+    {
+        return Pelayanan::select('id', 'nama_layanan', 'kategori', 'deskripsi', 'link_google_form')
+            ->when($request->filled('search'), function ($query) use ($request) {
+                $query->where('nama_layanan', 'like', '%' . $request->search . '%')
+                    ->orWhere('kategori', 'like', '%' . $request->search . '%');
+            })->when($request->filled('kategori'), function ($query) use ($request) {
+                $query->where('kategori', $request->kategori);
+            })
+            ->latest()
+            ->paginate(10)
+            ->withQueryString();
+    }
     public function getById($id)
     {
         return Pelayanan::select('id', 'nama_layanan', 'kategori', 'deskripsi', 'link_google_form')->findOrFail($id);

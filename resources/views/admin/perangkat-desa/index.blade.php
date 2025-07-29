@@ -7,7 +7,6 @@
 @section('content')
 <div class="space-y-6">
 
-<div class="px-6">
     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6 flex-wrap">
         <!-- Kiri: Search dan filter -->
         <div class="flex flex-wrap items-center gap-4">
