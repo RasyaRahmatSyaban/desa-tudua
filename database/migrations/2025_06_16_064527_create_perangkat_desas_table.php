@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('perangkat_desa', function (Blueprint $table) {
             $table->id();
             $table->string('nama', 100);
-            $table->string('nip', 30);
+            $table->string('nip', 30)->unique();
             $table->string('jabatan', 100);
             $table->string('foto')->nullable();
             $table->timestamps();
