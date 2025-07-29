@@ -3,15 +3,7 @@
 @section('title', 'Edit Surat Keluar')
 
 @section('content')
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
-    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6">
-        <h1 class="text-2xl font-bold text-gray-900">Edit Surat Keluar</h1>
-        <a href="{{ route('admin.surat-keluar.index') }}"
-           class="inline-flex items-center px-6 py-2 border border-gray-300 rounded-lg text-gray-700 font-medium hover:bg-gray-50 transition">
-            <i class="fas fa-arrow-left mr-2"></i>Kembali
-        </a>
-    </div>
-
+<div class="space-y-6">
     <div class="bg-white rounded-lg shadow-md p-6">
         <h3 class="text-lg font-semibold text-gray-900 mb-6">Form Edit Surat Keluar</h3>
 
