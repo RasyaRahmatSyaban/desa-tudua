@@ -6,25 +6,6 @@
 
 @section('content')
 <div class="space-y-6">
-    <!-- <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6">
-        <h1 class="text-2xl font-bold text-gray-900 mb-4 sm:mb-0">Dana Masuk</h1>
-    </div> -->
-    
-    @if(session('success'))
-    <div class="bg-green-50 border border-green-200 text-green-800 px-4 py-3 rounded-lg mb-6 flex items-center">
-        <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
-            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
-        </svg>
-        {{ session('success') }}
-        <button type="button" class="ml-auto text-green-600 hover:text-green-800" onclick="this.parentElement.remove()">
-            <span class="sr-only">Close</span>
-            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
-            </svg>
-        </button>
-    </div>
-    @endif
-
     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 gap-4">
     <!-- Kiri: Search dan filter -->
     <div class="flex flex-wrap items-center gap-4">
@@ -39,11 +20,12 @@
         </form>
 
         <!-- Bulan -->
-        <form method="GET" action="{{ route('admin.dana-masuk.index') }}">
+        <form method="GET" action="{{ route('admin.dana-masuk.index') }}" class="flex items-center gap-4">
             <input type="hidden" name="search" value="{{ request('search') }}">
-            <select name="bulan" 
-                    onchange="this.form.submit()" 
-                    class="border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+
+            <!-- Filter Bulan -->
+            <select name="bulan" onchange="this.form.submit()"
+                class="border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent">
                 <option value="">Semua Bulan</option>
                 @for($i = 1; $i <= 12; $i++)
                     <option value="{{ $i }}" {{ request('bulan') == $i ? 'selected' : '' }}>
@@ -51,15 +33,10 @@
                     </option>
                 @endfor
             </select>
-        </form>
 
-        <!-- Tahun -->
-        <form method="GET" action="{{ route('admin.dana-masuk.index') }}">
-            <input type="hidden" name="search" value="{{ request('search') }}">
-            <input type="hidden" name="bulan" value="{{ request('bulan') }}">
-            <select name="tahun" 
-                    onchange="this.form.submit()" 
-                    class="border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+            <!-- Filter Tahun -->
+            <select name="tahun" onchange="this.form.submit()"
+                class="border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent">
                 <option value="">Semua Tahun</option>
                 @for($year = date('Y'); $year >= 2020; $year--)
                     <option value="{{ $year }}" {{ request('tahun') == $year ? 'selected' : '' }}>
@@ -84,8 +61,8 @@
                 <table class="min-w-full divide-y divide-gray-200">
                     <thead class="bg-gray-50">
                         <tr>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">No</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tanggal</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Bulan</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tahun</th>
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Sumber Dana</th>
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Jumlah</th>
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Keterangan</th>
@@ -93,10 +70,10 @@
                         </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">
-                        @forelse($danaMasuk as $index => $dana)
+                        @forelse($danaMasuk as $dana)
                             <tr class="hover:bg-gray-50">
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $danaMasuk->firstItem() + $index }}</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $dana->tanggal->format('d/m/Y') }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ $dana->nama_bulan }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ $dana->tahun }}</td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ $dana->sumber }}</td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-semibold text-green-600">Rp {{ number_format($dana->jumlah, 0, ',', '.') }}</td>
                                 <td class="px-6 py-4 text-sm text-gray-900">{{ Str::limit($dana->keterangan, 50) }}</td>
@@ -116,7 +93,7 @@
                                         <form action="{{ route('admin.dana-masuk.destroy', $dana->id) }}" method="POST" class="inline">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="inline-flex items-center px-2 py-1 bg-red-100 hover:bg-red-200 text-red-700 text-xs rounded transition-colors" onclick="return confirm('Yakin ingin menghapus?')">
+                                            <button type="submit" class="inline-flex items-center px-2 py-1 bg-red-200 hover:bg-red-300 text-red-700 text-xs rounded transition-colors" onclick="return confirm('Yakin ingin menghapus?')">
                                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
                                                 </svg>
