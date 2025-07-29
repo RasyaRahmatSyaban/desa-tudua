@@ -6,24 +6,6 @@
 
 @section('content')
 <div class="space-y-6">
-    <!-- <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6">
-        <h1 class="text-2xl font-bold text-gray-900 mb-4 sm:mb-0">Perangkat Desa</h1>
-    </div> -->
-    
-    @if(session('success'))
-    <div class="bg-green-50 border border-green-200 text-green-800 px-4 py-3 rounded-lg mb-6 flex items-center">
-        <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
-            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
-        </svg>
-        {{ session('success') }}
-        <button type="button" class="ml-auto text-green-600 hover:text-green-800" onclick="this.parentElement.remove()">
-            <span class="sr-only">Close</span>
-            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
-            </svg>
-        </button>
-    </div>
-    @endif
 
 <div class="px-6">
     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6 flex-wrap">
@@ -38,34 +20,6 @@
                        class="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
                 <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
             </form>
-
-            <!-- Jabatan -->
-            <form method="GET" action="{{ route('admin.perangkat-desa.index') }}">
-                <input type="hidden" name="search" value="{{ request('search') }}">
-                <select name="jabatan" 
-                        onchange="this.form.submit()" 
-                        class="border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                    <option value="">Semua Jabatan</option>
-                    <option value="Kepala Desa" {{ request('jabatan') == 'Kepala Desa' ? 'selected' : '' }}>Kepala Desa</option>
-                    <option value="Sekretaris Desa" {{ request('jabatan') == 'Sekretaris Desa' ? 'selected' : '' }}>Sekretaris Desa</option>
-                    <option value="Kepala Urusan" {{ request('jabatan') == 'Kepala Urusan' ? 'selected' : '' }}>Kepala Urusan</option>
-                    <option value="Kepala Dusun" {{ request('jabatan') == 'Kepala Dusun' ? 'selected' : '' }}>Kepala Dusun</option>
-                    <option value="Staf" {{ request('jabatan') == 'Staf' ? 'selected' : '' }}>Staf</option>
-                </select>
-            </form>
-
-            <!-- Status -->
-            <form method="GET" action="{{ route('admin.perangkat-desa.index') }}">
-                <input type="hidden" name="search" value="{{ request('search') }}">
-                <input type="hidden" name="jabatan" value="{{ request('jabatan') }}">
-                <select name="status" 
-                        onchange="this.form.submit()" 
-                        class="border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                    <option value="">Semua Status</option>
-                    <option value="aktif" {{ request('status') == 'aktif' ? 'selected' : '' }}>Aktif</option>
-                    <option value="non-aktif" {{ request('status') == 'non-aktif' ? 'selected' : '' }}>Non-Aktif</option>
-                </select>
-            </form>
         </div>
 
         <!-- Kanan: Optional Export Button -->
@@ -79,25 +33,21 @@
 
     
     <div class="bg-white shadow-sm rounded-lg border border-gray-200">
-
+        <div class="p-6">
             <div class="overflow-x-auto">
                 <table class="min-w-full divide-y divide-gray-200">
                     <thead class="bg-gray-50">
                         <tr>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">No</th>
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Foto</th>
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nama</th>
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Jabatan</th>
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">NIP</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Telepon</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Aksi</th>
                         </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">
-                        @forelse($perangkatDesa ?? [] as $index => $perangkat)
+                        @forelse($perangkatDesa as $perangkat)
                         <tr class="hover:bg-gray-50">
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $index + 1 }}</td>
                             <td class="px-6 py-4 whitespace-nowrap">
                                 @if($perangkat->foto)
                                     <img src="{{ asset('storage/' . $perangkat->foto) }}" alt="Foto" class="w-12 h-12 rounded-full object-cover">
@@ -112,14 +62,6 @@
                             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ $perangkat->nama }}</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $perangkat->jabatan }}</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $perangkat->nip ?? '-' }}</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $perangkat->telepon ?? '-' }}</td>
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                @if($perangkat->status == 'aktif')
-                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">Aktif</span>
-                                @else
-                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">Non-Aktif</span>
-                                @endif
-                            </td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                                 <div class="flex space-x-2">
                                     <a href="{{ route('admin.perangkat-desa.show', $perangkat->id) }}" class="inline-flex items-center px-2 py-1 bg-blue-100 hover:bg-blue-200 text-blue-700 text-xs rounded transition-colors">
@@ -136,7 +78,7 @@
                                     <form action="{{ route('admin.perangkat-desa.destroy', $perangkat->id) }}" method="POST" class="inline">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="inline-flex items-center px-2 py-1 bg-red-100 hover:bg-red-200 text-red-700 text-xs rounded transition-colors" onclick="return confirm('Yakin ingin menghapus?')">
+                                        <button type="submit" class="inline-flex items-center px-2 py-1 bg-red-200 hover:bg-red-300 text-red-700 text-xs rounded transition-colors" onclick="return confirm('Yakin ingin menghapus?')">
                                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
                                             </svg>
@@ -158,7 +100,6 @@
                     </tbody>
                 </table>
             </div>
-
             <div class="flex items-center justify-between mt-6">
             <div class="text-sm text-gray-700">
                 Menampilkan {{ $perangkatDesa->firstItem() ?? 0 }} sampai {{ $perangkatDesa->lastItem() ?? 0 }} 
