@@ -24,9 +24,6 @@ class SuratMasukService
                     ->orWhere('pengirim', 'like', '%' . $request->search . '%')
                     ->orWhere('perihal', 'like', '%' . $request->search . '%');
             })
-            ->when($request->filled('status'), function ($query) use ($request) {
-                $query->where('status', $request->status);
-            })
             ->latest()
             ->paginate(10)
             ->withQueryString();
