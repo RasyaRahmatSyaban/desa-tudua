@@ -76,18 +76,13 @@
                         Lihat Semua <i class="fas fa-arrow-right ml-1"></i>
                     </a>
                 </div>
-                <div class="relative pointer-events-none">
-                    {{-- Tombol Geser Kiri --}}
-                    <button type="button" onclick="scroll('beritaContainer', 'left')"
-                        class="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white p-2 rounded-full shadow hover:bg-gray-100 pointer-events-auto">
-                        <i class="fas fa-chevron-left"></i>
-                    </button>
 
+                <div class="relative">
                     {{-- Kontainer Berita --}}
-                    <div id="beritaContainer" class="flex space-x-4 overflow-hidden scroll-smooth px-8">
+                    <div id="beritaContainer" class="flex space-x-4 overflow-hidden scroll-smooth px-1 pb-2">
                         @forelse($berita as $b)
                             <div
-                                class="min-w-[220px] bg-white rounded-xl shadow hover:shadow-md transition-shadow duration-300">
+                                class="min-w-[220px] bg-white rounded-xl shadow hover:shadow-md transition-shadow duration-300 mb-2">
                                 <img src="{{ asset('storage/' . $b->foto) }}" alt="Thumbnail Berita"
                                     class="w-full h-32 object-cover rounded-t-xl">
                                 <div class="p-4">
@@ -104,14 +99,20 @@
                         @endforelse
                     </div>
 
-                    {{-- Tombol Geser Kanan --}}
-                    <button type="button" onclick="scroll('beritaContainer', 'right')"
-                        class="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white p-2 rounded-full shadow hover:bg-gray-100 pointer-events-auto">
-                        <i class="fas fa-chevron-right"></i>
-                    </button>
+                    {{-- Tombol Scroll di bawah --}}
+                    <div class="flex justify-center mt-4 space-x-4">
+                        <button type="button" onclick="scrollContainer('beritaContainer', 'left')"
+                            class="bg-white p-2 rounded-full shadow hover:bg-gray-100">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <button type="button" onclick="scrollContainer('beritaContainer', 'right')"
+                            class="bg-white p-2 rounded-full shadow hover:bg-gray-100">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
                 </div>
-
             </div>
+
 
             <!-- Recent Pengumuman -->
             <div class="card bg-white rounded-lg p-6">
@@ -122,45 +123,43 @@
                         Lihat Semua <i class="fas fa-arrow-right ml-1"></i>
                     </a>
                 </div>
-                <div class="relative pointer-events-none">
-                    {{-- Tombol Geser Kiri --}}
-                    <button type="button" onclick="scroll('pengumumanContainer', 'left')"
-                        class="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white p-2 rounded-full shadow hover:bg-gray-100 pointer-events-auto">
-                        <i class="fas fa-chevron-left"></i>
-                    </button>
+                <div class="relative">
+                    {{-- Container Scroll Horizontal --}}
+                    <div id="pengumumanContainer" class="overflow-hidden scroll-smooth whitespace-nowrap px-4 py-4">
 
-                    {{-- Kontainer Pengumuman --}}
-                    <div id="pengumumanContainer" class="flex space-x-4 overflow-hidden scroll-smooth px-8 py-4">
-                        @forelse($pengumuman as $p)
-                            <div
-                                class="min-w-[250px] bg-white rounded-xl shadow hover:shadow-md transition-shadow duration-300">
-                                <div class="flex items-center p-4">
-                                    <div
-                                        class="w-12 h-12 bg-yellow-100 text-yellow-600 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
-                                        <i class="fas fa-bullhorn text-lg"></i>
-                                    </div>
-                                    <div class="flex-1 min-w-0">
-                                        <p class="text-sm font-semibold text-gray-800 truncate" title="{{ $p->judul }}">
-                                            {{ $p->judul }}
-                                        </p>
+                        {{-- Grid 2 Baris dalam 1 Kolom Horizontal --}}
+                        <div class="grid grid-rows-2 auto-cols-max gap-4 grid-flow-col snap-x snap-mandatory">
+                            @foreach ($pengumuman as $item)
+                                <div class="w-64 p-2 bg-white rounded-xl shadow snap-start">
+                                    <div class="flex items-start space-x-4">
+                                        <div class="w-12 h-12 rounded-full bg-yellow-100 flex items-center justify-center mt-1">
+                                            <i class="fas fa-bullhorn text-yellow-600 text-xl"></i>
+                                        </div>
+                                        <div>
+                                            <span class="font-semibold text-gray-900 block">{{ $item->judul }}</span>
+                                            <span class="text-sm text-gray-500 block mt-1 leading-snug">
+                                                Berlaku hingga: <br>
+                                                {{ \Carbon\Carbon::parse($item->berlaku_hingga)->translatedFormat('d F Y') }}
+                                            </span>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        @empty
-                            <div class="text-center py-8 text-gray-500 w-full">
-                                <i class="fas fa-bullhorn text-4xl mb-2"></i>
-                                <p>Belum ada pengumuman</p>
-                            </div>
-                        @endforelse
+                            @endforeach
+                        </div>
                     </div>
 
-                    {{-- Tombol Geser Kanan --}}
-                    <button type="button" onclick="scroll('pengumumanContainer', 'right')"
-                        class="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white p-2 rounded-full shadow hover:bg-gray-100 pointer-events-auto">
-                        <i class="fas fa-chevron-right"></i>
-                    </button>
+                    {{-- Tombol Scroll Kiri-Kanan --}}
+                    <div class="flex justify-center mt-4 space-x-4">
+                        <button onclick="scrollContainer('pengumumanContainer', 'left')"
+                            class="bg-white p-2 rounded-full shadow hover:bg-gray-100">
+                            <i class="fas fa-chevron-left text-gray-600"></i>
+                        </button>
+                        <button onclick="scrollContainer('pengumumanContainer', 'right')"
+                            class="bg-white p-2 rounded-full shadow hover:bg-gray-100">
+                            <i class="fas fa-chevron-right text-gray-600"></i>
+                        </button>
+                    </div>
                 </div>
-
             </div>
         </div>
 
@@ -207,15 +206,13 @@
         </div>
     </div>
     <script>
-        function scroll(containerId, direction) {
+        function scrollContainer(containerId, direction) {
             const container = document.getElementById(containerId);
             const scrollAmount = 250;
 
             if (direction === 'left') {
                 container.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
-                console.log("kiri")
             } else {
-                console.log("kanan")
                 container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
             }
         }
