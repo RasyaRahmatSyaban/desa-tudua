@@ -31,6 +31,11 @@ class KepalaKeluargaController extends Controller
         return view('kepalakeluarga.show', compact('item'));
     }
 
+    public function create()
+    {
+        return view('admin.kepala-keluarga.create');   
+    }
+
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -41,7 +46,10 @@ class KepalaKeluargaController extends Controller
         $this->kepalaKeluargaService->create($validated);
         return redirect()->route('kepalakeluarga.index')->with('success', 'Data kepala keluarga ditambahkan');
     }
-
+    public function edit()
+    {
+        return view('admin.kepala-keluarga.edit');   
+    }
     public function update(Request $request, $id)
     {
         $validated = $request->validate([

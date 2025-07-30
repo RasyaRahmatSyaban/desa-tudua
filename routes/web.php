@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\DanaKeluarController;
@@ -54,11 +55,9 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 // Admin Routes Group
 Route::prefix('admin')->name('admin.')->middleware(['auth'])->group(function () {
-    
+
     // Dashboard
-    Route::get('/dashboard', function () {
-        return view('admin.dashboard');
-    })->name('dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     // Berita Routes
     Route::prefix('berita')->name('berita.')->group(function () {

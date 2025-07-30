@@ -25,13 +25,13 @@
                         @enderror
                     </div>
                     <div>
-                        <label for="tanggal_kirim" class="block text-sm font-medium text-gray-700 mb-2">
-                            Tanggal Kirim <span class="text-red-500">*</span>
+                        <label for="tanggal_terima" class="block text-sm font-medium text-gray-700 mb-2">
+                            Tanggal Terima<span class="text-red-500">*</span>
                         </label>
                         <input type="date" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" 
-                        @error('tanggal_kirim') border-red-500 @enderror 
-                               id="tanggal_kirim" name="tanggal_kirim" value="{{ old('tanggal_kirim', date('Y-m-d')) }}" required>
-                        @error('tanggal_kirim')
+                        @error('tanggal_terima') border-red-500 @enderror 
+                               id="tanggal_terima" name="tanggal_terima" value="{{ old('tanggal_terima') }}" required>
+                        @error('tanggal_terima')
                             <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                         @enderror
                     </div>
