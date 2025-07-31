@@ -113,8 +113,9 @@ class PendudukController extends Controller
     }
     public function update(Request $request, $id)
     {
-        $penduduk = Penduduk::with('kepalaKeluarga')->findOrFail($id);
-        $idKK = optional($penduduk->kepalaKeluarga)->id;
+        $penduduk = $this->pendudukService->getById($id);
+        $kepalaKeluarga = new KepalaKeluargaService()->getByNik($penduduk->nik);
+        $idKK = optional($kepalaKeluarga)->id;
         $validated = $request->validate([
             'nama' => 'required|string|max:100',
             'nik' => 'required|string|max:16|unique:penduduk,nik,' . $id,
