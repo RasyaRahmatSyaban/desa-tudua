@@ -22,7 +22,7 @@ class KepalaKeluargaService
     }
     public function getByNik($nik)
     {
-        return KepalaKeluarga::select('id', 'nama', 'nik', 'nomor_kk')->findOrFail($nik);
+        return KepalaKeluarga::select('id', 'nama', 'nik', 'nomor_kk')->where('nik', $nik)->first();
     }
     public function create($data)
     {

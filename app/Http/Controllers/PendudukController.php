@@ -25,10 +25,10 @@ class PendudukController extends Controller
         ]);
 
         $hasFilter = $request->filled('search') || $request->filled('jenis_kelamin');
-        
-        if($hasFilter){
+
+        if ($hasFilter) {
             $penduduk = $this->pendudukService->getFiltered($request);
-        }else{
+        } else {
             $penduduk = $this->pendudukService->getPaginated();
         }
 
@@ -41,9 +41,9 @@ class PendudukController extends Controller
         $totalKepalaKeluarga = KepalaKeluarga::count();
 
         $user = auth()->user();
-        if($user){
-            return view('admin.penduduk.index', compact('penduduk', 'kepalaKeluargaByNik','totalPenduduk', 'totalLakiLaki', 'totalPerempuan', 'totalKepalaKeluarga'));
-        }else{            
+        if ($user) {
+            return view('admin.penduduk.index', compact('penduduk', 'kepalaKeluargaByNik', 'totalPenduduk', 'totalLakiLaki', 'totalPerempuan', 'totalKepalaKeluarga'));
+        } else {
             return view('penduduk', compact('penduduk'));
         }
     }
@@ -57,7 +57,7 @@ class PendudukController extends Controller
     {
         $kepalaKeluarga = new KepalaKeluargaService();
         $listKepalaKeluarga = $kepalaKeluarga->getAll();
-        return view('admin.penduduk.create', compact('listKepalaKeluarga'));   
+        return view('admin.penduduk.create', compact('listKepalaKeluarga'));
     }
     public function store(Request $request)
     {
@@ -76,7 +76,7 @@ class PendudukController extends Controller
 
         $this->pendudukService->create($validated);
 
-        if(!empty($validated['isKepalaKeluarga'])){
+        if (!empty($validated['isKepalaKeluarga'])) {
             $kepalaKeluargaSerice = new KepalaKeluargaService();
             $kepalaKeluargaSerice->create([
                 'nomor_kk' => $validated['nomorKK'],
@@ -91,8 +91,25 @@ class PendudukController extends Controller
     {
         $penduduk = $this->pendudukService->getById($id);
         $kepalaKeluarga = new KepalaKeluargaService();
+        $nomor_kk = $kepalaKeluarga->getByNik($penduduk->nik);
+
+        $isKepalaKeluarga = false;
+        if (!$penduduk->id_kepalakeluarga && $nomor_kk) {
+            $isKepalaKeluarga = true;
+        }
+
+        // Handle nilai checkbox dari old input atau default
+        $isKepalaKeluargaOld = old('isKepalaKeluarga', $isKepalaKeluarga ? '1' : '');
+
         $listKepalaKeluarga = $kepalaKeluarga->getAll();
-        return view('admin.penduduk.edit', compact('penduduk', 'listKepalaKeluarga'));   
+
+        return view('admin.penduduk.edit', compact(
+            'penduduk',
+            'listKepalaKeluarga',
+            'isKepalaKeluarga',
+            'nomor_kk',
+            'isKepalaKeluargaOld'
+        ));
     }
     public function update(Request $request, $id)
     {

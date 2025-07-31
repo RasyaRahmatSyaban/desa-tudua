@@ -115,13 +115,12 @@
 
                     <!-- Dropdown Pilih kepala -->
                     <div>
-                        <div id="kepalaKeluargaSelectWrapper" style="{{ old('isKepalaKeluarga') ? 'display:none;' : '' }}">
+                        <div id="kepalaKeluargaSelectWrapper" style="{{ $isKepalaKeluargaOld ? 'display:none;' : '' }}">
                             <label for="id_kepalakeluarga" class="block text-sm font-medium text-gray-700 mb-2">
                                 Kepala Keluarga <span class="text-red-500">*</span>
                             </label>
                             <select name="id_kepalakeluarga" id="id_kepalakeluarga"
-                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                                @error('id_kepalakeluarga') border-red-500 @enderror>
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
                                 <option value="" class="text-gray-400">Pilih Kepala Keluarga</option>
                                 @foreach($listKepalaKeluarga as $k)
                                     <option value="{{ $k->id }}" {{ old('id_kepalakeluarga', $penduduk->id_kepalakeluarga) == $k->id ? 'selected' : '' }} class="text-gray-700 py-2">
@@ -135,14 +134,12 @@
                         </div>
 
                         <!-- Nomor KK -->
-                        <div id="nomorKKSelectWrapper" style="{{ old('isKepalaKeluarga') ? '' : 'display:none;' }}">
+                        <div id="nomorKKSelectWrapper" style="{{ $isKepalaKeluargaOld ? '' : 'display:none;' }}">
                             <label for="nomorKK" class="block text-sm font-medium text-gray-700 mb-2">
                                 Nomor Kartu Keluarga <span class="text-red-500">*</span>
                             </label>
-                            <input type="text" id="nomorKK" name="nomorKK"
-                                value="{{ old('nomorKK', $penduduk->kepalaKeluarga->nomor_kk) }}"
+                            <input type="text" id="nomorKK" name="nomorKK" value="{{ old('nomorKK', $nomor_kk->nomor_kk ?? '') }}"
                                 class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                                @error('nomorKK') border-red-500 @enderror
                                 placeholder="Masukkan Nomor Kartu Keluarga (16 digit)" maxlength="16" required>
                             @error('nomorKK')
                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
@@ -153,7 +150,8 @@
                         <div class="mt-4">
                             <label class="flex items-center space-x-2">
                                 <input type="checkbox" name="isKepalaKeluarga" id="isKepalaKeluarga" value="1"
-                                    class="h-5 w-5 text-blue-600 border-gray-300 rounded focus:ring-blue-500" {{ old('isKepalaKeluarga') ? 'checked' : '' }}>
+                                    class="h-5 w-5 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+                                    {{ $isKepalaKeluargaOld ? 'checked' : '' }}>
                                 <span class="text-sm text-gray-700">Kepala Keluarga</span>
                             </label>
                             @error('isKepalaKeluarga')
