@@ -68,7 +68,9 @@
                     <div class="p-4 space-y-2">
                         <h3 class="font-semibold text-sm">{{ $media->nama }}</h3>
                         <div class="flex items-center">
-                            <p class="text-sm text-gray-500 flex-grow">{{ Str::limit($media->deskripsi, 80) }}</p>
+                            <p class="text-sm text-gray-500 flex-grow truncate mr-1">
+                                {{ Str::limit($media->deskripsi, 80) }}
+                            </p>
                             <div class="flex gap-2 shrink-0">
                                 <a href="{{ asset('storage/' . $media->file) }}" target="_blank"
                                     class="text-sm text-blue-500 hover:underline">
@@ -83,8 +85,8 @@
                     </div>
 
                     <div class="p-3 border-t flex justify-start gap-4 items-center">
-                        <button type="button" data-modal-target="#viewModal{{ $media->id }}"
-                            class="text-blue-600 hover:text-blue-800">
+                        <button type="button" class="viewModal text-blue-600 hover:text-blue-800"
+                            data-type="{{ strtolower($media->tipe) }}" data-url="{{ asset('storage/' . $media->file) }}">
                             <i class="fas fa-eye"></i>
                         </button>
                         <a href="{{ route('admin.media.edit', $media->id) }}" class="text-yellow-600 hover:text-yellow-800">

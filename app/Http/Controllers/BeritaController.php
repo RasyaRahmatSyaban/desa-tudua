@@ -23,15 +23,15 @@ class BeritaController extends Controller
 
         $hasFilter = $request->filled('search') || $request->filled('status');
 
-        if($hasFilter){
+        if ($hasFilter) {
             $berita = $this->beritaService->getFiltered($request);
-        }else{
+        } else {
             $berita = $this->beritaService->getPaginated();
         }
         $user = auth()->user();
-        if($user){
+        if ($user) {
             return view('admin.berita.index', compact('berita'));
-        }else{
+        } else {
             return view('berita.index', compact('berita'));
         }
     }
@@ -44,7 +44,7 @@ class BeritaController extends Controller
 
     public function create()
     {
-        return view('admin.berita.create');   
+        return view('admin.berita.create');
     }
 
     public function store(Request $request)
@@ -57,7 +57,7 @@ class BeritaController extends Controller
             'penulis' => 'required|string|max:100',
             'status' => 'required|in:Draft,Dipublikasi',
         ]);
-        
+
         if ($request->hasFile('foto')) {
             $file = $request->file('foto');
             $originalName = $file->getClientOriginalName(); // nama asli file
@@ -72,12 +72,12 @@ class BeritaController extends Controller
     public function edit($id)
     {
         $berita = $this->beritaService->getById($id);
-        return view('admin.berita.edit', compact('berita'));   
+        return view('admin.berita.edit', compact('berita'));
     }
     public function update(Request $request, $id)
     {
         $validated = $request->validate([
-            'foto' => 'required|image|mimes:jpg,jpeg,png,webp|max:2048', // max 2MB
+            'foto' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048', // max 2MB
             'judul' => 'required|string|max:255',
             'isi' => 'required|string',
             'tanggal_terbit' => 'required|date',

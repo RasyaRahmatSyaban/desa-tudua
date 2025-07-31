@@ -1,58 +1,61 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title', 'Admin Dashboard') - Web Desa Digital</title>
-    
+
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-    
+
     <style>
         * {
             font-family: 'Poppins', sans-serif;
         }
-        
+
         .sidebar {
             background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
         }
-        
+
         .sidebar-item:hover {
             background: rgba(255, 255, 255, 0.1);
             transform: translateX(4px);
         }
-        
+
         .sidebar-item.active {
             background: rgba(255, 255, 255, 0.2);
             border-right: 4px solid #fbbf24;
         }
-        
+
         .card {
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
             transition: all 0.3s ease;
         }
-        
+
         .card:hover {
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
         }
-        
+
         .btn-primary {
             background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
         }
-        
+
         .btn-primary:hover {
             background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
         }
     </style>
 </head>
+
 <body class="bg-gray-50">
     <div class="flex h-screen">
         <!-- Sidebar -->
@@ -66,75 +69,87 @@
                     </div>
                 </div>
             </div>
-            
+
             <nav class="mt-8">
-                <a href="{{ route('admin.dashboard') }}" class="sidebar-item flex items-center px-6 py-3 text-white transition-all duration-200 {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
+                <a href="{{ route('admin.dashboard') }}"
+                    class="sidebar-item flex items-center px-6 py-3 text-white transition-all duration-200 {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
                     <i class="fas fa-tachometer-alt w-5"></i>
                     <span class="ml-3">Dashboard</span>
                 </a>
-                
-                <a href="{{ route('admin.berita.index') }}" class="sidebar-item flex items-center px-6 py-3 text-white transition-all duration-200 {{ request()->routeIs('admin.berita.*') ? 'active' : '' }}">
+
+                <a href="{{ route('admin.berita.index') }}"
+                    class="sidebar-item flex items-center px-6 py-3 text-white transition-all duration-200 {{ request()->routeIs('admin.berita.*') ? 'active' : '' }}">
                     <i class="fas fa-newspaper w-5"></i>
                     <span class="ml-3">Berita</span>
                 </a>
-                
-                <a href="{{ route('admin.pengumuman.index') }}" class="sidebar-item flex items-center px-6 py-3 text-white transition-all duration-200 {{ request()->routeIs('admin.pengumuman.*') ? 'active' : '' }}">
+
+                <a href="{{ route('admin.pengumuman.index') }}"
+                    class="sidebar-item flex items-center px-6 py-3 text-white transition-all duration-200 {{ request()->routeIs('admin.pengumuman.*') ? 'active' : '' }}">
                     <i class="fas fa-bullhorn w-5"></i>
                     <span class="ml-3">Pengumuman</span>
                 </a>
-                
-                <a href="{{ route('admin.penduduk.index') }}" class="sidebar-item flex items-center px-6 py-3 text-white transition-all duration-200 {{ request()->routeIs('admin.penduduk.*') ? 'active' : '' }}">
+
+                <a href="{{ route('admin.penduduk.index') }}"
+                    class="sidebar-item flex items-center px-6 py-3 text-white transition-all duration-200 {{ request()->routeIs('admin.penduduk.*') ? 'active' : '' }}">
                     <i class="fas fa-users w-5"></i>
                     <span class="ml-3">Penduduk</span>
                 </a>
-                
-                <a href="{{ route('admin.surat-masuk.index') }}" class="sidebar-item flex items-center px-6 py-3 text-white transition-all duration-200 {{ request()->routeIs('admin.surat-masuk.*') ? 'active' : '' }}">
+
+                <a href="{{ route('admin.surat-masuk.index') }}"
+                    class="sidebar-item flex items-center px-6 py-3 text-white transition-all duration-200 {{ request()->routeIs('admin.surat-masuk.*') ? 'active' : '' }}">
                     <i class="fas fa-inbox w-5"></i>
                     <span class="ml-3">Surat Masuk</span>
                 </a>
-                
-                <a href="{{ route('admin.surat-keluar.index') }}" class="sidebar-item flex items-center px-6 py-3 text-white transition-all duration-200 {{ request()->routeIs('admin.surat-keluar.*') ? 'active' : '' }}">
+
+                <a href="{{ route('admin.surat-keluar.index') }}"
+                    class="sidebar-item flex items-center px-6 py-3 text-white transition-all duration-200 {{ request()->routeIs('admin.surat-keluar.*') ? 'active' : '' }}">
                     <i class="fas fa-paper-plane w-5"></i>
                     <span class="ml-3">Surat Keluar</span>
                 </a>
-                
-                <a href="{{ route('admin.dana-masuk.index') }}" class="sidebar-item flex items-center px-6 py-3 text-white transition-all duration-200 {{ request()->routeIs('admin.dana-masuk.*') ? 'active' : '' }}">
+
+                <a href="{{ route('admin.dana-masuk.index') }}"
+                    class="sidebar-item flex items-center px-6 py-3 text-white transition-all duration-200 {{ request()->routeIs('admin.dana-masuk.*') ? 'active' : '' }}">
                     <i class="fas fa-arrow-down text-green-400 w-5"></i>
                     <span class="ml-3">Dana Masuk</span>
                 </a>
-                
-                <a href="{{ route('admin.dana-keluar.index') }}" class="sidebar-item flex items-center px-6 py-3 text-white transition-all duration-200 {{ request()->routeIs('admin.dana-keluar.*') ? 'active' : '' }}">
+
+                <a href="{{ route('admin.dana-keluar.index') }}"
+                    class="sidebar-item flex items-center px-6 py-3 text-white transition-all duration-200 {{ request()->routeIs('admin.dana-keluar.*') ? 'active' : '' }}">
                     <i class="fas fa-arrow-up text-red-400 w-5"></i>
                     <span class="ml-3">Dana Keluar</span>
                 </a>
-                
-                <a href="{{ route('admin.perangkat-desa.index') }}" class="sidebar-item flex items-center px-6 py-3 text-white transition-all duration-200 {{ request()->routeIs('admin.perangkat-desa.*') ? 'active' : '' }}">
+
+                <a href="{{ route('admin.perangkat-desa.index') }}"
+                    class="sidebar-item flex items-center px-6 py-3 text-white transition-all duration-200 {{ request()->routeIs('admin.perangkat-desa.*') ? 'active' : '' }}">
                     <i class="fas fa-user-cog w-5"></i>
                     <span class="ml-3">Perangkat Desa</span>
                 </a>
-                
-                <a href="{{ route('admin.pelayanan.index') }}" class="sidebar-item flex items-center px-6 py-3 text-white transition-all duration-200 {{ request()->routeIs('admin.pelayanan.*') ? 'active' : '' }}">
+
+                <a href="{{ route('admin.pelayanan.index') }}"
+                    class="sidebar-item flex items-center px-6 py-3 text-white transition-all duration-200 {{ request()->routeIs('admin.pelayanan.*') ? 'active' : '' }}">
                     <i class="fas fa-concierge-bell w-5"></i>
                     <span class="ml-3">Pelayanan</span>
                 </a>
-                
-                <a href="{{ route('admin.media.index') }}" class="sidebar-item flex items-center px-6 py-3 text-white transition-all duration-200 {{ request()->routeIs('admin.media.*') ? 'active' : '' }}">
+
+                <a href="{{ route('admin.media.index') }}"
+                    class="sidebar-item flex items-center px-6 py-3 text-white transition-all duration-200 {{ request()->routeIs('admin.media.*') ? 'active' : '' }}">
                     <i class="fas fa-photo-video w-5"></i>
                     <span class="ml-3">Media</span>
                 </a>
             </nav>
-            
+
             <div class="absolute bottom-0 w-64 p-6">
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
-                    <button type="submit" class="sidebar-item flex items-center px-6 py-3 text-white transition-all duration-200 w-full text-left">
+                    <button type="submit"
+                        class="sidebar-item flex items-center px-6 py-3 text-white transition-all duration-200 w-full text-left">
                         <i class="fas fa-sign-out-alt w-5"></i>
                         <span class="ml-3">Logout</span>
                     </button>
                 </form>
             </div>
         </div>
-        
+
         <!-- Main Content -->
         <div class="flex-1 flex flex-col overflow-hidden">
             <!-- Header -->
@@ -144,7 +159,7 @@
                         <h2 class="text-2xl font-semibold text-gray-800">@yield('page-title', 'Dashboard')</h2>
                         <p class="text-gray-600 text-sm">@yield('page-description', 'Kelola data desa dengan mudah')</p>
                     </div>
-                    
+
                     <div class="flex items-center space-x-4">
                         <div class="text-right">
                             <p class="text-sm font-medium text-gray-700">{{ Auth::user()->name ?? 'Administrator' }}</p>
@@ -156,54 +171,118 @@
                     </div>
                 </div>
             </header>
-            
+
             <!-- Content -->
             <main class="flex-1 overflow-y-auto p-6">
-                @if(session('success'))
-                    <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-6 flex items-center">
-                        <i class="fas fa-check-circle mr-2"></i>
-                        {{ session('success') }}
-                    </div>
-                @endif
-                
-                @if(session('error'))
-                    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-6 flex items-center">
-                        <i class="fas fa-exclamation-circle mr-2"></i>
-                        {{ session('error') }}
-                    </div>
-                @endif
-                
-                @if($errors->any())
-                    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-6">
-                        <div class="flex items-center mb-2">
-                            <i class="fas fa-exclamation-triangle mr-2"></i>
-                            <strong>Terjadi kesalahan:</strong>
-                        </div>
-                        <ul class="list-disc list-inside">
-                            @foreach($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
-                
                 @yield('content')
             </main>
         </div>
     </div>
-    
+
     <script>
-        // Auto hide flash messages
-        setTimeout(function() {
-            const alerts = document.querySelectorAll('.bg-green-100, .bg-red-100');
-            alerts.forEach(function(alert) {
-                alert.style.transition = 'opacity 0.5s';
-                alert.style.opacity = '0';
-                setTimeout(function() {
-                    alert.remove();
-                }, 500);
+        document.addEventListener('DOMContentLoaded', function () {
+
+            @if(session('success'))
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Berhasil!',
+                    text: '{{ session('success') }}',
+                    timer: 3000,
+                    showConfirmButton: true
+                });
+            @endif
+
+            @if(session('error'))
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Gagal!',
+                    text: '{{ session('error') }}',
+                    timer: 3000,
+                    showConfirmButton: false
+                });
+            @endif
+
+            @if($errors->any())
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Terjadi Kesalahan!',
+                    html: `{!! implode('<br>', $errors->all()) !!}`,
+                    confirmButtonText: 'Tutup'
+                });
+            @endif
+
+            const deleteForms = document.querySelectorAll('.delete-form');
+            deleteForms.forEach(form => {
+                form.addEventListener('submit', function (e) {
+                    e.preventDefault();
+                    Swal.fire({
+                        title: 'Yakin ingin menghapus?',
+                        text: "Data akan dihapus secara permanen.",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#e3342f',
+                        cancelButtonColor: '#6c757d',
+                        confirmButtonText: 'Ya, hapus',
+                        cancelButtonText: 'Batal'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            form.submit(); // Lanjutkan submit kalau dikonfirmasi
+                        }
+                    });
+                });
             });
-        }, 5000);
+
+            const viewButtons = document.querySelectorAll('.viewModal');
+            viewButtons.forEach(button => {
+                button.addEventListener('click', function (e) {
+                    e.preventDefault();
+
+                    const type = button.getAttribute('data-type');
+                    const url = button.getAttribute('data-url');
+
+                    if (type === 'foto') {
+                        Swal.fire({
+                            title: 'Pratinjau Gambar',
+                            imageUrl: url,
+                            imageHeight: 500,
+                            imageAlt: 'Gambar',
+                            confirmButtonText: 'Tutup'
+                        });
+                    } else if (type === 'video') {
+                        Swal.fire({
+                            title: 'Pratinjau Video',
+                            html: `
+                            <video controls style="max-width:100%; height: auto;">
+                                <source src="${url}" type="video/mp4">
+                                Browser Anda tidak mendukung video.
+                            </video>
+                        `,
+                            width: 600,
+                            padding: '1em',
+                            confirmButtonText: 'Tutup'
+                        });
+                    } else if (type === 'dokumen') {
+                        Swal.fire({
+                            title: 'Pratinjau Dokumen',
+                            html: `
+                            <iframe src="${url}" style="width:100%; height:500px;" frameborder="0"></iframe>
+                        `,
+                            width: 800,
+                            padding: '1em',
+                            confirmButtonText: 'Tutup'
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Tipe media tidak dikenali!',
+                            confirmButtonText: 'Tutup'
+                        });
+                    }
+                });
+            });
+
+        });
     </script>
 </body>
+
 </html>
