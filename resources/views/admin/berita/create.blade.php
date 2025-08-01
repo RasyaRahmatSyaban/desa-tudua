@@ -128,13 +128,8 @@
                 </a>
 
                 <div class="flex items-center space-x-4">
-                    <button type="submit" name="action" value="draft"
-                        class="px-6 py-3 border border-gray-300 rounded-lg text-gray-700 font-medium hover:bg-gray-50 transition-colors">
-                        <i class="fas fa-save mr-2"></i>Simpan Draft
-                    </button>
-                    <button type="submit" name="action" value="publish"
-                        class="btn-primary text-white px-6 py-3 rounded-lg font-medium">
-                        <i class="fas fa-paper-plane mr-2"></i>Publikasi
+                    <button type="submit" class="btn-primary text-white px-6 py-3 rounded-lg font-medium">
+                        <i class="fas fa-save mr-2"></i>Simpan Berita
                     </button>
                 </div>
             </div>

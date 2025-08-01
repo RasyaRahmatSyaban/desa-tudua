@@ -17,16 +17,12 @@
                     <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
                 </div>
 
-                <select name="status"
+                <select name="status" onchange="this.form.submit()"
                     class="border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent">
                     <option value="">Semua Status</option>
                     <option value="Aktif" {{ request('status') == 'Aktif' ? 'selected' : '' }}>Aktif</option>
                     <option value="Nonaktif" {{ request('status') == 'Nonaktif' ? 'selected' : '' }}>Nonaktif</option>
                 </select>
-
-                <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">
-                    Filter
-                </button>
             </form>
 
 
