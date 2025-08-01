@@ -35,6 +35,9 @@
                             <option value="Dokumen Identitas" {{ old('kategori', $pelayanan->kategori) == 'Dokumen Identitas' ? 'selected' : '' }}>Dokumen Identitas</option>
                             <option value="Kependudukan" {{ old('kategori', $pelayanan->kategori) == 'Kependudukan' ? 'selected' : '' }}>Kependudukan</option>
                             <option value="Pencatatan Sipil" {{ old('kategori', $pelayanan->kategori) == 'Pencatatan Sipil' ? 'selected' : '' }}>Pencatatan Sipil</option>
+                            <option value="Kesejahteraan Sosial" {{ old('kategori', $pelayanan->kategori) == 'Kesejahteraan Sosial' ? 'selected' : '' }}>Kesejahteraan Sosial</option>
+                            <option value="Pendidikan" {{ old('kategori', $pelayanan->kategori) == 'Pendidikan' ? 'selected' : '' }}>Pendidikan</option>
+                            <option value="Lainnya" {{ old('kategori', $pelayanan->kategori) == 'Lainnya' ? 'selected' : '' }}>Lainnya</option>
                         </select>
                         @error('kategori')
                             <p class="mt-1 text-sm text-red-600">{{ $message }}</p>

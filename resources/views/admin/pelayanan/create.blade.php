@@ -38,6 +38,12 @@
                                 Kependudukan</option>
                             <option value="Pencatatan Sipil" {{ old('kategori') == 'Pencatatan Sipil' ? 'selected' : '' }}>
                                 Pencatatan Sipil</option>
+                            <option value="Kesejahteraan Sosial" {{ old('kategori') == 'Kesejahteraan Sosial' ? 'selected' : '' }}>
+                                Kesejahteraan Sosial</option>
+                            <option value="Pendidikan" {{ old('kategori') == 'Pendidikan' ? 'selected' : '' }}>
+                                Pendidikan</option>
+                            <option value="Lainnya" {{ old('kategori') == 'Lainnya' ? 'selected' : '' }}>
+                                Lainnya</option>
                         </select>
                         @error('kategori')
                             <p class="mt-1 text-sm text-red-600">{{ $message }}</p>

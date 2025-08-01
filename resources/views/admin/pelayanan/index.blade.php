@@ -28,6 +28,12 @@
                     </option>
                     <option value="Pencatatan Sipil" {{ request('kategori') == 'Pencatatan Sipil' ? 'selected' : '' }}>
                         Pencatatan Sipil</option>
+                    <option value="Kesejahteraan Sosial" {{ request('kategori') == 'Kesejahteraan Sosial' ? 'selected' : '' }}>
+                        Kesejahteraan Sosial</option>
+                    <option value="Pendidikan" {{ request('kategori') == 'Pendidikan' ? 'selected' : '' }}>
+                        Pendidikan</option>
+                    <option value="Lainnya" {{ request('kategori') == 'Lainnya' ? 'selected' : '' }}>
+                        Lainnya</option>
                 </select>
                 </form>
             </div>

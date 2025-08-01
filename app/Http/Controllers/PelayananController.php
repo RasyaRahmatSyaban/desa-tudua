@@ -18,20 +18,20 @@ class PelayananController extends Controller
     {
         $request->validate([
             'search' => 'nullable|string|max:100',
-            'kategori' => 'nullable|in:Dokumen Identitas,Kependudukan,Pencatatan Sipil',
-        ]);        
+            'kategori' => 'nullable|in:Dokumen Identitas,Kependudukan,Pencatatan Sipil,Kesejahteraan Sosial,Pendidikan,Lainnya',
+        ]);
 
         $hasFilter = $request->filled('search') || $request->filled('kategori');
 
-        if($hasFilter){
+        if ($hasFilter) {
             $pelayanans = $this->pelayananService->getFiltered($request);
-        }else{
+        } else {
             $pelayanans = $this->pelayananService->getPaginated();
         }
         $user = auth()->user();
-        if($user){
+        if ($user) {
             return view('admin.pelayanan.index', compact('pelayanans'));
-        }else{
+        } else {
             return view('pelayanan', compact('pelayanans'));
         }
     }
@@ -43,13 +43,13 @@ class PelayananController extends Controller
     }
     public function create()
     {
-        return view('admin.pelayanan.create');   
+        return view('admin.pelayanan.create');
     }
     public function store(Request $request)
     {
         $validated = $request->validate([
             'nama_layanan' => 'required|string|max:255',
-            'kategori' => 'required|in:Dokumen Identitas,Kependudukan,Pencatatan Sipil',
+            'kategori' => 'required|in:Dokumen Identitas,Kependudukan,Pencatatan Sipil,Kesejahteraan Sosial,Pendidikan,Lainnya',
             'deskripsi' => 'required|string',
             'link_google_form' => 'required|string',
         ]);
@@ -60,13 +60,13 @@ class PelayananController extends Controller
     public function edit($id)
     {
         $pelayanan = $this->pelayananService->getById($id);
-        return view('admin.pelayanan.edit', compact('pelayanan'));   
+        return view('admin.pelayanan.edit', compact('pelayanan'));
     }
     public function update(Request $request, $id)
     {
         $validated = $request->validate([
             'nama_layanan' => 'required|string|max:255',
-            'kategori' => 'required|in:Dokumen Identitas,Kependudukan,Pencatatan Sipil',
+            'kategori' => 'required|in:Dokumen Identitas,Kependudukan,Pencatatan Sipil,Kesejahteraan Sosial,Pendidikan,Lainnya',
             'deskripsi' => 'required|string',
             'link_google_form' => 'required|string',
         ]);
