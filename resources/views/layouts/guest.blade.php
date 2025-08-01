@@ -187,12 +187,13 @@
                     <div class="flex items-center space-x-3 mb-4">
                         <i class="fas fa-building text-2xl text-blue-400"></i>
                         <div>
-                            <h3 class="text-xl font-bold">Desa Digital</h3>
-                            <p class="text-gray-400 text-sm">Kabupaten Example</p>
+                            <h3 class="text-xl font-bold">Desa Digital Tudua</h3>
+                            <p class="text-gray-400 text-sm">Kabupaten Morowali</p>
                         </div>
                     </div>
                     <p class="text-gray-300 mb-4">
-                        Website resmi desa untuk memberikan informasi terkini dan pelayanan terbaik kepada masyarakat.
+                        Website resmi desa tudua untuk memberikan informasi terkini dan pelayanan terbaik kepada
+                        masyarakat.
                         Kami berkomitmen untuk transparansi dan kemudahan akses informasi.
                     </p>
                     <div class="flex space-x-4">
@@ -231,20 +232,20 @@
                     <h4 class="text-lg font-semibold mb-4">Kontak</h4>
                     <div class="space-y-3">
                         <div class="flex items-start space-x-3">
-                            <i class="fas fa-map-marker-alt text-blue-400 mt-1"></i>
+                            <a href="https://maps.app.goo.gl/CqLQ2pw1Th8jsPT77" target="_blank"><i
+                                    class="fas fa-map-marker-alt text-blue-400 mt-1"></i></a>
                             <div>
-                                <p class="text-gray-300">Jl. Raya Desa No. 123</p>
-                                <p class="text-gray-300">Kec. Example, Kab. Example</p>
-                                <p class="text-gray-300">Provinsi Example 12345</p>
+                                <p class="text-gray-300">Jalan Melati No. 2, Dusun 3, Desa Tudua, Kecamatan Bungku
+                                    Tengah, Kabupaten Morowal</p>
                             </div>
                         </div>
                         <div class="flex items-center space-x-3">
                             <i class="fas fa-phone text-blue-400"></i>
-                            <p class="text-gray-300">(021) 1234-5678</p>
+                            <p class="text-gray-300">(xxx) xxxx</p>
                         </div>
                         <div class="flex items-center space-x-3">
                             <i class="fas fa-envelope text-blue-400"></i>
-                            <p class="text-gray-300">info@desa.example.id</p>
+                            <p class="text-gray-300">xxx@desa.example.id</p>
                         </div>
                     </div>
                 </div>
