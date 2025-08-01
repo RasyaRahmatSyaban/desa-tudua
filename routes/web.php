@@ -17,9 +17,7 @@ use App\Http\Controllers\SuratMasukController;
 use App\Http\Controllers\UserController;
 
 // Public Routes
-Route::get('/', function () {
-    return view('home');
-})->name('home');
+Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
 Route::get('/profil', function () {
     return view('profil');

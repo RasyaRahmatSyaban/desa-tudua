@@ -33,6 +33,11 @@ class PerangkatDesaService
     {
         return PerangkatDesa::select('id', 'nama', 'nip', 'jabatan', 'foto')->findOrFail($id);
     }
+    public function getKepalaDesa()
+    {
+        return PerangkatDesa::select('id', 'nama', 'nip', 'jabatan', 'foto')
+            ->where('jabatan', '=', 'kepala desa')->first();
+    }
     public function create($data)
     {
         return PerangkatDesa::create($data);
