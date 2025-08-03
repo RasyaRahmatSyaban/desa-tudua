@@ -60,7 +60,7 @@
                 <button class="w-3 h-3 rounded-full bg-white opacity-50 hover:opacity-100 transition-all"
                     data-index="1"></button>
                 <!-- <button class="w-3 h-3 rounded-full bg-white opacity-50 hover:opacity-100 transition-all"
-                                        data-index="2"></button> -->
+                                                    data-index="2"></button> -->
             </div>
         </div>
 
@@ -127,7 +127,9 @@
                 <!-- Gambar Kepala Desa -->
                 <div class="order-1 lg:order-2 text-center">
                     <img src="{{ asset('storage/' . $kepalaDesa->foto) }}" alt="{{$kepalaDesa->nama}}"
-                        class="rounded-xl shadow-xl w-full max-w-xs mx-auto">
+                        class="rounded-xl shadow-xl w-full max-w-xs mx-auto mb-3">
+                    <p class="font-semibold text-gray-900 text-lg">{{$kepalaDesa->nama}}</p>
+                    <p class="text-gray-600 text-sm">{{$kepalaDesa->jabatan}}</p>
                 </div>
 
             </div>

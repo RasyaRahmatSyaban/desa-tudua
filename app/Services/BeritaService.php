@@ -25,7 +25,11 @@ class BeritaService
             ->when($request->filled('status'), function ($query) use ($request) {
                 $query->where('status', $request->status);
             })
-            ->latest()
+            ->when($request->filled('sort') && $request->sort === 'Terlama', function ($query) {
+                $query->oldest('tanggal_terbit');
+            }, function ($query) {
+                $query->latest('tanggal_terbit');
+            })
             ->paginate(10)
             ->withQueryString();
     }

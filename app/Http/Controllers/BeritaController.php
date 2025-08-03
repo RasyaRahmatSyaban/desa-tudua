@@ -19,16 +19,23 @@ class BeritaController extends Controller
         $request->validate([
             'search' => 'nullable|string|max:100',
             'status' => 'nullable|in:Draft,Dipublikasi',
+            'sort' => 'nullable|in:Terbaru,Terlama',
         ]);
 
-        $hasFilter = $request->filled('search') || $request->filled('status');
+        $user = auth()->user();
+
+        if (!$user) {
+            $request->merge(['status' => 'Dipublikasi']);
+        }
+
+        $hasFilter = $request->filled('search') || $request->filled('status') || $request->filled('sort');
 
         if ($hasFilter) {
             $berita = $this->beritaService->getFiltered($request);
         } else {
             $berita = $this->beritaService->getPaginated();
         }
-        $user = auth()->user();
+
         if ($user) {
             return view('admin.berita.index', compact('berita'));
         } else {

@@ -5,7 +5,7 @@
 
 @section('content')
     <!-- Page Header -->
-    <section class="bg-gradient-to-r from-blue-600 to-blue-800 text-white py-16">
+    <section class="bg-gradient-to-r from-blue-600 to-blue-800 text-white pt-30 pb-20">
         <div class="max-w-7xl mx-auto px-4">
             <div class="text-center">
                 <h1 class="text-4xl font-bold mb-4">Berita Desa</h1>
@@ -19,37 +19,21 @@
     <!-- Filter & Search -->
     <section class="py-8 bg-white border-b">
         <div class="max-w-7xl mx-auto px-4">
-            <div class="flex flex-col md:flex-row items-center justify-between gap-4">
-                <!-- Search -->
-                <div class="relative flex-1 max-w-md">
-                    <input type="text" placeholder="Cari berita..."
-                        class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                        id="searchInput">
-                    <i class="fas fa-search absolute left-3 top-4 text-gray-400"></i>
-                </div>
-
-                <!-- Category Filter -->
+            <form method="GET" action="{{ route('berita.index') }}" class="flex items-center justify-between">
                 <div class="flex items-center space-x-4">
-                    <select
-                        class="border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                        id="categoryFilter">
-                        <option value="">Semua Kategori</option>
-                        <option value="umum">Umum</option>
-                        <option value="kegiatan">Kegiatan</option>
-                        <option value="pembangunan">Pembangunan</option>
-                        <option value="sosial">Sosial</option>
-                        <option value="ekonomi">Ekonomi</option>
-                    </select>
-
-                    <select
-                        class="border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                        id="sortFilter">
-                        <option value="newest">Terbaru</option>
-                        <option value="oldest">Terlama</option>
-                        <option value="popular">Terpopuler</option>
+                    <div class="relative">
+                        <input type="text" name="search" placeholder="Cari berita..." value="{{ request('search') }}"
+                            class="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                            id="searchInput">
+                        <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+                    </div>
+                    <select name="sort" onchange="this.form.submit()"
+                        class="border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                        <option value="Terbaru" {{ request('sort') == 'Terbaru' ? 'selected' : '' }}>Terbaru</option>
+                        <option value="Terlama" {{ request('sort') == 'Terlama' ? 'selected' : '' }}>Terlama</option>
                     </select>
                 </div>
-            </div>
+            </form>
         </div>
     </section>
 
@@ -97,26 +81,20 @@
 
             <!-- News Grid -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="newsGrid">
-                @forelse($berita ?? [] as $item)
-                    <article class="card-hover bg-white rounded-lg shadow-md overflow-hidden news-item"
-                        data-category="{{ $item->kategori }}" data-date="{{ $item->created_at->timestamp }}">
+                @forelse($berita as $item)
+                    <article class="card-hover bg-white rounded-lg shadow-md overflow-hidden news-item">
                         <div class="relative">
-                            <img src="/placeholder.svg?height=200&width=400" alt="{{ $item->judul }}"
+                            <img src="{{ asset('storage/' . $item->foto) }}" alt="{{ $item->judul }}"
                                 class="w-full h-48 object-cover">
-                            <div class="absolute top-4 left-4">
-                                <span class="px-2 py-1 bg-blue-600 text-white text-xs font-medium rounded-full">
-                                    {{ ucfirst($item->kategori ?? 'Umum') }}
-                                </span>
-                            </div>
                         </div>
 
                         <div class="p-6">
                             <div class="flex items-center text-sm text-gray-500 mb-3">
                                 <i class="fas fa-calendar mr-2"></i>
-                                {{ $item->created_at->format('d M Y') }}
-                                <span class="mx-2">•</span>
-                                <i class="fas fa-eye mr-2"></i>
-                                {{ $item->views ?? 0 }}
+                                {{ $item->tanggal_terbit->format('d M Y') }}
+                                <span class="mx-2">-</span>
+                                <i class="fas fa-pen mr-2"></i>
+                                {{ $item->penulis }}
                             </div>
 
                             <h3 class="text-lg font-semibold text-gray-900 mb-3 line-clamp-2">
@@ -124,7 +102,7 @@
                             </h3>
 
                             <p class="text-gray-600 mb-4 line-clamp-3">
-                                {{ Str::limit(strip_tags($item->konten), 120) }}
+                                {{ Str::limit(strip_tags($item->isi), 120) }}
                             </p>
 
                             <a href="{{ route('berita.show', $item->id) }}"
@@ -150,61 +128,4 @@
             @endif
         </div>
     </section>
-
-    <script>
-        // Search functionality
-        document.getElementById('searchInput').addEventListener('input', function (e) {
-            filterNews();
-        });
-
-        // Category filter
-        document.getElementById('categoryFilter').addEventListener('change', function (e) {
-            filterNews();
-        });
-
-        // Sort filter
-        document.getElementById('sortFilter').addEventListener('change', function (e) {
-            sortNews();
-        });
-
-        function filterNews() {
-            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
-            const selectedCategory = document.getElementById('categoryFilter').value;
-            const newsItems = document.querySelectorAll('.news-item');
-
-            newsItems.forEach(item => {
-                const title = item.querySelector('h3').textContent.toLowerCase();
-                const content = item.querySelector('p').textContent.toLowerCase();
-                const category = item.dataset.category;
-
-                const matchesSearch = title.includes(searchTerm) || content.includes(searchTerm);
-                const matchesCategory = !selectedCategory || category === selectedCategory;
-
-                if (matchesSearch && matchesCategory) {
-                    item.style.display = '';
-                } else {
-                    item.style.display = 'none';
-                }
-            });
-        }
-
-        function sortNews() {
-            const sortBy = document.getElementById('sortFilter').value;
-            const newsGrid = document.getElementById('newsGrid');
-            const newsItems = Array.from(document.querySelectorAll('.news-item'));
-
-            newsItems.sort((a, b) => {
-                if (sortBy === 'newest') {
-                    return parseInt(b.dataset.date) - parseInt(a.dataset.date);
-                } else if (sortBy === 'oldest') {
-                    return parseInt(a.dataset.date) - parseInt(b.dataset.date);
-                }
-                // Add more sorting options as needed
-                return 0;
-            });
-
-            // Re-append sorted items
-            newsItems.forEach(item => newsGrid.appendChild(item));
-        }
-    </script>
 @endsection
