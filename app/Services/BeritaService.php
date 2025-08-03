@@ -38,6 +38,14 @@ class BeritaService
     {
         return Berita::select('id', 'foto', 'judul', 'isi', 'tanggal_terbit', 'penulis', 'status', 'created_at')->findOrFail($id);
     }
+    public function getRandomBerita($currentId, $limit = 5)
+    {
+        return Berita::where('id', '!=', $currentId)
+            ->inRandomOrder()
+            ->limit($limit)
+            ->get();
+    }
+
     public function create($data)
     {
         return Berita::create($data);

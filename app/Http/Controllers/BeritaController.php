@@ -46,7 +46,9 @@ class BeritaController extends Controller
     public function show($id)
     {
         $berita = $this->beritaService->getById($id);
-        return view('berita.show', compact('berita'));
+        $beritaTerkait = $this->beritaService->getRandomBerita($id, 4);
+
+        return view('berita.show', compact('berita', 'beritaTerkait'));
     }
 
     public function create()
