@@ -11,7 +11,7 @@
             <div class="flex flex-wrap items-center gap-4">
                 <!-- Search -->
                 <form method="GET" action="{{ route('admin.dana-masuk.index') }}" class="relative">
-                    <input type="text" name="search" placeholder="Cari berdasarkan sumber atau keterangan..."
+                    <input type="text" name="search" placeholder="Cari berdasarkan sumber atau keterangan..." value="{{ request('search') }}"
                         value="{{ request('search') }}"
                         class="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
                     <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
