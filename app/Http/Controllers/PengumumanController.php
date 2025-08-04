@@ -23,16 +23,16 @@ class PengumumanController extends Controller
 
         $hasFilter = $request->filled('search') || $request->filled('status');
 
-        if($hasFilter){
+        if ($hasFilter) {
             $pengumuman = $this->pengumumanService->getFiltered($request);
-        }else{
+        } else {
             $pengumuman = $this->pengumumanService->getPaginated();
         }
         $user = auth()->user();
-        if($user){
+        if ($user) {
             return view('admin.pengumuman.index', compact('pengumuman'));
-        }else{            
-            return view('pengumuman.index', compact('pengumuman'));
+        } else {
+            return view('pengumuman', compact('pengumuman'));
         }
     }
 
@@ -43,7 +43,7 @@ class PengumumanController extends Controller
     }
     public function create()
     {
-        return view('admin.pengumuman.create');   
+        return view('admin.pengumuman.create');
     }
     public function store(Request $request)
     {
@@ -61,7 +61,7 @@ class PengumumanController extends Controller
     public function edit($id)
     {
         $pengumuman = $this->pengumumanService->getById($id);
-        return view('admin.pengumuman.edit', compact('pengumuman'));   
+        return view('admin.pengumuman.edit', compact('pengumuman'));
     }
     public function update(Request $request, $id)
     {

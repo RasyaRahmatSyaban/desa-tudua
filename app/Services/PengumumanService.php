@@ -10,16 +10,16 @@ class PengumumanService
 {
     public function getAll()
     {
-        return Pengumuman::select('id', 'judul', 'isi', 'status', 'berlaku_hingga')->get();
+        return Pengumuman::select('id', 'judul', 'isi', 'status', 'berlaku_hingga', 'created_at')->get();
     }
     public function getPaginated($perPage = 10)
     {
-        return Pengumuman::select('id', 'judul', 'isi', 'status', 'berlaku_hingga')->latest()->paginate($perPage);
+        return Pengumuman::select('id', 'judul', 'isi', 'status', 'berlaku_hingga', 'created_at')->latest()->paginate($perPage);
     }
 
     public function getFiltered(Request $request)
     {
-        return Pengumuman::select('id', 'judul', 'isi', 'status', 'berlaku_hingga')
+        return Pengumuman::select('id', 'judul', 'isi', 'status', 'berlaku_hingga', 'created_at')
             ->when($request->filled('search'), function ($query) use ($request) {
                 $query->where('judul', 'like', '%' . $request->search . '%');
             })
@@ -33,7 +33,7 @@ class PengumumanService
 
     public function getById($id)
     {
-        return Pengumuman::select('id', 'judul', 'isi', 'status', 'berlaku_hingga')->findOrFail($id);
+        return Pengumuman::select('id', 'judul', 'isi', 'status', 'berlaku_hingga', 'created_at')->findOrFail($id);
     }
     public function create($data)
     {
