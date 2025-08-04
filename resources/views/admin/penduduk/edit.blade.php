@@ -105,8 +105,6 @@
                             </option>
                             <option value="Buddha" {{ old('agama', $penduduk->agama) === 'Buddha' ? 'selected' : '' }}>Buddha
                             </option>
-                            <option value="Konghucu" {{ old('agama', $penduduk->agama) === 'Konghucu' ? 'selected' : '' }}>
-                                Konghucu</option>
                         </select>
                         @error('agama')
                             <p class="mt-1 text-sm text-red-600">{{ $message }}</p>

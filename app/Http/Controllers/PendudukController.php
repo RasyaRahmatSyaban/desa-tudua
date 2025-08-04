@@ -41,10 +41,75 @@ class PendudukController extends Controller
         $totalKepalaKeluarga = KepalaKeluarga::count();
 
         $user = auth()->user();
+
         if ($user) {
-            return view('admin.penduduk.index', compact('penduduk', 'kepalaKeluargaByNik', 'totalPenduduk', 'totalLakiLaki', 'totalPerempuan', 'totalKepalaKeluarga'));
+            return view('admin.penduduk.index', compact(
+                'penduduk',
+                'kepalaKeluargaByNik',
+                'totalPenduduk',
+                'totalLakiLaki',
+                'totalPerempuan',
+                'totalKepalaKeluarga'
+            ));
         } else {
-            return view('penduduk', compact('penduduk'));
+            $anak = $this->pendudukService->getCountByAgeRange(0, 11);
+            $remaja = $this->pendudukService->getCountByAgeRange(12, 17);
+            $dewasa = $this->pendudukService->getCountByAgeRange(18, 59);
+            $lansia = $this->pendudukService->getCountByAgeRange(60, 200);
+
+            // Hitung persentase otomatis
+            $ageGroups = [
+                [
+                    'label' => 'Anak-anak (0-11)',
+                    'count' => $anak,
+                    'color' => 'bg-blue-500',
+                ],
+                [
+                    'label' => 'Remaja (12-17)',
+                    'count' => $remaja,
+                    'color' => 'bg-yellow-500',
+                ],
+                [
+                    'label' => 'Dewasa (18-59)',
+                    'count' => $dewasa,
+                    'color' => 'bg-green-500',
+                ],
+                [
+                    'label' => 'Lansia (60+)',
+                    'count' => $lansia,
+                    'color' => 'bg-red-500',
+                ],
+            ];
+
+            foreach ($ageGroups as &$group) {
+                $group['percent'] = $totalPenduduk > 0 ? round(($group['count'] / $totalPenduduk) * 100, 1) : 0;
+            }
+
+            $persenLaki = $totalPenduduk > 0 ? round($totalLakiLaki / $totalPenduduk * 100, 1) : 0;
+            $persenPerempuan = $totalPenduduk > 0 ? round($totalPerempuan / $totalPenduduk * 100, 1) : 0;
+
+            $islam = $this->pendudukService->getCountByReligion('Islam');
+            $protestan = $this->pendudukService->getCountByReligion('Protestan');
+            $katolik = $this->pendudukService->getCountByReligion('Katolik');
+            $hindu = $this->pendudukService->getCountByReligion('Hindu');
+            $buddha = $this->pendudukService->getCountByReligion('Buddha');
+
+            return view('penduduk', compact(
+                'penduduk',
+                'kepalaKeluargaByNik',
+                'totalPenduduk',
+                'totalLakiLaki',
+                'totalPerempuan',
+                'totalKepalaKeluarga',
+                'persenLaki',
+                'persenPerempuan',
+                'ageGroups',
+                'islam',
+                'protestan',
+                'katolik',
+                'hindu',
+                'buddha'
+            ));
         }
     }
 
