@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DanaDesaController;
 use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BeritaController;
@@ -36,9 +37,7 @@ Route::get('/pengumuman', [PengumumanController::class, 'index'])->name('pengumu
 
 // Public Data Routes
 Route::get('/data-penduduk', [PendudukController::class, 'index'])->name('data-penduduk');
-Route::get('/dana-desa', function () {
-    return view('dana-desa');
-})->name('dana-desa');
+Route::get('/dana-desa', [DanaDesaController::class, 'index'])->name('dana-desa');
 
 // Public Pelayanan Routes
 // Route::get('/pelayanan', [PelayananController::class, 'index'])->name('pelayanan');
