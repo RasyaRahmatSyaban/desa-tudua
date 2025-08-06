@@ -18,7 +18,7 @@ class MediaController extends Controller
     {
         $request->validate([
             'search' => 'nullable|string|max:100',
-            'status' => 'nullable|in:Draft,Dipublikasi',
+            'tipe' => 'nullable|in:Foto,Video,Dokumen',
         ]);
 
         $hasFilter = $request->filled('search') || $request->filled('tipe');

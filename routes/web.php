@@ -38,7 +38,12 @@ Route::get('/arsip', [SuratDesaController::class, 'index'])->name('arsip');
 
 // Public Data Routes
 Route::get('/data-penduduk', [PendudukController::class, 'index'])->name('data-penduduk');
+
+// Public dana routes
 Route::get('/dana-desa', [DanaDesaController::class, 'index'])->name('dana-desa');
+
+// Public media routes
+Route::get('/media', [MediaController::class, 'index'])->name('media');
 
 // Public Pelayanan Routes
 Route::get('/pelayanan', [PelayananController::class, 'index'])->name('pelayanan');

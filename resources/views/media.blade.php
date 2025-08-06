@@ -17,7 +17,7 @@
     <!-- Filter & Search -->
     <section class="py-8 bg-white border-b">
         <div class="max-w-7xl mx-auto px-4">
-            <form method="GET" action="{{ route('media.index') }}"
+            <form method="GET" action="{{ route('media') }}"
                 class="flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div class="flex flex-1 items-center gap-4">
                     <div class="relative w-full">
@@ -25,12 +25,12 @@
                             class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent">
                         <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
                     </div>
-                    <select name="type" onchange="this.form.submit()"
+                    <select name="tipe" onchange="this.form.submit()"
                         class="border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500 focus:border-transparent">
                         <option value="">Semua</option>
-                        <option value="foto" {{ request('type') == 'foto' ? 'selected' : '' }}>Foto</option>
-                        <option value="video" {{ request('type') == 'video' ? 'selected' : '' }}>Video</option>
-                        <option value="dokumen" {{ request('type') == 'dokumen' ? 'selected' : '' }}>Dokumen</option>
+                        <option value="foto" {{ request('tipe') == 'foto' ? 'selected' : '' }}>Foto</option>
+                        <option value="video" {{ request('tipe') == 'video' ? 'selected' : '' }}>Video</option>
+                        <option value="dokumen" {{ request('tipe') == 'dokumen' ? 'selected' : '' }}>Dokumen</option>
                     </select>
                 </div>
             </form>
@@ -40,18 +40,18 @@
     <!-- Galeri Media -->
     <section class="py-12 bg-gray-50">
         <div class="max-w-7xl mx-auto px-4">
-            @forelse($media as $item)
+            @if($medias->count())
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                    @foreach($media as $item)
+                    @foreach($medias as $item)
                         <div class="bg-white rounded-lg shadow hover:shadow-lg overflow-hidden transition">
                             <div class="p-4">
-                                @if($item->tipe == 'foto')
+                                @if($item->tipe == 'Foto')
                                     <img src="{{ asset('storage/' . $item->file) }}" alt="{{ $item->nama }}"
                                         class="w-full h-48 object-cover rounded">
                                     <h3 class="text-lg font-semibold mt-4">{{ $item->nama }}</h3>
                                     <p class="text-sm text-gray-600 mt-1">{{ Str::limit($item->deskripsi, 100) }}</p>
 
-                                @elseif($item->tipe == 'video')
+                                @elseif($item->tipe == 'Video')
                                     <video controls class="w-full h-48 rounded">
                                         <source src="{{ asset('storage/' . $item->file) }}" type="video/mp4">
                                         Browser tidak mendukung pemutar video.
@@ -59,7 +59,7 @@
                                     <h3 class="text-lg font-semibold mt-4">{{ $item->nama }}</h3>
                                     <p class="text-sm text-gray-600 mt-1">{{ Str::limit($item->deskripsi, 100) }}</p>
 
-                                @elseif($item->tipe == 'dokumen')
+                                @elseif($item->tipe == 'Dokumen')
                                     <div class="flex flex-col items-center justify-center py-8">
                                         <div class="text-5xl mb-4">📄</div>
                                         <h3 class="text-lg font-semibold text-center">{{ $item->nama }}</h3>
@@ -76,18 +76,18 @@
                         </div>
                     @endforeach
                 </div>
-            @empty
+            @else
                 <div class="text-center py-16 text-gray-500">
                     <i class="fas fa-folder-open text-6xl mb-4"></i>
                     <h3 class="text-xl font-semibold mb-2">Belum ada media desa yang tersedia</h3>
                     <p>Media akan ditampilkan di sini ketika sudah tersedia.</p>
                 </div>
-            @endforelse
+            @endif
 
             <!-- Pagination -->
-            @if(isset($media) && $media->hasPages())
+            @if($medias->hasPages())
                 <div class="mt-12 flex justify-center">
-                    {{ $media->links() }}
+                    {{ $medias->links() }}
                 </div>
             @endif
         </div>

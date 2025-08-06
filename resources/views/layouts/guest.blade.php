@@ -125,6 +125,8 @@
                 <a href="{{ route('dana-desa') }}"
                     class="nav-link text-gray-700 font-medium {{ request()->routeIs('dana-desa') ? 'active' : '' }}">Dana
                     Desa</a>
+                <a href="{{ route('media') }}"
+                    class="nav-link text-gray-700 font-medium {{ request()->routeIs('media') ? 'active' : '' }}">Media</a>
                 <a href="{{ route('pelayanan') }}"
                     class="nav-link text-gray-700 font-medium {{ request()->routeIs('pelayanan') ? 'active' : '' }}">Pelayanan</a>
                 <a href="{{ route('login') }}" class="btn-primary text-white px-4 py-1 rounded-lg font-medium">
@@ -163,6 +165,7 @@
                 <a href="{{ route('data-penduduk') }}" class="block py-3 text-gray-700 font-medium border-b">Data
                     Penduduk</a>
                 <a href="{{ route('dana-desa') }}" class="block py-3 text-gray-700 font-medium border-b">Dana Desa</a>
+                <a href="{{ route('media') }}" class="block py-3 text-gray-700 font-medium border-b">Media</a>
                 <a href="{{ route('pelayanan') }}" class="block py-3 text-gray-700 font-medium border-b">Pelayanan</a>
                 <a href="{{ route('login') }}"
                     class="btn-primary text-white px-4 py-3 rounded-lg font-medium inline-block mt-4">
