@@ -16,17 +16,21 @@ class SuratKeluarService
     {
         return SuratKeluar::select('id', 'nomor_surat', 'penerima', 'perihal', 'tanggal_kirim', 'file')->latest()->paginate($perPage);
     }
-    public function getFiltered(Request $request)
+    public function getFiltered(Request $request, $paginate = true)
     {
-        return SuratKeluar::select('id', 'nomor_surat', 'penerima', 'perihal', 'tanggal_kirim', 'file')
+        $query = SuratKeluar::select('id', 'nomor_surat', 'penerima', 'perihal', 'tanggal_kirim', 'file')
             ->when($request->filled('search'), function ($query) use ($request) {
                 $query->where('nomor_surat', 'like', '%' . $request->search . '%')
                     ->orWhere('penerima', 'like', '%' . $request->search . '%')
                     ->orWhere('perihal', 'like', '%' . $request->search . '%');
             })
-            ->latest()
-            ->paginate(10)
-            ->withQueryString();
+            ->latest();
+
+        if ($paginate) {
+            return $query->paginate(10)->withQueryString();
+        }
+
+        return $query->get();
     }
 
     public function getById($id)

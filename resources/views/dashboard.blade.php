@@ -60,7 +60,7 @@
                 <button class="w-3 h-3 rounded-full bg-white opacity-50 hover:opacity-100 transition-all"
                     data-index="1"></button>
                 <!-- <button class="w-3 h-3 rounded-full bg-white opacity-50 hover:opacity-100 transition-all"
-                                                    data-index="2"></button> -->
+                                                        data-index="2"></button> -->
             </div>
         </div>
 
@@ -170,9 +170,6 @@
                     <p class="text-gray-600 mb-4">
                         Pengumuman penting dari pemerintah desa untuk masyarakat
                     </p>
-                    <a href="{{ route('pengumuman') }}" class="text-blue-600 font-medium hover:text-blue-800">
-                        Lihat Pengumuman <i class="fas fa-arrow-right ml-1"></i>
-                    </a>
                 </div>
 
                 <!-- Pelayanan -->

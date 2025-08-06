@@ -5,7 +5,7 @@
 
 @section('content')
     <!-- Header -->
-    <section class="bg-gradient-to-r from-indigo-600 to-indigo-800 text-white py-16">
+    <section class="bg-gradient-to-r from-indigo-600 to-indigo-800 text-white pt-24 pb-16">
         <div class="max-w-7xl mx-auto px-4 text-center">
             <h1 class="text-4xl font-bold mb-4">Surat Desa</h1>
             <p class="text-lg text-indigo-100">Daftar surat masuk dan keluar yang dikelola oleh kantor desa.</p>
@@ -15,27 +15,19 @@
     <!-- Filter & Search -->
     <section class="bg-white py-8 border-b">
         <div class="max-w-7xl mx-auto px-4">
-            <form method="GET" action="{{ route('surat.index') }}"
-                class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                <input type="text" name="nomor_surat" placeholder="Cari Nomor Surat" value="{{ request('nomor_surat') }}"
-                    class="border border-gray-300 rounded-lg px-4 py-2 w-full">
+            <form method="GET" action="{{ route('arsip') }}" class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-4">
+                <input type="text" name="search" placeholder="Cari Nomor, Pengirim, Penerima, atau Perihal Surat"
+                    value="{{ request('search') }}" class="border border-gray-300 rounded-lg px-4 py-2 w-full">
 
-                <input type="text" name="pengirim" placeholder="Cari Pengirim (Surat Masuk)"
-                    value="{{ request('pengirim') }}" class="border border-gray-300 rounded-lg px-4 py-2 w-full">
-
-                <input type="text" name="penerima" placeholder="Cari Penerima (Surat Keluar)"
-                    value="{{ request('penerima') }}" class="border border-gray-300 rounded-lg px-4 py-2 w-full">
-
-                <input type="text" name="perihal" placeholder="Cari Perihal" value="{{ request('perihal') }}"
-                    class="border border-gray-300 rounded-lg px-4 py-2 w-full">
-
-                <select name="jenis" class="border border-gray-300 rounded-lg px-4 py-2 w-full">
+                <select name="jenis" class="border border-gray-300 rounded-lg px-4 py-2 w-full"
+                    onchange="this.form.submit()">
                     <option value="">Semua Jenis</option>
                     <option value="masuk" {{ request('jenis') == 'masuk' ? 'selected' : '' }}>Surat Masuk</option>
                     <option value="keluar" {{ request('jenis') == 'keluar' ? 'selected' : '' }}>Surat Keluar</option>
                 </select>
 
-                <select name="sort" class="border border-gray-300 rounded-lg px-4 py-2 w-full">
+                <select name="sort" class="border border-gray-300 rounded-lg px-4 py-2 w-full"
+                    onchange="this.form.submit()">
                     <option value="terbaru" {{ request('sort') == 'terbaru' ? 'selected' : '' }}>Terbaru</option>
                     <option value="terlama" {{ request('sort') == 'terlama' ? 'selected' : '' }}>Terlama</option>
                 </select>
@@ -65,14 +57,14 @@
                                     </span>
                                     <strong>Pengirim:</strong> {{ $item->pengirim }} <br>
                                     <strong>Tanggal Terima:</strong>
-                                    {{ \Carbon\Carbon::parse($item->tanggal_terima)->translatedFormat('d F Y') }}
+                                    {{ $item->tanggal_terima->translatedFormat('d F Y') }}
                                 @else
                                     <span class="inline-block bg-blue-100 text-blue-700 text-xs px-2 py-1 rounded-full mr-2">
                                         Surat Keluar
                                     </span>
                                     <strong>Penerima:</strong> {{ $item->penerima }} <br>
                                     <strong>Tanggal Kirim:</strong>
-                                    {{ \Carbon\Carbon::parse($item->tanggal_kirim)->translatedFormat('d F Y') }}
+                                    {{ $item->tanggal_kirim->translatedFormat('d F Y') }}
                                 @endif
                             </p>
                             <p class="text-gray-700"><strong>Perihal:</strong> {{ $item->perihal }}</p>
@@ -95,7 +87,7 @@
 
             <!-- Pagination -->
             @if(isset($surat) && $surat->hasPages())
-                <div class="mt-12 flex justify-center">
+                <div class="mt-12 flex justify-center ">
                     {{ $surat->links() }}
                 </div>
             @endif

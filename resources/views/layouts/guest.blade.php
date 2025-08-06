@@ -117,17 +117,16 @@
                     Desa</a>
                 <a href="{{ route('berita.index') }}"
                     class="nav-link text-gray-700 font-medium {{ request()->routeIs('berita.index*') ? 'active' : '' }}">Berita</a>
-                <a href="{{ route('pengumuman') }}"
-                    class="nav-link text-gray-700 font-medium {{ request()->routeIs('pengumuman*') ? 'active' : '' }}">Pengumuman</a>
+                <a href="{{ route('arsip') }}"
+                    class="nav-link text-gray-700 font-medium {{ request()->routeIs('arsip*') ? 'active' : '' }}">Arsip</a>
                 <a href="{{ route('data-penduduk') }}"
                     class="nav-link text-gray-700 font-medium {{ request()->routeIs('data-penduduk') ? 'active' : '' }}">Data
                     Penduduk</a>
                 <a href="{{ route('dana-desa') }}"
                     class="nav-link text-gray-700 font-medium {{ request()->routeIs('dana-desa') ? 'active' : '' }}">Dana
                     Desa</a>
-                <a href="{{ route('kontak') }}"
-                    class="nav-link text-gray-700 font-medium {{ request()->routeIs('kontak') ? 'active' : '' }}">Kontak</a>
-
+                <a href="{{ route('pelayanan') }}"
+                    class="nav-link text-gray-700 font-medium {{ request()->routeIs('pelayanan') ? 'active' : '' }}">Pelayanan</a>
                 <a href="{{ route('login') }}" class="btn-primary text-white px-4 py-1 rounded-lg font-medium">
                     <i class="fas fa-sign-in-alt mr-2"></i>Login
                 </a>
@@ -160,11 +159,11 @@
                 <a href="{{ route('dashboard') }}" class="block py-3 text-gray-700 font-medium border-b">Beranda</a>
                 <a href="{{ route('profil') }}" class="block py-3 text-gray-700 font-medium border-b">Profil Desa</a>
                 <a href="{{ route('berita.index') }}" class="block py-3 text-gray-700 font-medium border-b">Berita</a>
-                <a href="{{ route('pengumuman') }}" class="block py-3 text-gray-700 font-medium border-b">Pengumuman</a>
+                <a href="{{ route('arsip') }}" class="block py-3 text-gray-700 font-medium border-b">Arsip</a>
                 <a href="{{ route('data-penduduk') }}" class="block py-3 text-gray-700 font-medium border-b">Data
                     Penduduk</a>
                 <a href="{{ route('dana-desa') }}" class="block py-3 text-gray-700 font-medium border-b">Dana Desa</a>
-                <a href="{{ route('kontak') }}" class="block py-3 text-gray-700 font-medium border-b">Kontak</a>
+                <a href="{{ route('pelayanan') }}" class="block py-3 text-gray-700 font-medium border-b">Pelayanan</a>
                 <a href="{{ route('login') }}"
                     class="btn-primary text-white px-4 py-3 rounded-lg font-medium inline-block mt-4">
                     <i class="fas fa-sign-in-alt mr-2"></i>Login Admin
@@ -222,14 +221,14 @@
                                 class="text-gray-300 hover:text-white transition-colors">Profil Desa</a></li>
                         <li><a href="{{ route('berita.index') }}"
                                 class="text-gray-300 hover:text-white transition-colors">Berita</a></li>
-                        <li><a href="{{ route('pengumuman') }}"
-                                class="text-gray-300 hover:text-white transition-colors">Pengumuman</a></li>
+                        <li><a href="{{ route('arsip') }}"
+                                class="text-gray-300 hover:text-white transition-colors">Arsip</a></li>
                     </ul>
                 </div>
 
                 <!-- Contact Info -->
                 <div>
-                    <h4 class="text-lg font-semibold mb-4">Kontak</h4>
+                    <h4 class="text-lg font-semibold mb-4">pelayanan</h4>
                     <div class="space-y-3">
                         <div class="flex items-start space-x-3">
                             <a href="https://maps.app.goo.gl/CqLQ2pw1Th8jsPT77" target="_blank"><i
