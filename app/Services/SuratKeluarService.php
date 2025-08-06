@@ -18,7 +18,7 @@ class SuratKeluarService
     }
     public function getFiltered(Request $request)
     {
-        return SuratMasuk::select('id', 'nomor_surat', 'penerima', 'perihal', 'tanggal_kirim', 'file')
+        return SuratKeluar::select('id', 'nomor_surat', 'penerima', 'perihal', 'tanggal_kirim', 'file')
             ->when($request->filled('search'), function ($query) use ($request) {
                 $query->where('nomor_surat', 'like', '%' . $request->search . '%')
                     ->orWhere('penerima', 'like', '%' . $request->search . '%')
