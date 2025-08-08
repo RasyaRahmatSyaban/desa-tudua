@@ -113,7 +113,8 @@
                 <div class="p-6 pt-2">
                     <div class="relative">
                         <!-- Scroll Container -->
-                        <div id="beritaContainer" class="flex space-x-4 overflow-x-auto scroll-smooth pb-4 scrollbar-hide">
+                        <div id="beritaContainer" class="flex space-x-4 overflow-x-auto scroll-smooth pb-4"
+                            style="-ms-overflow-style: none; scrollbar-width: none;">
                             @forelse($berita as $b)
                                 <div
                                     class="min-w-[280px] bg-gradient-to-br from-white to-gray-50 rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300 border border-gray-100 group">
@@ -123,7 +124,8 @@
                                         <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
                                     </div>
                                     <div class="p-4">
-                                        <h4 class="font-semibold text-gray-800 line-clamp-2 text-sm leading-relaxed"
+                                        <h4 class="font-semibold text-gray-800 text-sm leading-relaxed overflow-hidden"
+                                            style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;"
                                             title="{{ $b->judul }}">
                                             {{ $b->judul }}
                                         </h4>
@@ -198,7 +200,10 @@
                                 <i class="fas fa-bullhorn text-yellow-600"></i>
                             </div>
                             <div class="flex-1 min-w-0">
-                                <h4 class="font-semibold text-gray-900 line-clamp-2 text-sm">{{ $item->judul }}</h4>
+                                <h4 class="font-semibold text-gray-900 text-sm overflow-hidden"
+                                    style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">
+                                    {{ $item->judul }}
+                                </h4>
                                 <div class="flex items-center justify-between mt-2">
                                     <span class="text-xs text-gray-500">
                                         Berlaku hingga:
@@ -298,56 +303,6 @@
         </div>
     </div>
 
-    <style>
-        .scrollbar-hide {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-        }
-
-        .scrollbar-hide::-webkit-scrollbar {
-            display: none;
-        }
-
-        .line-clamp-2 {
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-
-        /* Custom animations */
-        @keyframes float {
-
-            0%,
-            100% {
-                transform: translateY(0px);
-            }
-
-            50% {
-                transform: translateY(-10px);
-            }
-        }
-
-        .hover\:float:hover {
-            animation: float 2s ease-in-out infinite;
-        }
-
-        /* Gradient text utilities */
-        .text-gradient-blue {
-            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .text-gradient-green {
-            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-    </style>
-
     <script>
         function scrollContainer(containerId, direction) {
             const container = document.getElementById(containerId);
@@ -360,27 +315,7 @@
             }
         }
 
-        // Add intersection observer for animations
         document.addEventListener('DOMContentLoaded', function () {
-            const cards = document.querySelectorAll('.card');
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach((entry, index) => {
-                    if (entry.isIntersecting) {
-                        setTimeout(() => {
-                            entry.target.style.opacity = '1';
-                            entry.target.style.transform = 'translateY(0)';
-                        }, index * 100);
-                    }
-                });
-            }, { threshold: 0.1 });
-
-            cards.forEach(card => {
-                card.style.opacity = '0';
-                card.style.transform = 'translateY(30px)';
-                card.style.transition = 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
-                observer.observe(card);
-            });
-
             // Add loading states for quick actions
             const quickActionLinks = document.querySelectorAll('[href*="create"]');
             quickActionLinks.forEach(link => {
@@ -395,6 +330,16 @@
                     }, 1000);
                 });
             });
+        });
+
+        // Hide scrollbar for berita container
+        document.addEventListener('DOMContentLoaded', function () {
+            const container = document.getElementById('beritaContainer');
+            if (container) {
+                container.style.setProperty('-webkit-scrollbar', 'none', 'important');
+                container.style.setProperty('scrollbar-width', 'none', 'important');
+                container.style.setProperty('-ms-overflow-style', 'none', 'important');
+            }
         });
     </script>
 @endsection
