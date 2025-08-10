@@ -11,19 +11,20 @@
             @method('PUT')
 
             <!-- Data Pribadi -->
-            <div class="card bg-white rounded-lg shadow-md p-6">
-                <h3 class="text-lg font-semibold text-gray-900 mb-6">Data Pribadi</h3>
+            <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+                <h3 class="text-lg font-semibold text-slate-800 mb-6 flex items-center">
+                    Edit Data Penduduk
+                </h3>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <!-- NIK -->
                     <div>
-                        <label for="nik" class="block text-sm font-medium text-gray-700 mb-2">
+                        <label for="nik" class="block text-sm font-medium text-slate-700 mb-2">
                             NIK <span class="text-red-500">*</span>
                         </label>
                         <input type="text" id="nik" name="nik" value="{{ old('nik', $penduduk->nik) }}"
-                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                            @error('nik') border-red-500 @enderror placeholder="Masukkan NIK (16 digit)" maxlength="16"
-                            required>
+                            class="w-full px-4 py-2.5 bg-white border border-slate-300 rounded-lg text-sm placeholder-slate-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200 {{ $errors->has('nik') ? 'border-red-300 focus:ring-red-500 focus:border-red-500' : '' }}"
+                            placeholder="Masukkan NIK (16 digit)" maxlength="16" required>
                         @error('nik')
                             <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                         @enderror
@@ -31,12 +32,12 @@
 
                     <!-- Nama Lengkap -->
                     <div>
-                        <label for="nama" class="block text-sm font-medium text-gray-700 mb-2">
+                        <label for="nama" class="block text-sm font-medium text-slate-700 mb-2">
                             Nama Lengkap <span class="text-red-500">*</span>
                         </label>
                         <input type="text" id="nama" name="nama" value="{{ old('nama', $penduduk->nama) }}"
-                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                            @error('nama') border-red-500 @enderror placeholder="Masukkan nama lengkap" required>
+                            class="w-full px-4 py-2.5 bg-white border border-slate-300 rounded-lg text-sm placeholder-slate-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200 {{ $errors->has('nama') ? 'border-red-300 focus:ring-red-500 focus:border-red-500' : '' }}"
+                            placeholder="Masukkan nama lengkap" required>
                         @error('nama')
                             <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                         @enderror
@@ -44,29 +45,30 @@
 
                     <!-- Jenis Kelamin -->
                     <div>
-                        <label for="jenis_kelamin" class="block text-sm font-medium text-gray-700 mb-2">
+                        <label for="jenis_kelamin" class="block text-sm font-medium text-slate-700 mb-2">
                             Jenis Kelamin <span class="text-red-500">*</span>
                         </label>
                         <select id="jenis_kelamin" name="jenis_kelamin"
-                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                            @error('jenis_kelamin') border-red-500 @enderror required>
-                            <option value="">Pilih Jenis Kelamin</option>
-                            <option value="Laki-laki" {{ old('jenis_kelamin', $penduduk->jenis_kelamin) === 'Laki-laki' ? 'selected' : '' }}>Laki-laki</option>
-                            <option value="Perempuan" {{ old('jenis_kelamin', $penduduk->jenis_kelamin) === 'Perempuan' ? 'selected' : '' }}>Perempuan</option>
+                            class="w-full px-4 py-2.5 bg-white border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200 {{ $errors->has('jenis_kelamin') ? 'border-red-300 focus:ring-red-500 focus:border-red-500' : '' }}"
+                            required>
+                            <option value="" class="text-slate-400">Pilih Jenis Kelamin</option>
+                            <option value="Laki-laki" {{ old('jenis_kelamin', $penduduk->jenis_kelamin) === 'Laki-laki' ? 'selected' : '' }} class="text-slate-700">Laki-laki</option>
+                            <option value="Perempuan" {{ old('jenis_kelamin', $penduduk->jenis_kelamin) === 'Perempuan' ? 'selected' : '' }} class="text-slate-700">Perempuan</option>
                         </select>
                         @error('jenis_kelamin')
                             <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                         @enderror
                     </div>
 
+                    <!-- Tempat Lahir -->
                     <div>
-                        <label for="tempat_lahir" class="block text-sm font-medium text-gray-700 mb-2">
+                        <label for="tempat_lahir" class="block text-sm font-medium text-slate-700 mb-2">
                             Tempat Lahir <span class="text-red-500">*</span>
                         </label>
                         <input type="text" id="tempat_lahir" name="tempat_lahir"
                             value="{{ old('tempat_lahir', $penduduk->tempat_lahir) }}"
-                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                            @error('tempat_lahir') border-red-500 @enderror placeholder="Masukkan tempat lahir" required>
+                            class="w-full px-4 py-2.5 bg-white border border-slate-300 rounded-lg text-sm placeholder-slate-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200 {{ $errors->has('tempat_lahir') ? 'border-red-300 focus:ring-red-500 focus:border-red-500' : '' }}"
+                            placeholder="Masukkan tempat lahir" required>
                         @error('tempat_lahir')
                             <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                         @enderror
@@ -74,13 +76,13 @@
 
                     <!-- Tanggal Lahir -->
                     <div>
-                        <label for="tanggal_lahir" class="block text-sm font-medium text-gray-700 mb-2">
+                        <label for="tanggal_lahir" class="block text-sm font-medium text-slate-700 mb-2">
                             Tanggal Lahir <span class="text-red-500">*</span>
                         </label>
                         <input type="date" id="tanggal_lahir" name="tanggal_lahir"
                             value="{{ old('tanggal_lahir', $penduduk->tanggal_lahir ? \Carbon\Carbon::parse($penduduk->tanggal_lahir)->format('Y-m-d') : '') }}"
-                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                            @error('tanggal_lahir') border-red-500 @enderror required>
+                            class="w-full px-4 py-2.5 bg-white border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200 {{ $errors->has('tanggal_lahir') ? 'border-red-300 focus:ring-red-500 focus:border-red-500' : '' }}"
+                            required>
                         @error('tanggal_lahir')
                             <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                         @enderror
@@ -88,23 +90,23 @@
 
                     <!-- Agama -->
                     <div>
-                        <label for="agama" class="block text-sm font-medium text-gray-700 mb-2">
+                        <label for="agama" class="block text-sm font-medium text-slate-700 mb-2">
                             Agama <span class="text-red-500">*</span>
                         </label>
                         <select id="agama" name="agama"
-                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                            @error('agama') border-red-500 @enderror required>
-                            <option value="">Pilih Agama</option>
-                            <option value="Islam" {{ old('agama', $penduduk->agama) === 'Islam' ? 'selected' : '' }}>Islam
-                            </option>
-                            <option value="Kristen" {{ old('agama', $penduduk->agama) === 'Kristen' ? 'selected' : '' }}>
-                                Kristen</option>
-                            <option value="Katolik" {{ old('agama', $penduduk->agama) === 'Katolik' ? 'selected' : '' }}>
-                                Katolik</option>
-                            <option value="Hindu" {{ old('agama', $penduduk->agama) === 'Hindu' ? 'selected' : '' }}>Hindu
-                            </option>
-                            <option value="Buddha" {{ old('agama', $penduduk->agama) === 'Buddha' ? 'selected' : '' }}>Buddha
-                            </option>
+                            class="w-full px-4 py-2.5 bg-white border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200 {{ $errors->has('agama') ? 'border-red-300 focus:ring-red-500 focus:border-red-500' : '' }}"
+                            required>
+                            <option value="" class="text-slate-400">Pilih Agama</option>
+                            <option value="Islam" {{ old('agama', $penduduk->agama) === 'Islam' ? 'selected' : '' }}
+                                class="text-slate-700">Islam</option>
+                            <option value="Kristen" {{ old('agama', $penduduk->agama) === 'Kristen' ? 'selected' : '' }}
+                                class="text-slate-700">Kristen</option>
+                            <option value="Katolik" {{ old('agama', $penduduk->agama) === 'Katolik' ? 'selected' : '' }}
+                                class="text-slate-700">Katolik</option>
+                            <option value="Hindu" {{ old('agama', $penduduk->agama) === 'Hindu' ? 'selected' : '' }}
+                                class="text-slate-700">Hindu</option>
+                            <option value="Buddha" {{ old('agama', $penduduk->agama) === 'Buddha' ? 'selected' : '' }}
+                                class="text-slate-700">Buddha</option>
                         </select>
                         @error('agama')
                             <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
@@ -114,14 +116,14 @@
                     <!-- Dropdown Pilih kepala -->
                     <div>
                         <div id="kepalaKeluargaSelectWrapper" style="{{ $isKepalaKeluargaOld ? 'display:none;' : '' }}">
-                            <label for="id_kepalakeluarga" class="block text-sm font-medium text-gray-700 mb-2">
+                            <label for="id_kepalakeluarga" class="block text-sm font-medium text-slate-700 mb-2">
                                 Kepala Keluarga <span class="text-red-500">*</span>
                             </label>
                             <select name="id_kepalakeluarga" id="id_kepalakeluarga"
-                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                                <option value="" class="text-gray-400">Pilih Kepala Keluarga</option>
+                                class="w-full px-4 py-2.5 bg-white border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200 {{ $errors->has('id_kepalakeluarga') ? 'border-red-300 focus:ring-red-500 focus:border-red-500' : '' }}">
+                                <option value="" class="text-slate-400">Pilih Kepala Keluarga</option>
                                 @foreach($listKepalaKeluarga as $k)
-                                    <option value="{{ $k->id }}" {{ old('id_kepalakeluarga', $penduduk->id_kepalakeluarga) == $k->id ? 'selected' : '' }} class="text-gray-700 py-2">
+                                    <option value="{{ $k->id }}" {{ old('id_kepalakeluarga', $penduduk->id_kepalakeluarga) == $k->id ? 'selected' : '' }} class="text-slate-700 py-2">
                                         {{ $k->nama }}
                                     </option>
                                 @endforeach
@@ -133,11 +135,12 @@
 
                         <!-- Nomor KK -->
                         <div id="nomorKKSelectWrapper" style="{{ $isKepalaKeluargaOld ? '' : 'display:none;' }}">
-                            <label for="nomorKK" class="block text-sm font-medium text-gray-700 mb-2">
+                            <label for="nomorKK" class="block text-sm font-medium text-slate-700 mb-2">
                                 Nomor Kartu Keluarga <span class="text-red-500">*</span>
                             </label>
-                            <input type="text" id="nomorKK" name="nomorKK" value="{{ old('nomorKK', $nomor_kk->nomor_kk ?? '') }}"
-                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                            <input type="text" id="nomorKK" name="nomorKK"
+                                value="{{ old('nomorKK', $nomor_kk->nomor_kk ?? '') }}"
+                                class="w-full px-4 py-2.5 bg-white border border-slate-300 rounded-lg text-sm placeholder-slate-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200 {{ $errors->has('nomorKK') ? 'border-red-300 focus:ring-red-500 focus:border-red-500' : '' }}"
                                 placeholder="Masukkan Nomor Kartu Keluarga (16 digit)" maxlength="16" required>
                             @error('nomorKK')
                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
@@ -146,11 +149,13 @@
 
                         <!-- Checkbox -->
                         <div class="mt-4">
-                            <label class="flex items-center space-x-2">
+                            <label class="flex items-center space-x-3 cursor-pointer group">
                                 <input type="checkbox" name="isKepalaKeluarga" id="isKepalaKeluarga" value="1"
-                                    class="h-5 w-5 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+                                    class="h-4 w-4 text-blue-600 border-slate-300 rounded focus:ring-blue-500 focus:ring-2 transition-colors duration-200"
                                     {{ $isKepalaKeluargaOld ? 'checked' : '' }}>
-                                <span class="text-sm text-gray-700">Kepala Keluarga</span>
+                                <span
+                                    class="text-sm text-slate-700 group-hover:text-slate-900 transition-colors duration-200">Kepala
+                                    Keluarga</span>
                             </label>
                             @error('isKepalaKeluarga')
                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
@@ -160,12 +165,12 @@
 
                     <!-- Alamat -->
                     <div>
-                        <label for="alamat" class="block text-sm font-medium text-gray-700 mb-2">
+                        <label for="alamat" class="block text-sm font-medium text-slate-700 mb-2">
                             Alamat <span class="text-red-500">*</span>
                         </label>
                         <input type="text" id="alamat" name="alamat" value="{{ old('alamat', $penduduk->alamat) }}"
-                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                            @error('alamat') border-red-500 @enderror placeholder="Masukkan alamat lengkap" required>
+                            class="w-full px-4 py-2.5 bg-white border border-slate-300 rounded-lg text-sm placeholder-slate-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200 {{ $errors->has('alamat') ? 'border-red-300 focus:ring-red-500 focus:border-red-500' : '' }}"
+                            placeholder="Masukkan alamat lengkap" required>
                         @error('alamat')
                             <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                         @enderror
@@ -174,18 +179,20 @@
             </div>
 
             <!-- Action Buttons -->
-            <div class="flex items-center justify-between">
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                 <a href="{{ route('admin.penduduk.index') }}"
-                    class="px-6 py-3 border border-gray-300 rounded-lg text-gray-700 font-medium hover:bg-gray-50 transition-colors">
-                    <i class="fas fa-arrow-left mr-2"></i>Kembali
+                    class="inline-flex items-center justify-center px-4 py-2.5 bg-white border border-slate-300 rounded-lg text-slate-700 text-sm font-medium hover:bg-slate-50 hover:border-slate-400 transition-colors duration-200">
+                    <i class="fas fa-arrow-left mr-2 text-sm"></i>Kembali
                 </a>
 
-                <button type="submit" class="btn-primary text-white px-6 py-3 rounded-lg font-medium">
-                    <i class="fas fa-save mr-2"></i>Simpan Perubahan
+                <button type="submit"
+                    class="inline-flex items-center justify-center px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-lg transition-colors duration-200 shadow-sm">
+                    <i class="fas fa-save mr-2 text-sm"></i>Simpan Perubahan
                 </button>
             </div>
         </form>
     </div>
+
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const checkbox = document.getElementById('isKepalaKeluarga');
