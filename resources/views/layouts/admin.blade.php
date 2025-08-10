@@ -327,23 +327,6 @@
                 });
             }
 
-            // Add loading states to buttons
-            const submitButtons = document.querySelectorAll('button[type="submit"]');
-            submitButtons.forEach(button => {
-                button.addEventListener('click', function () {
-                    if (!this.classList.contains('delete-btn')) {
-                        const originalText = this.innerHTML;
-                        this.innerHTML = '<span class="loading"></span> Memproses...';
-                        this.disabled = true;
-
-                        setTimeout(() => {
-                            this.innerHTML = originalText;
-                            this.disabled = false;
-                        }, 2000);
-                    }
-                });
-            });
-
             // Smooth animations for cards
             const cards = document.querySelectorAll('.card');
             const observer = new IntersectionObserver((entries) => {

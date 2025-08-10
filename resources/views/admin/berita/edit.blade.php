@@ -5,242 +5,154 @@
 @section('page-description', 'Ubah informasi berita yang sudah ada')
 
 @section('content')
-    <div class="space-y-8">
-        <!-- Breadcrumb -->
-        <div class="card">
-            <div class="p-4">
-                <nav class="flex items-center space-x-2 text-sm text-gray-600">
-                    <a href="{{ route('admin.dashboard') }}" class="hover:text-blue-600 transition-colors duration-200">
-                        <i class="fas fa-home"></i>
-                    </a>
-                    <i class="fas fa-chevron-right text-gray-400 text-xs"></i>
-                    <a href="{{ route('admin.berita.index') }}" class="hover:text-blue-600 transition-colors duration-200">
-                        Kelola Berita
-                    </a>
-                    <i class="fas fa-chevron-right text-gray-400 text-xs"></i>
-                    <span class="text-gray-900 font-medium">Edit Berita</span>
-                </nav>
-            </div>
-        </div>
-
+    <div class="space-y-6">
         <form method="POST" action="{{ route('admin.berita.update', $berita->id) }}" enctype="multipart/form-data"
-            class="space-y-8">
+            class="space-y-6">
             @csrf
             @method('PUT')
 
-            <!-- Header Card -->
-            <div class="card">
-                <div class="card-header p-6 pb-4">
-                    <div class="flex items-center space-x-3">
-                        <div
-                            class="w-10 h-10 bg-gradient-to-br from-amber-500 to-orange-600 rounded-xl flex items-center justify-center">
-                            <i class="fas fa-edit text-white"></i>
-                        </div>
-                        <div>
-                            <h3 class="text-lg font-bold text-gray-900">Edit Informasi Berita</h3>
-                            <p class="text-sm text-gray-500">Perbarui detail berita yang akan dipublikasikan</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="p-6 pt-2">
-                    <div class="grid grid-cols-1 xl:grid-cols-3 gap-8">
+            <!-- Main Content Card -->
+            <div class="bg-white rounded-xl shadow-sm border border-slate-200">
+                <div class="p-6">
+                    <div class="grid grid-cols-1 xl:grid-cols-3 gap-6">
                         <!-- Main Form -->
-                        <div class="xl:col-span-2 space-y-6">
+                        <div class="xl:col-span-2 space-y-5">
                             <!-- Penulis -->
-                            <div class="group">
-                                <label for="penulis" class="block text-sm font-semibold text-gray-700 mb-3">
-                                    <div class="flex items-center space-x-2">
-                                        <i
-                                            class="fas fa-user text-gray-400 group-focus-within:text-blue-500 transition-colors duration-200"></i>
-                                        <span>Penulis</span>
-                                        <span class="text-red-500">*</span>
-                                    </div>
+                            <div>
+                                <label for="penulis" class="block text-sm font-medium text-slate-700 mb-2">
+                                    Penulis <span class="text-red-500">*</span>
                                 </label>
-                                <div class="relative">
-                                    <input type="text" id="penulis" name="penulis"
-                                        value="{{ old('penulis', $berita->penulis) }}"
-                                        class="w-full px-4 py-4 pl-12 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 bg-gray-50 hover:bg-white group-focus-within:bg-white"
-                                        placeholder="Masukkan nama penulis berita..." required>
-                                    <div class="absolute left-4 top-1/2 transform -translate-y-1/2">
-                                        <i class="fas fa-pen text-gray-400 text-sm"></i>
-                                    </div>
-                                </div>
+                                <input type="text" id="penulis" name="penulis"
+                                    value="{{ old('penulis', $berita->penulis) }}"
+                                    class="w-full px-4 py-2.5 bg-white border border-slate-300 rounded-lg text-sm placeholder-slate-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200"
+                                    placeholder="Masukkan nama penulis..." required>
                                 @error('penulis')
-                                    <div class="mt-2 flex items-center space-x-2 text-sm text-red-600">
-                                        <i class="fas fa-exclamation-circle text-xs"></i>
-                                        <span>{{ $message }}</span>
-                                    </div>
+                                    <p class="mt-1 text-sm text-red-600 flex items-center">
+                                        <i class="fas fa-exclamation-circle mr-1"></i>{{ $message }}
+                                    </p>
                                 @enderror
                             </div>
 
                             <!-- Judul -->
-                            <div class="group">
-                                <label for="judul" class="block text-sm font-semibold text-gray-700 mb-3">
-                                    <div class="flex items-center space-x-2">
-                                        <i
-                                            class="fas fa-heading text-gray-400 group-focus-within:text-blue-500 transition-colors duration-200"></i>
-                                        <span>Judul Berita</span>
-                                        <span class="text-red-500">*</span>
-                                    </div>
+                            <div>
+                                <label for="judul" class="block text-sm font-medium text-slate-700 mb-2">
+                                    Judul Berita <span class="text-red-500">*</span>
                                 </label>
-                                <div class="relative">
-                                    <input type="text" id="judul" name="judul" value="{{ old('judul', $berita->judul) }}"
-                                        class="w-full px-4 py-4 pl-12 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 bg-gray-50 hover:bg-white group-focus-within:bg-white"
-                                        placeholder="Masukkan judul berita yang menarik..." required>
-                                    <div class="absolute left-4 top-1/2 transform -translate-y-1/2">
-                                        <i class="fas fa-font text-gray-400 text-sm"></i>
-                                    </div>
-                                </div>
+                                <input type="text" id="judul" name="judul" value="{{ old('judul', $berita->judul) }}"
+                                    class="w-full px-4 py-2.5 bg-white border border-slate-300 rounded-lg text-sm placeholder-slate-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200"
+                                    placeholder="Masukkan judul berita yang menarik..." required>
                                 @error('judul')
-                                    <div class="mt-2 flex items-center space-x-2 text-sm text-red-600">
-                                        <i class="fas fa-exclamation-circle text-xs"></i>
-                                        <span>{{ $message }}</span>
-                                    </div>
+                                    <p class="mt-1 text-sm text-red-600 flex items-center">
+                                        <i class="fas fa-exclamation-circle mr-1"></i>{{ $message }}
+                                    </p>
                                 @enderror
                             </div>
 
-                            <!-- Konten -->
-                            <div class="group">
-                                <label for="isi" class="block text-sm font-semibold text-gray-700 mb-3">
-                                    <div class="flex items-center space-x-2">
-                                        <i
-                                            class="fas fa-edit text-gray-400 group-focus-within:text-blue-500 transition-colors duration-200"></i>
-                                        <span>Isi Berita</span>
-                                        <span class="text-red-500">*</span>
-                                    </div>
+                            <!-- Isi Berita -->
+                            <div>
+                                <label for="isi" class="block text-sm font-medium text-slate-700 mb-2">
+                                    Isi Berita <span class="text-red-500">*</span>
                                 </label>
-                                <textarea id="isi" name="isi" rows="14"
-                                    class="w-full px-4 py-4 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 bg-gray-50 hover:bg-white resize-y"
-                                    placeholder="Tulis isi berita dengan detail dan jelas..."
+                                <textarea id="isi" name="isi" rows="12"
+                                    class="w-full px-4 py-2.5 bg-white border border-slate-300 rounded-lg text-sm placeholder-slate-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200 resize-none"
+                                    placeholder="Tulis isi berita dengan detail dan informatif..."
                                     required>{{ old('isi', $berita->isi) }}</textarea>
                                 @error('isi')
-                                    <div class="mt-2 flex items-center space-x-2 text-sm text-red-600">
-                                        <i class="fas fa-exclamation-circle text-xs"></i>
-                                        <span>{{ $message }}</span>
-                                    </div>
+                                    <p class="mt-1 text-sm text-red-600 flex items-center">
+                                        <i class="fas fa-exclamation-circle mr-1"></i>{{ $message }}
+                                    </p>
                                 @enderror
-                                <div class="mt-2 text-xs text-gray-500">
-                                    <i class="fas fa-info-circle mr-1"></i>
-                                    Tulis berita dengan bahasa yang mudah dipahami masyarakat
-                                </div>
                             </div>
                         </div>
 
                         <!-- Sidebar -->
-                        <div class="space-y-6">
-                            <!-- Upload Gambar -->
-                            <div class="bg-gradient-to-br from-gray-50 to-white rounded-2xl border border-gray-100 p-6">
-                                <label for="foto" class="block text-sm font-semibold text-gray-700 mb-4">
-                                    <div class="flex items-center space-x-2">
-                                        <i class="fas fa-image text-gray-400"></i>
-                                        <span>Gambar Berita</span>
-                                    </div>
+                        <div class="space-y-5">
+                            <!-- Upload Foto -->
+                            <div>
+                                <label class="block text-sm font-medium text-slate-700 mb-2">
+                                    Foto Berita
                                 </label>
 
-                                <!-- Current Image Preview -->
                                 @if($berita->foto)
-                                    <div id="currentImage" class="mb-4">
-                                        <img src="{{ asset('storage/' . $berita->foto) }}" alt="Foto Berita Saat Ini"
-                                            class="w-full h-40 object-cover rounded-xl shadow-sm">
-                                        <div class="mt-3 flex items-center justify-between">
-                                            <p class="text-xs text-gray-500">
-                                                <i class="fas fa-info-circle mr-1"></i>
-                                                Gambar saat ini
-                                            </p>
-                                            <button type="button" onclick="showUploadArea()"
-                                                class="inline-flex items-center px-3 py-1.5 bg-blue-100 hover:bg-blue-200 text-blue-700 text-xs rounded-lg transition-colors duration-200">
-                                                <i class="fas fa-exchange-alt text-xs mr-1"></i>
-                                                Ganti Gambar
-                                            </button>
+                                    <div class="mb-4">
+                                        <div class="relative">
+                                            <img src="{{ asset('storage/' . $berita->foto) }}" alt="Foto Berita"
+                                                class="w-full h-40 object-cover rounded-lg border border-slate-200" />
+                                            <div
+                                                class="absolute inset-0 bg-black bg-opacity-40 rounded-lg opacity-0 hover:opacity-100 transition-opacity duration-200 flex items-center justify-center">
+                                                <p class="text-white text-sm font-medium">Foto Saat Ini</p>
+                                            </div>
                                         </div>
+                                        <p class="text-xs text-slate-500 mt-2 text-center">Foto yang sedang digunakan</p>
                                     </div>
                                 @endif
 
-                                <!-- Upload Area -->
-                                <div id="uploadArea" class="{{ $berita->foto ? 'hidden' : '' }}">
+                                <div class="relative">
                                     <label for="foto"
-                                        class="block border-2 border-dashed border-gray-300 rounded-xl p-8 text-center hover:border-blue-400 hover:bg-blue-50 transition-all duration-300 cursor-pointer group">
+                                        class="block border-2 border-dashed border-slate-300 rounded-lg p-6 text-center hover:border-blue-400 hover:bg-blue-50 transition-all duration-200 cursor-pointer">
                                         <input type="file" id="foto" name="foto" accept="image/*" class="hidden"
                                             onchange="previewImage(this)">
-
                                         <div id="imagePreview" class="hidden">
-                                            <img id="preview" class="w-full h-40 object-cover rounded-xl mb-4 shadow-sm">
+                                            <img id="preview"
+                                                class="w-full h-40 object-cover rounded-lg mb-3 border border-slate-200">
                                             <button type="button" onclick="removeImage()"
-                                                class="inline-flex items-center px-4 py-2 bg-red-100 hover:bg-red-200 text-red-700 text-sm rounded-lg transition-colors duration-200">
-                                                <i class="fas fa-trash text-xs mr-2"></i>
-                                                Hapus foto
+                                                class="inline-flex items-center px-3 py-1.5 bg-red-100 hover:bg-red-200 text-red-700 text-sm font-medium rounded-lg transition-colors duration-200">
+                                                <i class="fas fa-trash mr-1"></i>Hapus Foto
                                             </button>
                                         </div>
-
-                                        <div id="uploadPlaceholder"
-                                            class="group-hover:scale-105 transition-transform duration-300">
+                                        <div id="uploadPlaceholder">
                                             <div
-                                                class="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:bg-blue-200 transition-colors duration-300">
-                                                <i class="fas fa-cloud-upload-alt text-2xl text-blue-600"></i>
+                                                class="w-12 h-12 bg-slate-100 rounded-lg flex items-center justify-center mx-auto mb-3">
+                                                <i class="fas fa-camera text-slate-400 text-lg"></i>
                                             </div>
-                                            <p class="text-sm font-medium text-gray-700 mb-2">
-                                                {{ $berita->foto ? 'Pilih gambar baru' : 'Klik untuk upload gambar' }}
+                                            <p class="text-sm font-medium text-slate-600 mb-1">Klik untuk upload foto baru
                                             </p>
-                                            <p class="text-xs text-gray-500">PNG, JPG maksimal 2MB</p>
+                                            <p class="text-xs text-slate-500">PNG, JPG maksimal 2MB</p>
                                         </div>
                                     </label>
+                                    @error('foto')
+                                        <p class="mt-2 text-sm text-red-600 flex items-center">
+                                            <i class="fas fa-exclamation-circle mr-1"></i>{{ $message }}
+                                        </p>
+                                    @enderror
                                 </div>
-
-                                @error('foto')
-                                    <div class="mt-3 flex items-center space-x-2 text-sm text-red-600">
-                                        <i class="fas fa-exclamation-circle text-xs"></i>
-                                        <span>{{ $message }}</span>
-                                    </div>
-                                @enderror
                             </div>
 
-                            <!-- Status Publikasi -->
-                            <div class="bg-gradient-to-br from-gray-50 to-white rounded-2xl border border-gray-100 p-6">
-                                <label for="status" class="block text-sm font-semibold text-gray-700 mb-4">
-                                    <div class="flex items-center space-x-2">
-                                        <i class="fas fa-toggle-on text-gray-400"></i>
-                                        <span>Status Publikasi</span>
-                                    </div>
+                            <!-- Status -->
+                            <div>
+                                <label for="status" class="block text-sm font-medium text-slate-700 mb-2">
+                                    Status Publikasi <span class="text-red-500">*</span>
                                 </label>
                                 <select id="status" name="status"
-                                    class="w-full px-4 py-4 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 bg-white">
+                                    class="w-full px-4 py-2.5 bg-white border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200">
                                     <option value="Draft" {{ old('status', $berita->status) === 'Draft' ? 'selected' : '' }}>
-                                        Draft - Belum dipublikasi
+                                        Draft
                                     </option>
                                     <option value="Dipublikasi" {{ old('status', $berita->status) === 'Dipublikasi' ? 'selected' : '' }}>
-                                        Dipublikasi - Tampil di website
+                                        Dipublikasi
                                     </option>
                                 </select>
                                 @error('status')
-                                    <div class="mt-2 flex items-center space-x-2 text-sm text-red-600">
-                                        <i class="fas fa-exclamation-circle text-xs"></i>
-                                        <span>{{ $message }}</span>
-                                    </div>
+                                    <p class="mt-1 text-sm text-red-600 flex items-center">
+                                        <i class="fas fa-exclamation-circle mr-1"></i>{{ $message }}
+                                    </p>
                                 @enderror
                             </div>
 
                             <!-- Tanggal Publikasi -->
-                            <div class="bg-gradient-to-br from-gray-50 to-white rounded-2xl border border-gray-100 p-6">
-                                <label for="tanggal_terbit" class="block text-sm font-semibold text-gray-700 mb-4">
-                                    <div class="flex items-center space-x-2">
-                                        <i class="fas fa-calendar-alt text-gray-400"></i>
-                                        <span>Tanggal Publikasi</span>
-                                    </div>
+                            <div>
+                                <label for="tanggal_terbit" class="block text-sm font-medium text-slate-700 mb-2">
+                                    Tanggal Publikasi <span class="text-red-500">*</span>
                                 </label>
                                 <input type="date" id="tanggal_terbit" name="tanggal_terbit"
                                     value="{{ old('tanggal_terbit', $berita->tanggal_terbit ? \Carbon\Carbon::parse($berita->tanggal_terbit)->format('Y-m-d') : '') }}"
-                                    class="w-full px-4 py-4 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 bg-white">
+                                    class="w-full px-4 py-2.5 bg-white border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200"
+                                    required>
                                 @error('tanggal_terbit')
-                                    <div class="mt-2 flex items-center space-x-2 text-sm text-red-600">
-                                        <i class="fas fa-exclamation-circle text-xs"></i>
-                                        <span>{{ $message }}</span>
-                                    </div>
+                                    <p class="mt-1 text-sm text-red-600 flex items-center">
+                                        <i class="fas fa-exclamation-circle mr-1"></i>{{ $message }}
+                                    </p>
                                 @enderror
-                                <div class="mt-2 text-xs text-gray-500">
-                                    <i class="fas fa-info-circle mr-1"></i>
-                                    Tanggal berita akan ditampilkan
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -248,35 +160,17 @@
             </div>
 
             <!-- Action Buttons -->
-            <div class="card">
-                <div class="p-6">
-                    <div class="flex flex-col sm:flex-row items-center justify-between space-y-4 sm:space-y-0 sm:space-x-4">
-                        <a href="{{ route('admin.berita.index') }}"
-                            class="inline-flex items-center px-6 py-3 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-xl transition-all duration-200 font-medium group">
-                            <i
-                                class="fas fa-arrow-left mr-2 group-hover:-translate-x-1 transition-transform duration-200"></i>
-                            Kembali ke Daftar
-                        </a>
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pt-2">
+                <a href="{{ route('admin.berita.index') }}"
+                    class="inline-flex items-center justify-center px-5 py-2.5 bg-white border border-slate-300 rounded-lg text-slate-700 text-sm font-medium hover:bg-slate-50 hover:border-slate-400 transition-colors duration-200">
+                    <i class="fas fa-arrow-left mr-2"></i>Kembali ke Daftar
+                </a>
 
-                        <div class="flex items-center space-x-3">
-                            <button type="button" onclick="saveDraft()"
-                                class="inline-flex items-center px-6 py-3 bg-yellow-100 hover:bg-yellow-200 text-yellow-800 rounded-xl transition-all duration-200 font-medium group">
-                                <i class="fas fa-save mr-2 group-hover:scale-110 transition-transform duration-200"></i>
-                                Simpan Draft
-                            </button>
-
-                            <button type="submit"
-                                class="inline-flex items-center px-8 py-3 bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white rounded-xl transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5 font-medium group">
-                                <div
-                                    class="w-5 h-5 bg-white/20 rounded-lg flex items-center justify-center mr-3 group-hover:scale-110 transition-transform duration-300">
-                                    <i class="fas fa-save text-sm"></i>
-                                </div>
-                                Simpan Perubahan
-                                <i
-                                    class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform duration-200"></i>
-                            </button>
-                        </div>
-                    </div>
+                <div class="flex items-center space-x-3">
+                    <button type="submit"
+                        class="inline-flex items-center px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-lg transition-colors duration-200 shadow-sm">
+                        <i class="fas fa-save mr-2"></i>Simpan Perubahan
+                    </button>
                 </div>
             </div>
         </form>
@@ -300,53 +194,5 @@
             document.getElementById('imagePreview').classList.add('hidden');
             document.getElementById('uploadPlaceholder').classList.remove('hidden');
         }
-
-        function showUploadArea() {
-            document.getElementById('currentImage').classList.add('hidden');
-            document.getElementById('uploadArea').classList.remove('hidden');
-        }
-
-        function saveDraft() {
-            // Set status to Draft before submitting
-            document.getElementById('status').value = 'Draft';
-            document.querySelector('form').submit();
-        }
-
-        // Auto-resize textarea
-        document.addEventListener('DOMContentLoaded', function () {
-            const textarea = document.getElementById('isi');
-            textarea.addEventListener('input', function () {
-                this.style.height = 'auto';
-                this.style.height = this.scrollHeight + 'px';
-            });
-
-            // Add loading state to submit button
-            const form = document.querySelector('form');
-            form.addEventListener('submit', function () {
-                const submitBtn = document.querySelector('button[type="submit"]');
-                const originalText = submitBtn.innerHTML;
-                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Menyimpan...';
-                submitBtn.disabled = true;
-
-                // Restore button after 3 seconds (fallback)
-                setTimeout(() => {
-                    submitBtn.innerHTML = originalText;
-                    submitBtn.disabled = false;
-                }, 3000);
-            });
-
-            // Character counter for textarea
-            const isiTextarea = document.getElementById('isi');
-            isiTextarea.addEventListener('input', function () {
-                const charCount = this.value.length;
-                const minLength = 100;
-
-                if (charCount < minLength) {
-                    this.style.borderColor = '#fbbf24';
-                } else {
-                    this.style.borderColor = '#10b981';
-                }
-            });
-        });
     </script>
 @endsection
