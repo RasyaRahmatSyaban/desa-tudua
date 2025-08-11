@@ -6,84 +6,171 @@
 
 @section('content')
     <div class="space-y-6">
-        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 gap-4">
-            <!-- Kiri: Search dan filter -->
-            <div class="flex flex-wrap items-center gap-4">
-                <!-- Search -->
-                <form method="GET" action="{{ route('admin.surat-keluar.index') }}" class="relative">
-                    <input type="text" name="search" placeholder="Cari nomor surat, asal..." value="{{ request('search') }}"
-                        class="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                    <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
-                </form>
-            </div>
+        <!-- Header Actions -->
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <form method="GET" action="{{ route('admin.surat-keluar.index') }}" class="flex flex-col sm:flex-row gap-3">
+                <div class="relative">
+                    <input type="text" name="search" placeholder="Cari nomor surat, penerima..."
+                        value="{{ request('search') }}"
+                        class="w-full sm:w-64 pl-10 pr-4 py-2.5 bg-white border border-slate-300 rounded-lg text-sm placeholder-slate-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200"
+                        id="searchInput">
+                    <i class="fas fa-search absolute left-3 top-3 text-slate-400 text-sm"></i>
+                </div>
+            </form>
 
-            <!-- Kanan: Tombol -->
-            <div class="flex items-center gap-2">
-                <a href="{{ route('admin.surat-keluar.create') }}"
-                    class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-medium inline-flex items-center">
-                    <i class="fas fa-plus mr-2"></i> Tambah Surat Keluar
-                </a>
-            </div>
+            <a href="{{ route('admin.surat-keluar.create') }}"
+                class="inline-flex items-center px-4 py-2.5 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-lg transition-colors duration-200 shadow-sm">
+                <i class="fas fa-plus mr-2"></i>
+                Tambah Surat Keluar
+            </a>
         </div>
 
+        <!-- Stats Summary -->
+        @if($suratKeluar->count() > 0)
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="bg-white rounded-lg shadow-sm border border-slate-200 p-4">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-xs font-medium text-slate-500 uppercase tracking-wider">Total Surat</p>
+                            <p class="text-xl font-bold text-slate-800">{{ $suratKeluar->total() }}</p>
+                        </div>
+                        <div class="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-paper-plane text-blue-600 text-sm"></i>
+                        </div>
+                    </div>
+                </div>
 
-        <div class="bg-white shadow-sm rounded-lg border border-gray-200">
+                <div class="bg-white rounded-lg shadow-sm border border-slate-200 p-4">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-xs font-medium text-slate-500 uppercase tracking-wider">Bulan Ini</p>
+                            <p class="text-xl font-bold text-slate-800">
+                                {{ $suratKeluar->where('created_at', '>=', now()->startOfMonth())->count() }}
+                            </p>
+                        </div>
+                        <div class="w-8 h-8 bg-emerald-100 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-calendar text-emerald-600 text-sm"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-sm border border-slate-200 p-4">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-xs font-medium text-slate-500 uppercase tracking-wider">Minggu Ini</p>
+                            <p class="text-xl font-bold text-slate-800">
+                                {{ $suratKeluar->where('created_at', '>=', now()->startOfWeek())->count() }}
+                            </p>
+                        </div>
+                        <div class="w-8 h-8 bg-violet-100 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-clock text-violet-600 text-sm"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-sm border border-slate-200 p-4">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-xs font-medium text-slate-500 uppercase tracking-wider">Hari Ini</p>
+                            <p class="text-xl font-bold text-slate-800">
+                                {{ $suratKeluar->where('created_at', '>=', now()->today())->count() }}
+                            </p>
+                        </div>
+                        <div class="w-8 h-8 bg-amber-100 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-envelope text-amber-600 text-sm"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endif
+
+        <!-- Surat Keluar Table -->
+        <div class="bg-white rounded-xl shadow-sm border border-slate-200">
             <div class="p-6">
                 <div class="overflow-x-auto">
-                    <table class="min-w-full divide-y divide-gray-200">
-                        <thead class="bg-gray-50">
-                            <tr>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    File</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Tanggal Kirim</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Nomor Surat</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Penerima</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Perihal</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Aksi</th>
+                    <table class="w-full">
+                        <thead>
+                            <tr class="border-b border-slate-200">
+                                <th
+                                    class="text-left py-3 px-1 text-xs font-semibold text-slate-600 uppercase tracking-wider">
+                                    File
+                                </th>
+                                <th
+                                    class="text-left py-3 px-4 text-xs font-semibold text-slate-600 uppercase tracking-wider">
+                                    Tanggal Kirim
+                                </th>
+                                <th
+                                    class="text-left py-3 px-4 text-xs font-semibold text-slate-600 uppercase tracking-wider">
+                                    No. Surat
+                                </th>
+                                <th
+                                    class="text-left py-3 px-4 text-xs font-semibold text-slate-600 uppercase tracking-wider">
+                                    Penerima
+                                </th>
+                                <th
+                                    class="text-left py-3 px-4 text-xs font-semibold text-slate-600 uppercase tracking-wider">
+                                    Perihal
+                                </th>
+                                <th
+                                    class="text-left py-3 px-4 text-xs font-semibold text-slate-600 uppercase tracking-wider">
+                                    Aksi
+                                </th>
                             </tr>
                         </thead>
-                        <tbody class="bg-white divide-y divide-gray-200">
+                        <tbody class="divide-y divide-slate-100">
                             @forelse($suratKeluar as $surat)
-                                <tr class="hover:bg-gray-50">
-                                    <td class="flex items-center px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                <tr class="hover:bg-slate-50 transition-colors duration-200">
+                                    <td class="py-4 px-1">
                                         <a href="{{ asset('storage/' . $surat->file) }}" target="_blank" download
-                                            class="flex items-center space-x-2">
-                                            <i class="fas fa-file-pdf mr-2 text-2xl"></i>
+                                            class="inline-flex items-center px-3 py-2 bg-red-50 hover:bg-red-100 text-red-700 text-sm font-medium rounded-lg transition-colors duration-200 group">
+                                            <i
+                                                class="fas fa-file-pdf mr-2 text-lg group-hover:scale-110 transition-transform duration-200"></i>
+                                            <span class="text-xs">Lihat PDF</span>
                                         </a>
-                                        <span>
-                                            <a href="{{ asset('storage/' . $surat->file) }}" target="_blank">
-                                                </i>Lihat File
-                                            </a>
+                                    </td>
+                                    <td class="py-4 px-4">
+                                        <div class="text-sm font-medium text-slate-900">
+                                            {{ \Carbon\Carbon::parse($surat->tanggal_surat)->format('d M Y') }}
+                                        </div>
+                                        <div class="text-xs text-slate-500">
+                                            {{ \Carbon\Carbon::parse($surat->tanggal_surat)->format('H:i') }}
+                                        </div>
+                                    </td>
+                                    <td class="py-4 px-4">
+                                        <span
+                                            class="inline-flex items-center px-2.5 py-1 bg-blue-100 text-blue-800 text-xs font-medium rounded-full">
+                                            <i class="fas fa-hashtag mr-1 text-xs"></i>
+                                            {{ $surat->nomor_surat }}
                                         </span>
                                     </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                        {{ \Carbon\Carbon::parse($surat->tanggal_surat)->format('d/m/Y') }}</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-mediu   m text-gray-900">
-                                        {{ $surat->nomor_surat }}</td>
-                                    <td class="px-6 py-4 whitespace-normal text-sm text-gray-900">{{ $surat->penerima }}</td>
-                                    <td class="px-6 py-4 text-sm text-gray-900">{{ Str::limit($surat->perihal, 50) }}</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                        <div class="flex space-x-2">
+                                    <td class="py-4 px-4">
+                                        <div class="text-sm font-medium text-slate-900">{{ $surat->penerima }}</div>
+                                    </td>
+                                    <td class="py-4 px-4">
+                                        <div class="text-sm text-slate-900 line-clamp-2 leading-relaxed">
+                                            {{ Str::limit($surat->perihal, 50) }}
+                                        </div>
+                                    </td>
+                                    <td class="py-4 px-4">
+                                        <div class="flex items-center space-x-1">
                                             <a href="{{ route('admin.surat-keluar.show', $surat->id) }}"
-                                                class="text-blue-600 hover:text-blue-900 p-2 rounded-lg hover:bg-blue-50">
-                                                <i class="fas fa-eye"></i>
+                                                class="inline-flex items-center justify-center w-8 h-8 text-blue-600 hover:text-blue-700 hover:bg-blue-50 rounded-lg transition-colors duration-200"
+                                                title="Lihat Detail">
+                                                <i class="fas fa-eye text-sm"></i>
                                             </a>
                                             <a href="{{ route('admin.surat-keluar.edit', $surat->id) }}"
-                                                class="text-yellow-600 hover:text-yellow-900 p-2 rounded-lg hover:bg-yellow-50">
-                                                <i class="fas fa-edit"></i>
+                                                class="inline-flex items-center justify-center w-8 h-8 text-amber-600 hover:text-amber-700 hover:bg-amber-50 rounded-lg transition-colors duration-200"
+                                                title="Edit Surat">
+                                                <i class="fas fa-edit text-sm"></i>
                                             </a>
                                             <form action="{{ route('admin.surat-keluar.destroy', $surat->id) }}" method="POST"
                                                 class="inline delete-form">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit"
-                                                    class="text-red-600 hover:text-red-900 p-2 rounded-lg hover:bg-red-50 delete-button">
-                                                    <i class="fas fa-trash"></i>
+                                                    class="inline-flex items-center justify-center w-8 h-8 text-red-600 hover:text-red-700 hover:bg-red-50 rounded-lg transition-colors duration-200 delete-button"
+                                                    title="Hapus Surat">
+                                                    <i class="fas fa-trash text-sm"></i>
                                                 </button>
                                             </form>
                                         </div>
@@ -91,14 +178,21 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="7" class="px-6 py-12 text-center text-gray-500">
-                                        <svg class="mx-auto h-12 w-12 text-gray-400 mb-4" fill="none" stroke="currentColor"
-                                            viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
-                                            </path>
-                                        </svg>
-                                        Tidak ada data surat keluar
+                                    <td colspan="6" class="py-12 text-center">
+                                        <div class="flex flex-col items-center">
+                                            <div
+                                                class="w-16 h-16 bg-slate-100 rounded-xl flex items-center justify-center mb-4">
+                                                <i class="fas fa-paper-plane text-2xl text-slate-400"></i>
+                                            </div>
+                                            <p class="text-lg font-medium text-slate-600 mb-2">Belum ada surat keluar</p>
+                                            <p class="text-sm text-slate-500 mb-4">Mulai dengan menambahkan surat keluar pertama
+                                            </p>
+                                            <a href="{{ route('admin.surat-keluar.create') }}"
+                                                class="inline-flex items-center px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-lg transition-colors duration-200">
+                                                <i class="fas fa-plus mr-2"></i>
+                                                Tambah Surat Keluar
+                                            </a>
+                                        </div>
                                     </td>
                                 </tr>
                             @endforelse
@@ -106,13 +200,19 @@
                     </table>
                 </div>
 
-                <div class="flex items-center justify-between mt-6">
-                    <div class="text-sm text-gray-700">
-                        Menampilkan {{ $suratKeluar->firstItem() ?? 0 }} sampai {{ $suratKeluar->lastItem() ?? 0 }}
-                        dari {{ $suratKeluar->total() }} data
+                <!-- Pagination -->
+                @if($suratKeluar->hasPages())
+                    <div
+                        class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mt-6 pt-6 border-t border-slate-200">
+                        <div class="text-sm text-slate-600">
+                            Menampilkan {{ $suratKeluar->firstItem() ?? 0 }} sampai {{ $suratKeluar->lastItem() ?? 0 }}
+                            dari {{ $suratKeluar->total() }} data
+                        </div>
+                        <div class="flex justify-center sm:justify-end">
+                            {{ $suratKeluar->appends(request()->query())->links('pagination::tailwind') }}
+                        </div>
                     </div>
-                    {{ $suratKeluar->links() }}
-                </div>
+                @endif
             </div>
         </div>
     </div>
