@@ -52,31 +52,27 @@
 
                     <!-- Detail Dana Section -->
                     <div class="space-y-4 pt-6">
-                        <h3 class="text-sm font-semibold text-slate-800 uppercase tracking-wider">Detail Dana</h3>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div class="space-y-2">
+                            <div class="">
                                 <label for="jumlah" class="block text-sm font-medium text-slate-700">
                                     Jumlah Dana <span class="text-red-500">*</span>
                                 </label>
                                 <div class="relative">
-                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                        <span class="text-slate-500 text-sm font-medium">Rp</span>
-                                    </div>
                                     <input type="number" id="jumlah" name="jumlah" value="{{ old('jumlah') }}"
                                         placeholder="0" required
-                                        class="w-full pl-12 pr-4 py-2.5 bg-white border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200">
+                                        class="w-full mt-4 py-2.5 px-4 border border-slate-300 rounded-lg text-sm bg-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200">
                                 </div>
                                 @error('jumlah')
                                     <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
                                 @enderror
                             </div>
 
-                            <div class="space-y-2">
+                            <div class="">
                                 <label for="kategori" class="block text-sm font-medium text-slate-700">
                                     Kategori <span class="text-red-500">*</span>
                                 </label>
                                 <select id="kategori" name="kategori"
-                                    class="w-full px-4 py-2.5 bg-white border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200"
+                                    class="w-full mt-4 px-4 py-2.5 bg-white border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200"
                                     required>
                                     <option value="">Pilih Kategori</option>
                                     <option value="Pembangunan" {{ old('kategori') == 'Pembangunan' ? 'selected' : '' }}>
@@ -107,7 +103,6 @@
 
                     <!-- Keterangan Section -->
                     <div class="space-y-4 pt-6">
-                        <h3 class="text-sm font-semibold text-slate-800 uppercase tracking-wider">Keterangan</h3>
                         <div class="space-y-2">
                             <label for="keterangan" class="block text-sm font-medium text-slate-700">
                                 Detail Keterangan <span class="text-red-500">*</span>
@@ -124,7 +119,7 @@
                     </div>
 
                     <!-- Form Actions -->
-                    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-end gap-3 pt-6">
+                    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 pt-6">
                         <a href="{{ route('admin.dana-keluar.index') }}"
                             class="inline-flex items-center justify-center px-4 py-2.5 text-sm font-medium text-slate-700 bg-white border border-slate-300 rounded-lg hover:bg-slate-50 hover:border-slate-400 transition-colors duration-200">
                             <i class="fas fa-times mr-2 text-xs"></i>

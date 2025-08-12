@@ -58,12 +58,9 @@
                                     Jumlah Dana <span class="text-red-500">*</span>
                                 </label>
                                 <div class="relative">
-                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                        <span class="text-slate-500 text-sm font-medium">Rp</span>
-                                    </div>
                                     <input type="number" id="jumlah" name="jumlah"
                                         value="{{ old('jumlah', $danaKeluar->jumlah) }}" placeholder="0" min="0" step="1000"
-                                        class="w-full mt-4 pl-12 pr-4 py-2.5 border border-slate-300 rounded-lg text-sm bg-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200 h-11"
+                                        class="w-full mt-4 px-4 py-2.5 bg-white border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200"
                                         required>
                                 </div>
                                 @error('jumlah')
@@ -76,7 +73,7 @@
                                     Kategori <span class="text-red-500">*</span>
                                 </label>
                                 <select id="kategori" name="kategori"
-                                    class="w-full mt-4 px-4 py-2.5 border border-slate-300 rounded-lg text-sm bg-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200 h-11"
+                                    class="w-full mt-4 px-4 py-2.5 bg-white border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200"
                                     required>
                                     <option value="">Pilih Kategori</option>
                                     <option value="Pembangunan" {{ old('kategori', $danaKeluar->kategori) == 'Pembangunan' ? 'selected' : '' }}>

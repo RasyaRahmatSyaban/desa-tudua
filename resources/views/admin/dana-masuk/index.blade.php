@@ -6,103 +6,175 @@
 
 @section('content')
     <div class="space-y-6">
-        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 gap-4">
-            <!-- Kiri: Search dan filter -->
-            <div class="flex flex-wrap items-center gap-4">
-                <!-- Search -->
-                <form method="GET" action="{{ route('admin.dana-masuk.index') }}" class="relative">
-                    <input type="text" name="search" placeholder="Cari berdasarkan sumber atau keterangan..." value="{{ request('search') }}"
+        <!-- Header Actions -->
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <form method="GET" action="{{ route('admin.dana-masuk.index') }}" class="flex flex-col sm:flex-row gap-3">
+                <div class="relative">
+                    <input type="text" name="search" placeholder="Cari berdasarkan sumber atau keterangan..."
                         value="{{ request('search') }}"
-                        class="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                    <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
-                </form>
+                        class="w-full sm:w-64 pl-10 pr-4 py-2.5 bg-white border border-slate-300 rounded-lg text-sm placeholder-slate-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200"
+                        id="searchInput">
+                    <i class="fas fa-search absolute left-3 top-3 text-slate-400 text-sm"></i>
+                </div>
 
-                <!-- Bulan -->
-                <form method="GET" action="{{ route('admin.dana-masuk.index') }}" class="flex items-center gap-4">
-                    <input type="hidden" name="search" value="{{ request('search') }}">
+                <select name="bulan" onchange="this.form.submit()"
+                    class="w-full sm:w-auto border border-slate-300 rounded-lg px-4 py-2.5 bg-white text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200">
+                    <option value="">Semua Bulan</option>
+                    @for($i = 1; $i <= 12; $i++)
+                        <option value="{{ $i }}" {{ request('bulan') == $i ? 'selected' : '' }}>
+                            {{ DateTime::createFromFormat('!m', $i)->format('F') }}
+                        </option>
+                    @endfor
+                </select>
 
-                    <!-- Filter Bulan -->
-                    <select name="bulan" onchange="this.form.submit()"
-                        class="border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                        <option value="">Semua Bulan</option>
-                        @for($i = 1; $i <= 12; $i++)
-                            <option value="{{ $i }}" {{ request('bulan') == $i ? 'selected' : '' }}>
-                                {{ DateTime::createFromFormat('!m', $i)->format('F') }}
-                            </option>
-                        @endfor
-                    </select>
+                <select name="tahun" onchange="this.form.submit()"
+                    class="w-full sm:w-auto border border-slate-300 rounded-lg px-4 py-2.5 bg-white text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200">
+                    <option value="">Semua Tahun</option>
+                    @for($year = date('Y'); $year >= 2020; $year--)
+                        <option value="{{ $year }}" {{ request('tahun') == $year ? 'selected' : '' }}>
+                            {{ $year }}
+                        </option>
+                    @endfor
+                </select>
+            </form>
 
-                    <!-- Filter Tahun -->
-                    <select name="tahun" onchange="this.form.submit()"
-                        class="border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                        <option value="">Semua Tahun</option>
-                        @for($year = date('Y'); $year >= 2020; $year--)
-                            <option value="{{ $year }}" {{ request('tahun') == $year ? 'selected' : '' }}>
-                                {{ $year }}
-                            </option>
-                        @endfor
-                    </select>
-                </form>
-            </div>
-
-            <!-- Kanan: Tombol -->
-            <div class="flex items-center gap-2">
-                <a href="{{ route('admin.dana-masuk.create') }}"
-                    class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-medium inline-flex items-center">
-                    <i class="fas fa-plus mr-2"></i> Tambah Dana Masuk
-                </a>
-            </div>
+            <a href="{{ route('admin.dana-masuk.create') }}"
+                class="inline-flex items-center px-4 py-2.5 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-lg transition-colors duration-200 shadow-sm">
+                <i class="fas fa-plus mr-2"></i>
+                Tambah Dana Masuk
+            </a>
         </div>
 
-        <div class="bg-white shadow-sm rounded-lg border border-gray-200">
+        <!-- Stats Summary -->
+        @if($danaMasuk->count() > 0)
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="bg-white rounded-lg shadow-sm border border-slate-200 p-4">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-xs font-medium text-slate-500 uppercase tracking-wider">Total Transaksi</p>
+                            <p class="text-xl font-bold text-slate-800">{{ $danaMasuk->total() }}</p>
+                        </div>
+                        <div class="w-8 h-8 bg-emerald-100 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-arrow-down text-emerald-600 text-sm"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-sm border border-slate-200 p-4">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-xs font-medium text-slate-500 uppercase tracking-wider">Bulan Ini</p>
+                            <p class="text-xl font-bold text-slate-800">
+                                {{ $danaMasuk->where('created_at', '>=', now()->startOfMonth())->count() }}
+                            </p>
+                        </div>
+                        <div class="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-calendar text-blue-600 text-sm"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-sm border border-slate-200 p-4">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-xs font-medium text-slate-500 uppercase tracking-wider">Total Dana</p>
+                            <p class="text-xl font-bold text-emerald-600">
+                                Rp {{ number_format($danaMasuk->sum('jumlah'), 0, ',', '.') }}
+                            </p>
+                        </div>
+                        <div class="w-8 h-8 bg-violet-100 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-money-bill-wave text-violet-600 text-sm"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-sm border border-slate-200 p-4">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-xs font-medium text-slate-500 uppercase tracking-wider">Rata-rata</p>
+                            <p class="text-xl font-bold text-slate-800">
+                                Rp {{ number_format($danaMasuk->avg('jumlah'), 0, ',', '.') }}
+                            </p>
+                        </div>
+                        <div class="w-8 h-8 bg-amber-100 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-chart-line text-amber-600 text-sm"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endif
+
+        <!-- Dana Masuk Table -->
+        <div class="bg-white rounded-xl shadow-sm border border-slate-200">
             <div class="p-6">
                 <div class="overflow-x-auto">
-                    <table class="min-w-full divide-y divide-gray-200">
-                        <thead class="bg-gray-50">
-                            <tr>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Bulan</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Tahun</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Sumber Dana</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Jumlah</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Keterangan</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Aksi</th>
+                    <table class="w-full">
+                        <thead>
+                            <tr class="border-b border-slate-200">
+                                <th
+                                    class="text-left py-3 px-4 text-xs font-semibold text-slate-600 uppercase tracking-wider">
+                                    Periode
+                                </th>
+                                <th
+                                    class="text-left py-3 px-4 text-xs font-semibold text-slate-600 uppercase tracking-wider">
+                                    Sumber Dana
+                                </th>
+                                <th
+                                    class="text-left py-3 px-4 text-xs font-semibold text-slate-600 uppercase tracking-wider">
+                                    Jumlah
+                                </th>
+                                <th
+                                    class="text-left py-3 px-4 text-xs font-semibold text-slate-600 uppercase tracking-wider">
+                                    Keterangan
+                                </th>
+                                <th
+                                    class="text-left py-3 px-4 text-xs font-semibold text-slate-600 uppercase tracking-wider">
+                                    Aksi
+                                </th>
                             </tr>
                         </thead>
-                        <tbody class="bg-white divide-y divide-gray-200">
+                        <tbody class="divide-y divide-slate-100">
                             @forelse($danaMasuk as $dana)
-                                <tr class="hover:bg-gray-50">
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                        {{ $dana->nama_bulan }}</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ $dana->tahun }}
+                                <tr class="hover:bg-slate-50 transition-colors duration-200">
+                                    <td class="py-4 px-4">
+                                        <div class="text-sm font-medium text-slate-900">{{ $dana->nama_bulan }}</div>
+                                        <div class="text-xs text-slate-500">{{ $dana->tahun }}</div>
                                     </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                        {{ $dana->sumber }}</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-semibold text-green-600">Rp
-                                        {{ number_format($dana->jumlah, 0, ',', '.') }}</td>
-                                    <td class="px-6 py-4 text-sm text-gray-900">{{ Str::limit($dana->keterangan, 50) }}</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                        <div class="flex space-x-2">
+                                    <td class="py-4 px-4">
+                                        <span class="inline-flex items-center text-xs font-medium rounded-full">
+                                            {{ $dana->sumber }}
+                                        </span>
+                                    </td>
+                                    <td class="py-4 px-4">
+                                        <div class="text-sm font-semibold text-emerald-600">
+                                            Rp {{ number_format($dana->jumlah, 0, ',', '.') }}
+                                        </div>
+                                    </td>
+                                    <td class="py-4 px-4">
+                                        <div class="text-sm text-slate-900 line-clamp-2 leading-relaxed max-w-xs">
+                                            {{ Str::limit($dana->keterangan, 50) }}
+                                        </div>
+                                    </td>
+                                    <td class="py-4 px-4">
+                                        <div class="flex items-center space-x-1">
                                             <a href="{{ route('admin.dana-masuk.show', $dana->id) }}"
-                                                class="text-blue-600 hover:text-blue-900 p-2 rounded-lg hover:bg-blue-50">
-                                                <i class="fas fa-eye"></i>
+                                                class="inline-flex items-center justify-center w-8 h-8 text-blue-600 hover:text-blue-700 hover:bg-blue-50 rounded-lg transition-colors duration-200"
+                                                title="Lihat Detail">
+                                                <i class="fas fa-eye text-sm"></i>
                                             </a>
                                             <a href="{{ route('admin.dana-masuk.edit', $dana->id) }}"
-                                                class="text-yellow-600 hover:text-yellow-900 p-2 rounded-lg hover:bg-yellow-50">
-                                                <i class="fas fa-edit"></i>
+                                                class="inline-flex items-center justify-center w-8 h-8 text-amber-600 hover:text-amber-700 hover:bg-amber-50 rounded-lg transition-colors duration-200"
+                                                title="Edit Dana">
+                                                <i class="fas fa-edit text-sm"></i>
                                             </a>
                                             <form action="{{ route('admin.dana-masuk.destroy', $dana->id) }}" method="POST"
                                                 class="inline delete-form">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit"
-                                                    class="text-red-600 hover:text-red-900 p-2 rounded-lg hover:bg-red-50 delete-button">
-                                                    <i class="fas fa-trash"></i>
+                                                    class="inline-flex items-center justify-center w-8 h-8 text-red-600 hover:text-red-700 hover:bg-red-50 rounded-lg transition-colors duration-200 delete-button"
+                                                    title="Hapus Dana">
+                                                    <i class="fas fa-trash text-sm"></i>
                                                 </button>
                                             </form>
                                         </div>
@@ -110,14 +182,21 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="6" class="px-6 py-12 text-center text-gray-500">
-                                        <svg class="mx-auto h-12 w-12 text-gray-400 mb-4" fill="none" stroke="currentColor"
-                                            viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z">
-                                            </path>
-                                        </svg>
-                                        Tidak ada data dana masuk
+                                    <td colspan="5" class="py-12 text-center">
+                                        <div class="flex flex-col items-center">
+                                            <div
+                                                class="w-16 h-16 bg-slate-100 rounded-xl flex items-center justify-center mb-4">
+                                                <i class="fas fa-arrow-down text-2xl text-slate-400"></i>
+                                            </div>
+                                            <p class="text-lg font-medium text-slate-600 mb-2">Belum ada data dana masuk</p>
+                                            <p class="text-sm text-slate-500 mb-4">Mulai dengan menambahkan data dana masuk
+                                                pertama</p>
+                                            <a href="{{ route('admin.dana-masuk.create') }}"
+                                                class="inline-flex items-center px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-lg transition-colors duration-200">
+                                                <i class="fas fa-plus mr-2"></i>
+                                                Tambah Dana Masuk
+                                            </a>
+                                        </div>
                                     </td>
                                 </tr>
                             @endforelse
@@ -125,13 +204,26 @@
                     </table>
                 </div>
 
-                <div class="flex items-center justify-between mt-6">
-                    <div class="text-sm text-gray-700">
-                        Menampilkan {{ $danaMasuk->firstItem() ?? 0 }} sampai {{ $danaMasuk->lastItem() ?? 0 }}
-                        dari {{ $danaMasuk->total() }} data
+                <!-- Pagination -->
+                @if($danaMasuk->hasPages())
+                    <div
+                        class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mt-6 pt-6 border-t border-slate-200">
+                        <div class="text-sm text-slate-600">
+                            Menampilkan {{ $danaMasuk->firstItem() ?? 0 }} sampai {{ $danaMasuk->lastItem() ?? 0 }}
+                            dari {{ $danaMasuk->total() }} data
+                        </div>
+                        <div class="flex justify-center sm:justify-end">
+                            {{ $danaMasuk->appends(request()->query())->links('pagination::tailwind') }}
+                        </div>
                     </div>
-                    {{ $danaMasuk->links() }}
-                </div>
+                @else
+                    <div class="flex items-center justify-between mt-6">
+                        <div class="text-sm text-slate-600">
+                            Menampilkan {{ $danaMasuk->firstItem() ?? 0 }} sampai {{ $danaMasuk->lastItem() ?? 0 }}
+                            dari {{ $danaMasuk->total() }} data
+                        </div>
+                    </div>
+                @endif
             </div>
         </div>
     </div>

@@ -6,102 +6,121 @@
 
 @section('content')
     <div class="space-y-6">
-        <form method="POST" action="{{ route('admin.dana-masuk.update', $danaMasuk->id) }}" class="space-y-6">
-            @csrf
-            @method('PUT')
+        <!-- Form Card -->
+        <div class="bg-white rounded-xl shadow-sm border border-slate-200">
+            <div class="p-6">
+                <form method="POST" action="{{ route('admin.dana-masuk.update', $danaMasuk->id) }}" class="">
+                    @csrf
+                    @method('PUT')
 
-            <div class="card bg-white rounded-lg shadow-md p-6">
-                <h3 class="text-lg font-semibold text-gray-900 mb-6">Informasi Dana Masuk</h3>
+                    <!-- Periode Section -->
+                    <div class="space-y-4">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="space-y-2">
+                                <label for="bulan" class="block text-sm font-medium text-slate-700">
+                                    Bulan <span class="text-red-500">*</span>
+                                </label>
+                                <select id="bulan" name="bulan"
+                                    class="w-full px-4 py-2.5 border border-slate-300 rounded-lg text-sm bg-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200"
+                                    required>
+                                    <option value="">-- Pilih Bulan --</option>
+                                    @foreach(['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'] as $i => $bln)
+                                        <option value="{{ $i + 1 }}" {{ old('bulan', $danaMasuk->bulan) == $i + 1 ? 'selected' : '' }}>
+                                            {{ $bln }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                @error('bulan')
+                                    <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
+                                @enderror
+                            </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <!-- Tanggal -->
-                    <div>
-                        <label for="bulan" class="block text-sm font-medium text-gray-700 mb-2">
-                            Bulan <span class="text-red-500">*</span>
-                        </label>
-                        <select id="bulan" name="bulan"
-                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                            @error('bulan') border-red-500 @enderror required>
-                            <option value="">-- Pilih Bulan --</option>
-                            @foreach(['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'] as $i => $bln)
-                                <option value="{{ $i + 1 }}" {{ old('bulan', $danaMasuk->bulan) == $i + 1 ? 'selected' : '' }}>
-                                    {{ $bln }}
-                                </option>
-                            @endforeach
-                        </select>
-                        @error('bulan')
-                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                        @enderror
-                    </div>
-                    <div>
-                        <label for="tahun" class="block text-sm font-medium text-gray-700 mb-2">
-                            Tahun <span class="text-red-500">*</span>
-                        </label>
-                        <input type="number" id="tahun" name="tahun"
-                            value="{{ old('tahun', $danaMasuk->tahun ?? date('Y')) }}" min="1900" max="2100"
-                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                            @error('tahun') border-red-500 @enderror required>
-                        @error('tahun')
-                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                        @enderror
-                    </div>
-
-                    <!-- Jumlah -->
-                    <div>
-                        <label for="jumlah" class="block text-sm font-medium text-gray-700 mb-2">
-                            Jumlah (Rp) <span class="text-red-500">*</span>
-                        </label>
-                        <input type="number" id="jumlah" name="jumlah" value="{{ old('jumlah', $danaMasuk->jumlah) }}"
-                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                            @error('jumlah') border-red-500 @enderror placeholder="Masukkan jumlah dana" min="0" step="1000"
-                            required>
-                        @error('jumlah')
-                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                        @enderror
+                            <div class="space-y-2">
+                                <label for="tahun" class="block text-sm font-medium text-slate-700">
+                                    Tahun <span class="text-red-500">*</span>
+                                </label>
+                                <input type="number" id="tahun" name="tahun"
+                                    value="{{ old('tahun', $danaMasuk->tahun ?? date('Y')) }}" min="1900" max="2100"
+                                    class="w-full px-4 py-2.5 border border-slate-300 rounded-lg text-sm bg-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200"
+                                    required>
+                                @error('tahun')
+                                    <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
+                                @enderror
+                            </div>
+                        </div>
                     </div>
 
-                    <!-- sumber -->
-                    <div>
-                        <label for="sumber" class="block text-sm font-medium text-gray-700 mb-2">
-                            Sumber Dana <span class="text-red-500">*</span>
-                        </label>
-                        <input type="text"
-                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                            @error('sumber') border-red-500 @enderror id="sumber" name="sumber"
-                            value="{{ old('sumber', $danaMasuk->sumber) }}"
-                            placeholder="Contoh: APBD, Bantuan Pemerintah, dll" required>
-                        @error('sumber')
-                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                        @enderror
-                    </div>
-                </div>
+                    <!-- Detail Dana Section -->
+                    <div class="pt-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="">
+                                <label for="jumlah" class="block text-sm font-medium text-slate-700">
+                                    Jumlah Dana <span class="text-red-500">*</span>
+                                </label>
+                                <div class="relative">
+                                    <input type="number" id="jumlah" name="jumlah"
+                                        value="{{ old('jumlah', $danaMasuk->jumlah) }}" placeholder="0" min="0" step="1000"
+                                        class="w-full mt-4 py-2.5 px-4 border border-slate-300 rounded-lg text-sm bg-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200"
+                                        required>
+                                </div>
+                                @error('jumlah')
+                                    <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
+                                @enderror
+                            </div>
 
-                <!-- Keterangan -->
-                <div class="mt-6">
-                    <label for="keterangan" class="block text-sm font-medium text-gray-700 mb-2">
-                        Keterangan
-                    </label>
-                    <textarea id="keterangan" name="keterangan" rows="4"
-                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                        @error('keterangan') border-red-500 @enderror
-                        placeholder="Keterangan tambahan (opsional)">{{ old('keterangan', $danaMasuk->keterangan) }}</textarea>
-                    @error('keterangan')
-                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                    @enderror
-                </div>
+                            <div class="">
+                                <label for="sumber" class="block text-sm font-medium text-slate-700">
+                                    Sumber Dana <span class="text-red-500">*</span>
+                                </label>
+                                <input type="text"
+                                    class="w-full mt-4 px-4 py-2.5 bg-white border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200"
+                                    @error('sumber') border-red-500 @enderror id="sumber" name="sumber"
+                                    value="{{ old('sumber', $danaMasuk->sumber) }}" placeholder="Contoh: APBD, Bantuan Pemerintah, dll"
+                                    required>
+                                @error('sumber')
+                                    <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
+                                @enderror
+                                @error('sumber')
+                                    <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Keterangan Section -->
+                    <div class="space-y-4 pt-6">
+                        <div class="space-y-2">
+                            <label for="keterangan" class="block text-sm font-medium text-slate-700">
+                                Detail Keterangan
+                            </label>
+                            <textarea id="keterangan" name="keterangan" rows="4"
+                                placeholder="Jelaskan detail sumber dana masuk, tujuan penggunaan, dan informasi penting lainnya..."
+                                class="w-full px-4 py-2.5 border border-slate-300 rounded-lg text-sm bg-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200 resize-none">{{ old('keterangan', $danaMasuk->keterangan) }}</textarea>
+                            @error('keterangan')
+                                <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
+                            @enderror
+                            <p class="text-xs text-slate-500">Maksimum 500 karakter</p>
+                        </div>
+                    </div>
+
+                    <!-- Form Actions -->
+                    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 pt-6">
+                        <a href="{{ route('admin.dana-masuk.index') }}"
+                            class="inline-flex items-center justify-center px-4 py-2.5 text-sm font-medium text-slate-700 bg-white border border-slate-300 rounded-lg hover:bg-slate-50 hover:border-slate-400 transition-colors duration-200">
+                            <i class="fas fa-arrow-left mr-2 text-xs"></i>
+                            Kembali ke Daftar
+                        </a>
+
+                        <div class="flex gap-3">
+                            <button type="submit"
+                                class="inline-flex items-center justify-center px-4 py-2.5 text-sm font-medium text-white bg-amber-600 border border-amber-600 rounded-lg hover:bg-amber-700 hover:border-amber-700 transition-colors duration-200 shadow-sm">
+                                <i class="fas fa-save mr-2 text-xs"></i>
+                                Simpan Perubahan
+                            </button>
+                        </div>
+                    </div>
+                </form>
             </div>
-
-            <!-- Action Buttons -->
-            <div class="flex items-center justify-between">
-                <a href="{{ route('admin.dana-masuk.index') }}"
-                    class="px-6 py-3 border border-gray-300 rounded-lg text-gray-700 font-medium hover:bg-gray-50 transition-colors">
-                    <i class="fas fa-arrow-left mr-2"></i>Kembali
-                </a>
-
-                <button type="submit" class="btn-primary text-white px-6 py-3 rounded-lg font-medium">
-                    <i class="fas fa-save mr-2"></i>Simpan Perubahan
-                </button>
-            </div>
-        </form>
+        </div>
     </div>
 @endsection
