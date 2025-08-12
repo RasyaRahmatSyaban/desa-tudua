@@ -71,13 +71,8 @@
 
                     <!-- Detail Information -->
                     <div class="space-y-4">
-                        <h3
-                            class="text-sm font-semibold text-slate-700 uppercase tracking-wider border-b border-slate-200 pb-2">
-                            Detail Surat
-                        </h3>
-
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div>
+                            <div class="pt-6">
                                 <label for="perihal" class="block text-sm font-medium text-slate-700 mb-2">
                                     Perihal <span class="text-red-500">*</span>
                                 </label>
@@ -96,7 +91,7 @@
                                 @enderror
                             </div>
 
-                            <div>
+                            <div class="pt-6">
                                 <label for="pengirim" class="block text-sm font-medium text-slate-700 mb-2">
                                     Pengirim <span class="text-red-500">*</span>
                                 </label>
@@ -119,13 +114,8 @@
 
                     <!-- File Upload -->
                     <div class="space-y-4">
-                        <h3
-                            class="text-sm font-semibold text-slate-700 uppercase tracking-wider border-b border-slate-200 pb-2">
-                            File Surat
-                        </h3>
-
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div>
+                            <div class="pt-6">
                                 <label for="file" class="block text-sm font-medium text-slate-700 mb-2">
                                     File Surat <span class="text-red-500">*</span>
                                 </label>
@@ -148,7 +138,7 @@
 
                             <!-- File Preview Area -->
                             <div
-                                class="flex items-center justify-center h-32 bg-slate-50 border-2 border-dashed border-slate-300 rounded-lg">
+                                class="mt-6 flex items-center justify-center h-32 bg-slate-50 border-2 border-dashed border-slate-300 rounded-lg">
                                 <div class="text-center">
                                     <i class="fas fa-cloud-upload-alt text-3xl text-slate-400 mb-2"></i>
                                     <p class="text-sm text-slate-500">File akan ditampilkan di sini</p>
