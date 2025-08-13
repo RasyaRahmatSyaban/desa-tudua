@@ -6,82 +6,136 @@
 
 @section('content')
     <div class="space-y-6">
-        <div class="bg-white rounded-lg shadow-md p-6">
+        <!-- Form Card -->
+        <div class="bg-white rounded-xl shadow-sm border border-slate-200">
+            <div class="pt-6 px-6">
+                <div class="flex items-center space-x-3">
+                    <div>
+                        <h3 class="text-lg font-semibold text-slate-900">Form Edit Perangkat Desa</h3>
+                    </div>
+                </div>
+            </div>
+
             <form action="{{ route('admin.perangkat-desa.update', $perangkatDesa->id) }}" method="POST"
-                enctype="multipart/form-data" class="space-y-6">
+                enctype="multipart/form-data" class="p-6">
                 @csrf
                 @method('PUT')
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <!-- Nama -->
-                    <div>
-                        <label for="nama" class="block text-sm font-medium text-gray-700 mb-2">
-                            Nama Lengkap <span class="text-red-500">*</span>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <!-- Left Column -->
+                    <div class="space-y-6">
+                        <!-- Nama -->
+                        <div>
+                            <label for="nama" class="block text-sm font-medium text-slate-700 mb-2">
+                                Nama Lengkap <span class="text-red-500">*</span>
+                            </label>
+                            <input type="text" id="nama" name="nama" value="{{ old('nama', $perangkatDesa->nama) }}"
+                                required
+                                class="w-full px-4 py-2.5 bg-white border border-slate-300 rounded-lg text-sm placeholder-slate-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200"
+                                placeholder="Masukkan nama lengkap">
+                            @error('nama')
+                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <!-- Jabatan -->
+                        <div>
+                            <label for="jabatan" class="block text-sm font-medium text-slate-700 mb-2">
+                                Jabatan<span class="text-red-500">*</span>
+                            </label>
+                            <input type="text"
+                                class="w-full px-4 py-2.5 bg-white border border-slate-300 rounded-lg text-sm placeholder-slate-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200"
+                                id="jabatan" name="jabatan" value="{{ old('jabatan', $perangkatDesa->jabatan) }}"
+                                placeholder="Kepala Desa" required>
+                            @error('jabatan')
+                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <!-- NIP -->
+                        <div>
+                            <label for="nip" class="block text-sm font-medium text-slate-700 mb-2">
+                                NIP
+                            </label>
+                            <input type="text" id="nip" name="nip" value="{{ old('nip', $perangkatDesa->nip) }}"
+                                class="w-full px-4 py-2.5 bg-white border border-slate-300 rounded-lg text-sm placeholder-slate-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200"
+                                placeholder="Masukkan NIP (opsional)">
+                            @error('nip')
+                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
+                        <!-- Foto Upload -->
+                        <label for="foto" class="block text-sm font-medium text-slate-700 my-2">
+                            Foto Saat Ini
                         </label>
-                        <input type="text" id="nama" name="nama" value="{{ old('nama', $perangkatDesa->nama) }}"
-                            class="w-full px-4 py-3 border rounded-lg @error('nama') border-red-500 @enderror" required>
-                        @error('nama')
-                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                        @enderror
-                    </div>
-
-                    <!-- NIP -->
-                    <div>
-                        <label for="nip" class="block text-sm font-medium text-gray-700 mb-2">NIP</label>
-                        <input type="text" id="nip" name="nip" value="{{ old('nip', $perangkatDesa->nip) }}"
-                            class="w-full px-4 py-3 border rounded-lg @error('nip') border-red-500 @enderror">
-                        @error('nip')
-                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                        @enderror
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-
-                    <!-- Foto -->
-                    <div>
-                        <label for="foto" class="block text-sm font-medium text-gray-700 mb-2">Foto</label>
-                        <input type="file" id="foto" name="foto" accept="image/*"
-                            class="block w-full text-sm text-gray-700 file:border file:border-gray-300 file:rounded-lg file:py-2 file:px-4 file:text-sm file:bg-white file:hover:bg-gray-50 @error('foto') border-red-500 @enderror">
-                        <p class="text-xs text-gray-500 mt-1">Kosongkan jika tidak ingin mengubah. Format: JPG, PNG (Max:
-                            2MB)</p>
-                        @error('foto')
-                            <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
-                        @enderror
-
+                        <!-- Current Photo Preview -->
                         @if ($perangkatDesa->foto)
-                            <div class="mt-4">
-                                <img src="{{ Storage::url($perangkatDesa->foto) }}" alt="{{ $perangkatDesa->nama }}"
-                                    class="w-32 h-32 object-cover rounded border border-gray-300">
-                            </div>
+                            <img src="{{ asset('storage/' . $perangkatDesa->foto) }}" alt="{{ $perangkatDesa->nama }}"
+                                class="w-32 h-32 object-cover rounded-lg border border-slate-200">
                         @endif
                     </div>
-                    <!-- Jabatan -->
+
+                    <!-- Right Column -->
                     <div>
-                        <label for="jabatan" class="block text-sm font-medium text-gray-700 mb-2">
-                            Jabatan <span class="text-red-500">*</span>
-                        </label>
-                        <input type="text" id="jabatan" name="jabatan" value="{{ old('jabatan', $perangkatDesa->jabatan) }}"
-                            placeholder="Kepala Desa" required
-                            class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('jabatan') border-red-500 @enderror">
-                        @error('jabatan')
+                        <div
+                            class="mt-1 flex justify-center px-6 pt-14 pb-18 border-2 border-slate-300 border-dashed rounded-lg hover:border-slate-400 transition-colors duration-200">
+                            <div class="space-y-1 text-center">
+                                <div id="image-preview" class="hidden">
+                                    <img id="preview-img" src="" alt="Preview"
+                                        class="mx-auto h-32 w-32 object-cover rounded-lg">
+                                </div>
+                                <div id="upload-placeholder">
+                                    <i class="fas fa-camera mx-auto h-12 w-12 text-slate-400 text-4xl mb-4"></i>
+                                    <div class="flex text-sm text-slate-600">
+                                        <label for="foto"
+                                            class="relative cursor-pointer bg-white rounded-md font-medium text-blue-600 hover:text-blue-500 focus-within:outline-none">
+                                            <span>Upload foto</span>
+                                            <input id="foto" name="foto" type="file" class="sr-only" accept="image/*">
+                                        </label>
+                                        <p class="pl-1">atau drag and drop</p>
+                                    </div>
+                                    <p class="text-xs text-slate-500">PNG, JPG, JPEG hingga 2MB</p>
+                                    <p class="text-xs text-slate-400 mt-1">Kosongkan jika tidak ingin mengubah foto</p>
+                                </div>
+                            </div>
+                        </div>
+                        @error('foto')
                             <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                         @enderror
                     </div>
                 </div>
 
-                <!-- Buttons -->
-                <div class="flex items-center justify-between pt-4">
+                <!-- Form Actions -->
+                <div
+                    class="flex flex-col sm:flex-row sm:items-center sm:justify-end gap-3 mt-8 pt-6 border-t border-slate-200">
                     <a href="{{ route('admin.perangkat-desa.index') }}"
-                        class="inline-flex items-center px-6 py-3 border border-gray-300 rounded-lg text-gray-700 font-medium hover:bg-gray-50 transition">
-                        <i class="fas fa-times mr-2"></i>Batal
+                        class="inline-flex items-center justify-center px-4 py-2.5 bg-white border border-slate-300 text-slate-700 text-sm font-medium rounded-lg hover:bg-slate-50 focus:ring-2 focus:ring-slate-500 focus:border-slate-500 transition-colors duration-200">
+                        <i class="fas fa-arrow-left mr-2 text-xs"></i>
+                        Kembali
                     </a>
                     <button type="submit"
-                        class="inline-flex items-center px-6 py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition">
-                        <i class="fas fa-save mr-2"></i>Simpan Perubahan
+                        class="inline-flex items-center justify-center px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200 shadow-sm">
+                        <i class="fas fa-save mr-2 text-xs"></i>
+                        Simpan Perubahan
                     </button>
                 </div>
             </form>
         </div>
     </div>
+
+    <script>
+        // Image preview functionality
+        document.getElementById('foto').addEventListener('change', function (e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    document.getElementById('preview-img').src = e.target.result;
+                    document.getElementById('image-preview').classList.remove('hidden');
+                    document.getElementById('upload-placeholder').classList.add('hidden');
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    </script>
 @endsection

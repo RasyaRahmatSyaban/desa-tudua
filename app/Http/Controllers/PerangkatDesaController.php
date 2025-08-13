@@ -18,19 +18,19 @@ class PerangkatDesaController extends Controller
     {
         $request->validate([
             'search' => 'nullable|string|max:100',
-        ]);        
+        ]);
 
         $hasFilter = $request->filled('search');
 
-        if($hasFilter){
+        if ($hasFilter) {
             $perangkatDesa = $this->perangkatDesaService->getFiltered($request);
-        }else{
+        } else {
             $perangkatDesa = $this->perangkatDesaService->getPaginated();
         }
         $user = auth()->user();
-        if($user){
+        if ($user) {
             return view('admin.perangkat-desa.index', compact('perangkatDesa'));
-        }else{
+        } else {
             return view('perangkat-desa.index', compact('perangkatDesa'));
         }
     }
@@ -42,13 +42,13 @@ class PerangkatDesaController extends Controller
     }
     public function create()
     {
-        return view('admin.perangkat-desa.create');   
+        return view('admin.perangkat-desa.create');
     }
     public function store(Request $request)
     {
         $validated = $request->validate([
             'nama' => 'required|string|max:255',
-            'nip' => 'required|string|max:30|unique:perangkat_desa,nip',
+            'nip' => 'nullable|string|max:30|unique:perangkat_desa,nip',
             'jabatan' => 'required|string|max:100',
             'foto' => 'required|image|mimes:jpg,jpeg,png,webp|max:2048',
         ]);
@@ -67,15 +67,15 @@ class PerangkatDesaController extends Controller
     public function edit($id)
     {
         $perangkatDesa = $this->perangkatDesaService->getById($id);
-        return view('admin.perangkat-desa.edit', compact('perangkatDesa'));   
+        return view('admin.perangkat-desa.edit', compact('perangkatDesa'));
     }
     public function update(Request $request, $id)
     {
         $validated = $request->validate([
             'nama' => 'required|string|max:255',
-            'nip' => 'required|string|max:30|unique:perangkat_desa,nip',
+            'nip' => 'nullable|string|max:30|unique:perangkat_desa,nip' . ',' . $id,
             'jabatan' => 'required|string|max:100',
-            'foto' => 'required|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'foto' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
         ]);
 
         if ($request->hasFile('foto')) {
