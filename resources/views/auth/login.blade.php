@@ -4,50 +4,51 @@
 @section('description', 'Halaman login untuk administrator desa')
 
 @section('content')
-    <div class="min-h-screen flex items-center justify-center py-20 px-4 sm:px-6 lg:px-8">
+    <div class="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-slate-50 pt-28">
         <div class="max-w-md w-full space-y-8">
             <!-- Header -->
             <div class="text-center">
-                <div class="flex justify-center">
-                    <div class="w-20 h-20 bg-blue-600 rounded-full flex items-center justify-center mb-4">
+                <div class="flex justify-center mb-6">
+                    <div
+                        class="w-20 h-20 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center shadow-lg">
                         <i class="fas fa-user-shield text-white text-2xl"></i>
                     </div>
                 </div>
-                <h2 class="text-3xl font-bold text-gray-900 mb-2">Login Administrator</h2>
-                <p class="text-gray-600">Masuk ke panel admin desa digital</p>
+                <h2 class="text-3xl font-semibold text-slate-800 mb-2">Login Administrator</h2>
+                <p class="text-slate-600">Masuk ke panel admin desa digital</p>
             </div>
 
             <!-- Login Form -->
-            <div class="bg-white p-8 rounded-lg shadow-lg">
+            <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-8">
                 @if(session('error'))
-                    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-6 flex items-center">
-                        <i class="fas fa-exclamation-circle mr-2"></i>
-                        {{ session('error') }}
+                    <div class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-6 flex items-center">
+                        <i class="fas fa-exclamation-circle mr-2 text-red-500"></i>
+                        <span class="text-sm">{{ session('error') }}</span>
                     </div>
                 @endif
 
                 @if(session('success'))
-                    <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-6 flex items-center">
-                        <i class="fas fa-check-circle mr-2"></i>
-                        {{ session('success') }}
+                    <div
+                        class="bg-emerald-50 border border-emerald-200 text-emerald-700 px-4 py-3 rounded-lg mb-6 flex items-center">
+                        <i class="fas fa-check-circle mr-2 text-emerald-500"></i>
+                        <span class="text-sm">{{ session('success') }}</span>
                     </div>
                 @endif
 
-                <form method="POST" action="{{ route('auth.login') }}" id="loginForm">
+                <form method="POST" action="{{ route('auth.login') }}" id="loginForm" class="space-y-6">
                     @csrf
 
                     <!-- Email Field -->
-                    <div class="mb-6">
-                        <label for="email" class="block text-sm font-medium text-gray-700 mb-2">
-                            <i class="fas fa-envelope mr-2 text-gray-400"></i>
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-slate-700 mb-2">
+                            <i class="fas fa-envelope mr-2 text-slate-400"></i>
                             Email Address
                         </label>
                         <input type="email" id="email" name="email" value="{{ old('email') }}"
-                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
-                            @error('email') border-red-500 @enderror placeholder="admin@desa.id" required
-                            autocomplete="email">
+                            class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors text-sm bg-slate-50 focus:bg-white"
+                            placeholder="admin@desa.id" required autocomplete="email">
                         @error('email')
-                            <p class="text-red-500 text-sm mt-1 flex items-center">
+                            <p class="text-red-600 text-sm mt-2 flex items-center">
                                 <i class="fas fa-exclamation-triangle mr-1"></i>
                                 {{ $message }}
                             </p>
@@ -55,23 +56,22 @@
                     </div>
 
                     <!-- Password Field -->
-                    <div class="mb-6">
-                        <label for="password" class="block text-sm font-medium text-gray-700 mb-2">
-                            <i class="fas fa-lock mr-2 text-gray-400"></i>
+                    <div>
+                        <label for="password" class="block text-sm font-medium text-slate-700 mb-2">
+                            <i class="fas fa-lock mr-2 text-slate-400"></i>
                             Password
                         </label>
                         <div class="relative">
                             <input type="password" id="password" name="password"
-                                class="w-full px-4 py-3 pr-12 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
-                                @error('password') border-red-500 @enderror placeholder="Masukkan password" required
-                                autocomplete="current-password">
+                                class="w-full px-4 py-3 pr-12 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors text-sm bg-slate-50 focus:bg-white"
+                                placeholder="Masukkan password" required autocomplete="current-password">
                             <button type="button" onclick="togglePassword()"
-                                class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600">
+                                class="absolute right-3 top-1/2 transform -translate-y-1/2 text-slate-400 hover:text-slate-600 transition-colors">
                                 <i id="passwordIcon" class="fas fa-eye"></i>
                             </button>
                         </div>
                         @error('password')
-                            <p class="text-red-500 text-sm mt-1 flex items-center">
+                            <p class="text-red-600 text-sm mt-2 flex items-center">
                                 <i class="fas fa-exclamation-triangle mr-1"></i>
                                 {{ $message }}
                             </p>
@@ -79,26 +79,26 @@
                     </div>
 
                     <!-- Remember Me -->
-                    <div class="flex items-center justify-between mb-6">
+                    <div class="flex items-center justify-between">
                         <div class="flex items-center">
                             <input type="checkbox" id="remember" name="remember"
-                                class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
-                            <label for="remember" class="ml-2 block text-sm text-gray-700">
+                                class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-slate-300 rounded">
+                            <label for="remember" class="ml-2 block text-sm text-slate-600">
                                 Ingat saya
                             </label>
                         </div>
-                        <a href="#" class="text-sm text-blue-600 hover:text-blue-800 font-medium">
+                        <a href="#" class="text-sm text-blue-600 hover:text-blue-700 font-medium transition-colors">
                             Lupa password?
                         </a>
                     </div>
 
                     <!-- Submit Button -->
                     <button type="submit"
-                        class="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white py-3 px-4 rounded-lg font-semibold hover:from-blue-700 hover:to-blue-800 focus:ring-4 focus:ring-blue-300 transition-all duration-200 flex items-center justify-center"
+                        class="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white py-3 px-4 rounded-lg font-medium hover:from-blue-700 hover:to-blue-800 focus:ring-4 focus:ring-blue-200 transition-all duration-200 flex items-center justify-center shadow-sm"
                         id="loginBtn">
                         <span id="loginText">
                             <i class="fas fa-sign-in-alt mr-2"></i>
-                            Masuk ke Dashboard
+                            Login
                         </span>
                         <span id="loginLoading" class="hidden">
                             <i class="fas fa-spinner fa-spin mr-2"></i>
@@ -108,58 +108,22 @@
                 </form>
 
                 <!-- Divider -->
-                <div class="mt-8 pt-6 border-t border-gray-200">
+                <div class="mt-8 pt-6 border-t border-slate-200">
                     <div class="text-center">
-                        <p class="text-sm text-gray-600 mb-4">
+                        <p class="text-sm text-slate-500 mb-4">
                             <i class="fas fa-info-circle mr-1"></i>
                             Hanya administrator yang dapat mengakses panel ini
                         </p>
-                        <a href="{{ route('dashboard') }}" class="text-blue-600 hover:text-blue-800 font-medium text-sm">
+                        <a href="{{ route('dashboard') }}"
+                            class="inline-flex items-center text-blue-600 hover:text-blue-700 font-medium text-sm transition-colors">
                             <i class="fas fa-arrow-left mr-1"></i>
                             Kembali ke Beranda
                         </a>
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
-
-    <style>
-        .login-container {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-        }
-
-        .login-form {
-            backdrop-filter: blur(10px);
-            background: rgba(255, 255, 255, 0.95);
-        }
-
-        .input-focus:focus {
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-        }
-
-        @keyframes shake {
-
-            0%,
-            100% {
-                transform: translateX(0);
-            }
-
-            25% {
-                transform: translateX(-5px);
-            }
-
-            75% {
-                transform: translateX(5px);
-            }
-        }
-
-        .shake {
-            animation: shake 0.5s ease-in-out;
-        }
-    </style>
 
     <script>
         // Toggle password visibility
@@ -195,7 +159,7 @@
 
         // Auto-hide flash messages
         setTimeout(function () {
-            const alerts = document.querySelectorAll('.bg-red-100, .bg-green-100');
+            const alerts = document.querySelectorAll('.bg-red-50, .bg-emerald-50');
             alerts.forEach(function (alert) {
                 alert.style.transition = 'opacity 0.5s';
                 alert.style.opacity = '0';
@@ -209,9 +173,9 @@
         @if($errors->any())
             document.addEventListener('DOMContentLoaded', function () {
                 const form = document.getElementById('loginForm');
-                form.classList.add('shake');
+                form.classList.add('animate-pulse');
                 setTimeout(() => {
-                    form.classList.remove('shake');
+                    form.classList.remove('animate-pulse');
                 }, 500);
             });
         @endif
@@ -237,9 +201,11 @@
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
             if (email && !emailRegex.test(email)) {
-                this.classList.add('border-red-500');
+                this.classList.add('border-red-300', 'bg-red-50');
+                this.classList.remove('border-slate-300', 'bg-slate-50');
             } else {
-                this.classList.remove('border-red-500');
+                this.classList.remove('border-red-300', 'bg-red-50');
+                this.classList.add('border-slate-300', 'bg-slate-50');
             }
         });
     </script>
