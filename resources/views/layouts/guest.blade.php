@@ -8,284 +8,222 @@
     <title>@yield('title', 'Beranda') - Desa Digital</title>
     <meta name="description"
         content="@yield('description', 'Website resmi desa untuk informasi dan pelayanan masyarakat')">
-
     <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+    <link
+        href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap"
         rel="stylesheet">
-
-    <!-- Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-
-    <style>
-        * {
-            font-family: 'Poppins', sans-serif;
-        }
-
-        .navbar {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            transition: all 0.3s ease;
-        }
-
-        .navbar.scrolled {
-            background: rgba(255, 255, 255, 0.98);
-            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
-        }
-
-        .nav-link {
-            position: relative;
-            transition: all 0.3s ease;
-        }
-
-        .nav-link:hover {
-            color: #3b82f6;
-        }
-
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: -5px;
-            left: 50%;
-            background: #3b82f6;
-            transition: all 0.3s ease;
-            transform: translateX(-50%);
-        }
-
-        .nav-link:hover::after,
-        .nav-link.active::after {
-            width: 100%;
-        }
-
-        .hero-gradient {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        }
-
-        .card-hover {
-            transition: all 0.3s ease;
-        }
-
-        .card-hover:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
-            transition: all 0.3s ease;
-        }
-
-        .btn-primary:hover {
-            background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
-            transform: translateY(-1px);
-        }
-
-        .mobile-menu {
-            transform: translateX(-100%);
-            transition: transform 0.3s ease;
-        }
-
-        .mobile-menu.active {
-            transform: translateX(0);
-        }
-    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 
-<body>
+<body class="font-sans">
     <!-- Navigation -->
-    <nav class=" navbar fixed top-0 left-0 right-0 z-50 px-4 py-4">
-        <div class="max-w-7xl mx-auto flex items-center justify-between">
+    <nav class="fixed top-0 left-0 right-0 z-50 px-8 py-3 bg-desa-white/95 backdrop-blur-md transition-all duration-300"
+        id="navbar">
+        <div class="w-full mx-auto flex items-center justify-between">
             <!-- Logo -->
             <div class="flex items-center space-x-3">
-                <i class="fas fa-building text-2xl text-blue-600"></i>
+                <i class="fas fa-building text-2xl text-desa-light"></i>
                 <div>
-                    <h1 class="text-xl font-bold text-gray-800">Desa Tudua</h1>
+                    <h1 class="text-xl font-bold text-desa-dark">Desa Tudua</h1>
                 </div>
             </div>
-
             <!-- Desktop Menu -->
             <div class="hidden md:flex items-center space-x-8">
                 <a href="{{ route('dashboard') }}"
-                    class="nav-link text-gray-700 font-medium {{ request()->routeIs('home') ? 'active' : '' }}">Beranda</a>
+                    class="relative text-gray-700 font-medium transition-all duration-300 hover:text-desa-light after:content-[''] after:absolute after:w-0 after:h-0.5 after:-bottom-1 after:left-1/2 after:bg-desa-light after:transition-all after:duration-300 hover:after:w-full hover:after:left-0 {{ request()->routeIs('home') ? 'text-desa-light after:w-full after:left-0' : '' }}">Beranda</a>
                 <a href="{{ route('profil') }}"
-                    class="nav-link text-gray-700 font-medium {{ request()->routeIs('profil') ? 'active' : '' }}">Profil
+                    class="relative text-gray-700 font-medium transition-all duration-300 hover:text-desa-light after:content-[''] after:absolute after:w-0 after:h-0.5 after:-bottom-1 after:left-1/2 after:bg-desa-light after:transition-all after:duration-300 hover:after:w-full hover:after:left-0 {{ request()->routeIs('profil') ? 'text-desa-light after:w-full after:left-0' : '' }}">Profil
                     Desa</a>
                 <a href="{{ route('berita.index') }}"
-                    class="nav-link text-gray-700 font-medium {{ request()->routeIs('berita.index*') ? 'active' : '' }}">Berita</a>
+                    class="relative text-gray-700 font-medium transition-all duration-300 hover:text-desa-light after:content-[''] after:absolute after:w-0 after:h-0.5 after:-bottom-1 after:left-1/2 after:bg-desa-light after:transition-all after:duration-300 hover:after:w-full hover:after:left-0 {{ request()->routeIs('berita.index*') ? 'text-desa-light after:w-full after:left-0' : '' }}">Berita</a>
                 <a href="{{ route('arsip') }}"
-                    class="nav-link text-gray-700 font-medium {{ request()->routeIs('arsip*') ? 'active' : '' }}">Arsip</a>
+                    class="relative text-gray-700 font-medium transition-all duration-300 hover:text-desa-light after:content-[''] after:absolute after:w-0 after:h-0.5 after:-bottom-1 after:left-1/2 after:bg-desa-light after:transition-all after:duration-300 hover:after:w-full hover:after:left-0 {{ request()->routeIs('arsip*') ? 'text-desa-light after:w-full after:left-0' : '' }}">Arsip</a>
                 <a href="{{ route('data-penduduk') }}"
-                    class="nav-link text-gray-700 font-medium {{ request()->routeIs('data-penduduk') ? 'active' : '' }}">Data
+                    class="relative text-gray-700 font-medium transition-all duration-300 hover:text-desa-light after:content-[''] after:absolute after:w-0 after:h-0.5 after:-bottom-1 after:left-1/2 after:bg-desa-light after:transition-all after:duration-300 hover:after:w-full hover:after:left-0 {{ request()->routeIs('data-penduduk') ? 'text-desa-light after:w-full after:left-0' : '' }}">Data
                     Penduduk</a>
                 <a href="{{ route('dana-desa') }}"
-                    class="nav-link text-gray-700 font-medium {{ request()->routeIs('dana-desa') ? 'active' : '' }}">Dana
+                    class="relative text-gray-700 font-medium transition-all duration-300 hover:text-desa-light after:content-[''] after:absolute after:w-0 after:h-0.5 after:-bottom-1 after:left-1/2 after:bg-desa-light after:transition-all after:duration-300 hover:after:w-full hover:after:left-0 {{ request()->routeIs('dana-desa') ? 'text-desa-light after:w-full after:left-0' : '' }}">Dana
                     Desa</a>
                 <a href="{{ route('media') }}"
-                    class="nav-link text-gray-700 font-medium {{ request()->routeIs('media') ? 'active' : '' }}">Media</a>
+                    class="relative text-gray-700 font-medium transition-all duration-300 hover:text-desa-light after:content-[''] after:absolute after:w-0 after:h-0.5 after:-bottom-1 after:left-1/2 after:bg-desa-light after:transition-all after:duration-300 hover:after:w-full hover:after:left-0 {{ request()->routeIs('media') ? 'text-desa-light after:w-full after:left-0' : '' }}">Media</a>
                 <a href="{{ route('pelayanan') }}"
-                    class="nav-link text-gray-700 font-medium {{ request()->routeIs('pelayanan') ? 'active' : '' }}">Pelayanan</a>
-                <a href="{{ route('login') }}" class="btn-primary text-white px-4 py-1 rounded-lg font-medium">
+                    class="relative text-gray-700 font-medium transition-all duration-300 hover:text-desa-light after:content-[''] after:absolute after:w-0 after:h-0.5 after:-bottom-1 after:left-1/2 after:bg-desa-light after:transition-all after:duration-300 hover:after:w-full hover:after:left-0 {{ request()->routeIs('pelayanan') ? 'text-desa-light after:w-full after:left-0' : '' }}">Pelayanan</a>
+                <a href="{{ route('login') }}"
+                    class="bg-gradient-to-r from-desa-medium to-desa-dark hover:from-desa-light hover:to-desa-medium text-desa-white px-4 py-2 rounded-lg font-medium transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg">
                     <i class="fas fa-sign-in-alt mr-2"></i>Login
                 </a>
             </div>
-
             <!-- Mobile Menu Button -->
-            <button class="md:hidden text-gray-700" onclick="toggleMobileMenu()">
-                <i class="fas fa-bars text-xl"></i>
+            <button class="md:hidden text-gray-700 text-xl" onclick="toggleMobileMenu()">
+                <i class="fas fa-bars"></i>
             </button>
         </div>
     </nav>
-
     <!-- Mobile Menu -->
-    <div id="mobileMenu" class="mobile-menu fixed top-0 left-0 w-full h-full bg-white z-40 md:hidden">
+    <div id="mobileMenu"
+        class="fixed top-0 left-0 w-full h-full bg-desa-white z-40 md:hidden transform -translate-x-full transition-transform duration-300 ease-in-out">
         <div class="p-6">
             <div class="flex items-center justify-between mb-8">
                 <div class="flex items-center space-x-3">
-                    <i class="fas fa-building text-2xl text-blue-600"></i>
+                    <i class="fas fa-building text-2xl text-desa-light"></i>
                     <div>
-                        <h1 class="text-xl font-bold text-gray-800">Desa Digital</h1>
+                        <h1 class="text-xl font-bold text-desa-dark">Desa Digital</h1>
                         <p class="text-xs text-gray-600">Kabupaten Example</p>
                     </div>
                 </div>
-                <button onclick="toggleMobileMenu()" class="text-gray-700">
-                    <i class="fas fa-times text-xl"></i>
+                <button onclick="toggleMobileMenu()" class="text-gray-700 text-xl">
+                    <i class="fas fa-times"></i>
                 </button>
             </div>
-
             <div class="space-y-4">
-                <a href="{{ route('dashboard') }}" class="block py-3 text-gray-700 font-medium border-b">Beranda</a>
-                <a href="{{ route('profil') }}" class="block py-3 text-gray-700 font-medium border-b">Profil Desa</a>
-                <a href="{{ route('berita.index') }}" class="block py-3 text-gray-700 font-medium border-b">Berita</a>
-                <a href="{{ route('arsip') }}" class="block py-3 text-gray-700 font-medium border-b">Arsip</a>
-                <a href="{{ route('data-penduduk') }}" class="block py-3 text-gray-700 font-medium border-b">Data
+                <a href="{{ route('dashboard') }}"
+                    class="block py-3 text-gray-700 font-medium border-b border-gray-200 hover:text-desa-light transition-colors duration-200">Beranda</a>
+                <a href="{{ route('profil') }}"
+                    class="block py-3 text-gray-700 font-medium border-b border-gray-200 hover:text-desa-light transition-colors duration-200">Profil
+                    Desa</a>
+                <a href="{{ route('berita.index') }}"
+                    class="block py-3 text-gray-700 font-medium border-b border-gray-200 hover:text-desa-light transition-colors duration-200">Berita</a>
+                <a href="{{ route('arsip') }}"
+                    class="block py-3 text-gray-700 font-medium border-b border-gray-200 hover:text-desa-light transition-colors duration-200">Arsip</a>
+                <a href="{{ route('data-penduduk') }}"
+                    class="block py-3 text-gray-700 font-medium border-b border-gray-200 hover:text-desa-light transition-colors duration-200">Data
                     Penduduk</a>
-                <a href="{{ route('dana-desa') }}" class="block py-3 text-gray-700 font-medium border-b">Dana Desa</a>
-                <a href="{{ route('media') }}" class="block py-3 text-gray-700 font-medium border-b">Media</a>
-                <a href="{{ route('pelayanan') }}" class="block py-3 text-gray-700 font-medium border-b">Pelayanan</a>
+                <a href="{{ route('dana-desa') }}"
+                    class="block py-3 text-gray-700 font-medium border-b border-gray-200 hover:text-desa-light transition-colors duration-200">Dana
+                    Desa</a>
+                <a href="{{ route('media') }}"
+                    class="block py-3 text-gray-700 font-medium border-b border-gray-200 hover:text-desa-light transition-colors duration-200">Media</a>
+                <a href="{{ route('pelayanan') }}"
+                    class="block py-3 text-gray-700 font-medium border-b border-gray-200 hover:text-desa-light transition-colors duration-200">Pelayanan</a>
                 <a href="{{ route('login') }}"
-                    class="btn-primary text-white px-4 py-3 rounded-lg font-medium inline-block mt-4">
+                    class="bg-gradient-to-r from-desa-medium to-desa-dark hover:from-desa-light hover:to-desa-medium text-desa-white px-4 py-3 rounded-lg font-medium inline-block mt-4 transition-all duration-300">
                     <i class="fas fa-sign-in-alt mr-2"></i>Login Admin
                 </a>
             </div>
         </div>
     </div>
-
     <!-- Main Content -->
     <main class="">
         @yield('content')
     </main>
-
     <!-- Footer -->
-    <footer class="bg-gray-800 text-white">
-        <div class="max-w-7xl mx-auto px-4 py-12">
+    <footer class="bg-desa-verydark text-desa-white">
+        <div class="w-full mx-auto px-16 pt-12 pb-7">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
                 <!-- About -->
                 <div class="col-span-1 md:col-span-2">
                     <div class="flex items-center space-x-3 mb-4">
-                        <i class="fas fa-building text-2xl text-blue-400"></i>
+                        <i class="fas fa-building text-2xl text-desa-light"></i>
                         <div>
                             <h3 class="text-xl font-bold">Desa Digital Tudua</h3>
-                            <p class="text-gray-400 text-sm">Kabupaten Morowali</p>
+                            <p class="text-gray-300 text-sm">Kabupaten Morowali</p>
                         </div>
                     </div>
                     <p class="text-gray-300 mb-4">
-                        Website resmi desa tudua untuk memberikan informasi terkini dan pelayanan terbaik kepada
-                        masyarakat.
-                        Kami berkomitmen untuk transparansi dan kemudahan akses informasi.
+                        Website resmi desa tudua untuk memberikan informasi terkini dan
+                        pelayanan terbaik kepada masyarakat. Kami berkomitmen untuk transparansi dan kemudahan akses
+                        informasi.
                     </p>
                     <div class="flex space-x-4">
-                        <a href="#" class="text-gray-400 hover:text-blue-400 transition-colors">
+                        <a href="#" class="text-gray-400 hover:text-desa-light transition-colors duration-200">
                             <i class="fab fa-facebook-f text-xl"></i>
                         </a>
-                        <a href="#" class="text-gray-400 hover:text-blue-400 transition-colors">
+                        <a href="#" class="text-gray-400 hover:text-desa-light transition-colors duration-200">
                             <i class="fab fa-instagram text-xl"></i>
                         </a>
-                        <a href="#" class="text-gray-400 hover:text-blue-400 transition-colors">
+                        <a href="#" class="text-gray-400 hover:text-desa-light transition-colors duration-200">
                             <i class="fab fa-youtube text-xl"></i>
                         </a>
-                        <a href="#" class="text-gray-400 hover:text-blue-400 transition-colors">
+                        <a href="#" class="text-gray-400 hover:text-desa-light transition-colors duration-200">
                             <i class="fab fa-whatsapp text-xl"></i>
                         </a>
                     </div>
                 </div>
-
                 <!-- Quick Links -->
                 <div>
                     <h4 class="text-lg font-semibold mb-4">Menu Utama</h4>
                     <ul class="space-y-2">
                         <li><a href="{{ route('dashboard') }}"
-                                class="text-gray-300 hover:text-white transition-colors">Beranda</a></li>
+                                class="text-gray-300 hover:text-desa-white transition-colors duration-200">Beranda</a>
+                        </li>
                         <li><a href="{{ route('profil') }}"
-                                class="text-gray-300 hover:text-white transition-colors">Profil Desa</a></li>
+                                class="text-gray-300 hover:text-desa-white transition-colors duration-200">Profil
+                                Desa</a>
+                        </li>
                         <li><a href="{{ route('berita.index') }}"
-                                class="text-gray-300 hover:text-white transition-colors">Berita</a></li>
+                                class="text-gray-300 hover:text-desa-white transition-colors duration-200">Berita</a>
+                        </li>
                         <li><a href="{{ route('arsip') }}"
-                                class="text-gray-300 hover:text-white transition-colors">Arsip</a></li>
+                                class="text-gray-300 hover:text-desa-white transition-colors duration-200">Arsip</a>
+                        </li>
                     </ul>
                 </div>
-
                 <!-- Contact Info -->
                 <div>
-                    <h4 class="text-lg font-semibold mb-4">pelayanan</h4>
+                    <h4 class="text-lg font-semibold mb-4">Pelayanan</h4>
                     <div class="space-y-3">
                         <div class="flex items-start space-x-3">
-                            <a href="https://maps.app.goo.gl/CqLQ2pw1Th8jsPT77" target="_blank"><i
-                                    class="fas fa-map-marker-alt text-blue-400 mt-1"></i></a>
+                            <a href="https://maps.app.goo.gl/CqLQ2pw1Th8jsPT77" target="_blank"
+                                class="text-desa-light hover:text-desa-medium transition-colors duration-200">
+                                <i class="fas fa-map-marker-alt mt-1"></i>
+                            </a>
                             <div>
                                 <p class="text-gray-300">Jalan Melati No. 2, Dusun 3, Desa Tudua, Kecamatan Bungku
-                                    Tengah, Kabupaten Morowal</p>
+                                    Tengah, Kabupaten Morowali</p>
                             </div>
                         </div>
                         <div class="flex items-center space-x-3">
-                            <i class="fas fa-phone text-blue-400"></i>
+                            <i class="fas fa-phone text-desa-light"></i>
                             <p class="text-gray-300">(xxx) xxxx</p>
                         </div>
                         <div class="flex items-center space-x-3">
-                            <i class="fas fa-envelope text-blue-400"></i>
+                            <i class="fas fa-envelope text-desa-light"></i>
                             <p class="text-gray-300">xxx@desa.example.id</p>
                         </div>
                     </div>
                 </div>
             </div>
-
             <div class="border-t border-gray-700 mt-8 pt-8 text-center">
-                <p class="text-gray-400">
-                    &copy; {{ date('Y') }} Desa Digital. Semua hak cipta dilindungi.
-                    Dikembangkan dengan <i class="fas fa-heart text-red-500"></i> untuk masyarakat desa.
-                </p>
+                <p class="text-gray-400"> &copy; {{ date('Y') }} Desa Digital. Semua hak cipta dilindungi.</p>
             </div>
         </div>
     </footer>
-
     <script>
-        // Navbar scroll effect
-        window.addEventListener('scroll', function () {
-            const navbar = document.querySelector('.navbar');
-            if (window.scrollY > 50) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
+        // Navbar scroll effect (dengan sedikit debounce)
+        let lastScroll = 0;
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            const currentScroll = window.scrollY;
+
+            if (Math.abs(currentScroll - lastScroll) > 5) { // debounce ringan
+                if (currentScroll > 50) {
+                    navbar.classList.remove('bg-desa-white/95');
+                    navbar.classList.add('bg-desa-white/98', 'shadow-lg');
+                } else {
+                    navbar.classList.remove('bg-desa-white/98', 'shadow-lg');
+                    navbar.classList.add('bg-desa-white/95');
+                }
+                lastScroll = currentScroll;
             }
         });
 
         // Mobile menu toggle
         function toggleMobileMenu() {
             const mobileMenu = document.getElementById('mobileMenu');
-            mobileMenu.classList.toggle('active');
+            mobileMenu.classList.toggle('translate-x-0');
+            mobileMenu.classList.toggle('-translate-x-full');
         }
 
         // Close mobile menu when clicking outside
-        document.addEventListener('click', function (event) {
+        document.addEventListener('click', (event) => {
             const mobileMenu = document.getElementById('mobileMenu');
             const menuButton = event.target.closest('button');
 
-            if (!mobileMenu.contains(event.target) && !menuButton) {
-                mobileMenu.classList.remove('active');
+            // Pastikan klik bukan di dalam mobileMenu atau tombol menu
+            if (!mobileMenu.contains(event.target) && !menuButton && !mobileMenu.classList.contains('-translate-x-full')) {
+                mobileMenu.classList.add('-translate-x-full');
+                mobileMenu.classList.remove('translate-x-0');
             }
         });
     </script>
