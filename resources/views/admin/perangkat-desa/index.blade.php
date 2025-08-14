@@ -24,63 +24,6 @@
             </a>
         </div>
 
-        <!-- Stats Summary -->
-        @if($perangkatDesa->count() > 0)
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <div class="bg-white rounded-lg shadow-sm border border-slate-200 p-4">
-                    <div class="flex items-center justify-between">
-                        <div>
-                            <p class="text-xs font-medium text-slate-500 uppercase tracking-wider">Total Perangkat</p>
-                            <p class="text-xl font-bold text-slate-800">{{ $perangkatDesa->total() }}</p>
-                        </div>
-                        <div class="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center">
-                            <i class="fas fa-users text-blue-600 text-sm"></i>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="bg-white rounded-lg shadow-sm border border-slate-200 p-4">
-                    <div class="flex items-center justify-between">
-                        <div>
-                            <p class="text-xs font-medium text-slate-500 uppercase tracking-wider">Dengan Foto</p>
-                            <p class="text-xl font-bold text-slate-800">
-                                {{ $perangkatDesa->where('foto', '!=', null)->count() }}
-                            </p>
-                        </div>
-                        <div class="w-8 h-8 bg-emerald-100 rounded-lg flex items-center justify-center">
-                            <i class="fas fa-camera text-emerald-600 text-sm"></i>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="bg-white rounded-lg shadow-sm border border-slate-200 p-4">
-                    <div class="flex items-center justify-between">
-                        <div>
-                            <p class="text-xs font-medium text-slate-500 uppercase tracking-wider">Memiliki NIP</p>
-                            <p class="text-xl font-bold text-slate-800">
-                                {{ $perangkatDesa->where('nip', '!=', null)->count() }}
-                            </p>
-                        </div>
-                        <div class="w-8 h-8 bg-amber-100 rounded-lg flex items-center justify-center">
-                            <i class="fas fa-id-card text-amber-600 text-sm"></i>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="bg-white rounded-lg shadow-sm border border-slate-200 p-4">
-                    <div class="flex items-center justify-between">
-                        <div>
-                            <p class="text-xs font-medium text-slate-500 uppercase tracking-wider">Aktif</p>
-                            <p class="text-xl font-bold text-slate-800">{{ $perangkatDesa->count() }}</p>
-                        </div>
-                        <div class="w-8 h-8 bg-violet-100 rounded-lg flex items-center justify-center">
-                            <i class="fas fa-check-circle text-violet-600 text-sm"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        @endif
-
         <!-- Perangkat Desa Table -->
         <div class="bg-white rounded-xl shadow-sm border border-slate-200">
             <div class="p-6">
