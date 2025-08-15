@@ -37,7 +37,7 @@
                 <div>
                     <h1 class="text-4xl md:text-5xl font-bold mb-6 leading-tight">
                         Selamat Datang di <br>
-                        <span class="text-yellow-300">Desa Digital Tudua</span>
+                        <span class="text-yellow-500">Desa Digital Tudua</span>
                     </h1>
                     <p class="text-xl mb-8 text-blue-100 max-w-xl">
                         Portal informasi dan pelayanan terpadu untuk masyarakat desa.
@@ -45,7 +45,7 @@
                     </p>
                     <div class="flex flex-col sm:flex-row gap-4">
                         <a href="{{ route('profil') }}"
-                            class="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors inline-flex items-center justify-center shadow-md">
+                            class="bg-white text-yellow-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors inline-flex items-center justify-center shadow-md">
                             <i class="fas fa-info-circle mr-2"></i>
                             Profil Desa
                         </a>
@@ -60,14 +60,14 @@
                 <button class="w-3 h-3 rounded-full bg-white opacity-50 hover:opacity-100 transition-all"
                     data-index="1"></button>
                 <!-- <button class="w-3 h-3 rounded-full bg-white opacity-50 hover:opacity-100 transition-all"
-                                                        data-index="2"></button> -->
+                                                                                                data-index="2"></button> -->
             </div>
         </div>
 
         <!-- Marquee / Pengumuman -->
-        <div class="bg-yellow-200 overflow-hidden whitespace-nowrap my-6 mx-10 rounded-2xl relative h-10 flex items-center">
+        <div class="bg-yellow-500 overflow-hidden whitespace-nowrap my-6 mx-10 rounded-2xl relative h-10 flex items-center">
             <!-- Icon di kiri dan tengah secara vertikal -->
-            <div class="absolute top-1/2 transform -translate-y-1/2 z-20 bg-yellow-200 px-2">
+            <div class="absolute top-1/2 transform -translate-y-1/2 z-20 bg-yellow-500 px-2">
                 <i class="fas fa-bullhorn text-gray-800 text-lg"></i>
             </div>
 
