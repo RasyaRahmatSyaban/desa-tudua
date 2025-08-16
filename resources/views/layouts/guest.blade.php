@@ -18,39 +18,40 @@
 
 <body class="font-sans">
     <!-- Navigation -->
-    <nav class="fixed top-0 left-0 right-0 z-50 px-8 py-3 bg-desa-white/95 backdrop-blur-md transition-all duration-300"
+    <nav class="fixed top-0 left-0 right-0 z-50 px-8 py-3 bg-white/95 backdrop-blur-md transition-all duration-300 shadow-sm"
         id="navbar">
         <div class="w-full mx-auto flex items-center justify-between">
             <!-- Logo -->
             <div class="flex items-center space-x-3">
-                <i class="fas fa-building text-2xl text-desa-light"></i>
+                <img src="{{ asset('images/morowali.png') }}" alt="kabupaten morowali" class="w-10 h-10 object-fill">
                 <div>
-                    <h1 class="text-xl font-bold text-desa-dark">Desa Tudua</h1>
+                    <h1 class="text-xl font-bold text-gray-800">Desa Tudua</h1>
+                    <p class="text-md font-medium text-gray-800">Kabupaten Morowali</p>
                 </div>
             </div>
             <!-- Desktop Menu -->
             <div class="hidden md:flex items-center space-x-8">
                 <a href="{{ route('dashboard') }}"
-                    class="relative text-gray-700 font-medium transition-all duration-300 hover:text-desa-light after:content-[''] after:absolute after:w-0 after:h-0.5 after:-bottom-1 after:left-1/2 after:bg-desa-light after:transition-all after:duration-300 hover:after:w-full hover:after:left-0 {{ request()->routeIs('home') ? 'text-desa-light after:w-full after:left-0' : '' }}">Beranda</a>
+                    class="relative text-gray-700 font-medium transition-all duration-300 hover:text-yellow-600 after:content-[''] after:absolute after:w-0 after:h-0.5 after:-bottom-1 after:left-0 after:bg-yellow-500 after:transition-all after:duration-300 hover:after:w-full hover:after:left-0 {{ request()->routeIs('home') ? 'text-yellow-600 after:w-full after:left-0' : '' }}">Beranda</a>
                 <a href="{{ route('profil') }}"
-                    class="relative text-gray-700 font-medium transition-all duration-300 hover:text-desa-light after:content-[''] after:absolute after:w-0 after:h-0.5 after:-bottom-1 after:left-1/2 after:bg-desa-light after:transition-all after:duration-300 hover:after:w-full hover:after:left-0 {{ request()->routeIs('profil') ? 'text-desa-light after:w-full after:left-0' : '' }}">Profil
+                    class="relative text-gray-700 font-medium transition-all duration-300 hover:text-yellow-600 after:content-[''] after:absolute after:w-0 after:h-0.5 after:-bottom-1 after:left-0 after:bg-yellow-500 after:transition-all after:duration-300 hover:after:w-full hover:after:left-0 {{ request()->routeIs('profil') ? 'text-yellow-600 after:w-full after:left-0' : '' }}">Profil
                     Desa</a>
                 <a href="{{ route('berita.index') }}"
-                    class="relative text-gray-700 font-medium transition-all duration-300 hover:text-desa-light after:content-[''] after:absolute after:w-0 after:h-0.5 after:-bottom-1 after:left-1/2 after:bg-desa-light after:transition-all after:duration-300 hover:after:w-full hover:after:left-0 {{ request()->routeIs('berita.index*') ? 'text-desa-light after:w-full after:left-0' : '' }}">Berita</a>
+                    class="relative text-gray-700 font-medium transition-all duration-300 hover:text-yellow-600 after:content-[''] after:absolute after:w-0 after:h-0.5 after:-bottom-1 after:left-0 after:bg-yellow-500 after:transition-all after:duration-300 hover:after:w-full hover:after:left-0 {{ request()->routeIs('berita.index*') ? 'text-yellow-600 after:w-full after:left-0' : '' }}">Berita</a>
                 <a href="{{ route('arsip') }}"
-                    class="relative text-gray-700 font-medium transition-all duration-300 hover:text-desa-light after:content-[''] after:absolute after:w-0 after:h-0.5 after:-bottom-1 after:left-1/2 after:bg-desa-light after:transition-all after:duration-300 hover:after:w-full hover:after:left-0 {{ request()->routeIs('arsip*') ? 'text-desa-light after:w-full after:left-0' : '' }}">Arsip</a>
+                    class="relative text-gray-700 font-medium transition-all duration-300 hover:text-yellow-600 after:content-[''] after:absolute after:w-0 after:h-0.5 after:-bottom-1 after:left-0 after:bg-yellow-500 after:transition-all after:duration-300 hover:after:w-full hover:after:left-0 {{ request()->routeIs('arsip*') ? 'text-yellow-600 after:w-full after:left-0' : '' }}">Arsip</a>
                 <a href="{{ route('data-penduduk') }}"
-                    class="relative text-gray-700 font-medium transition-all duration-300 hover:text-desa-light after:content-[''] after:absolute after:w-0 after:h-0.5 after:-bottom-1 after:left-1/2 after:bg-desa-light after:transition-all after:duration-300 hover:after:w-full hover:after:left-0 {{ request()->routeIs('data-penduduk') ? 'text-desa-light after:w-full after:left-0' : '' }}">Data
+                    class="relative text-gray-700 font-medium transition-all duration-300 hover:text-yellow-600 after:content-[''] after:absolute after:w-0 after:h-0.5 after:-bottom-1 after:left-0 after:bg-yellow-500 after:transition-all after:duration-300 hover:after:w-full hover:after:left-0 {{ request()->routeIs('data-penduduk') ? 'text-yellow-600 after:w-full after:left-0' : '' }}">Data
                     Penduduk</a>
                 <a href="{{ route('dana-desa') }}"
-                    class="relative text-gray-700 font-medium transition-all duration-300 hover:text-desa-light after:content-[''] after:absolute after:w-0 after:h-0.5 after:-bottom-1 after:left-1/2 after:bg-desa-light after:transition-all after:duration-300 hover:after:w-full hover:after:left-0 {{ request()->routeIs('dana-desa') ? 'text-desa-light after:w-full after:left-0' : '' }}">Dana
+                    class="relative text-gray-700 font-medium transition-all duration-300 hover:text-yellow-600 after:content-[''] after:absolute after:w-0 after:h-0.5 after:-bottom-1 after:left-0 after:bg-yellow-500 after:transition-all after:duration-300 hover:after:w-full hover:after:left-0 {{ request()->routeIs('dana-desa') ? 'text-yellow-600 after:w-full after:left-0' : '' }}">Dana
                     Desa</a>
                 <a href="{{ route('media') }}"
-                    class="relative text-gray-700 font-medium transition-all duration-300 hover:text-desa-light after:content-[''] after:absolute after:w-0 after:h-0.5 after:-bottom-1 after:left-1/2 after:bg-desa-light after:transition-all after:duration-300 hover:after:w-full hover:after:left-0 {{ request()->routeIs('media') ? 'text-desa-light after:w-full after:left-0' : '' }}">Media</a>
+                    class="relative text-gray-700 font-medium transition-all duration-300 hover:text-yellow-600 after:content-[''] after:absolute after:w-0 after:h-0.5 after:-bottom-1 after:left-0 after:bg-yellow-500 after:transition-all after:duration-300 hover:after:w-full hover:after:left-0 {{ request()->routeIs('media') ? 'text-yellow-600 after:w-full after:left-0' : '' }}">Media</a>
                 <a href="{{ route('pelayanan') }}"
-                    class="relative text-gray-700 font-medium transition-all duration-300 hover:text-desa-light after:content-[''] after:absolute after:w-0 after:h-0.5 after:-bottom-1 after:left-1/2 after:bg-desa-light after:transition-all after:duration-300 hover:after:w-full hover:after:left-0 {{ request()->routeIs('pelayanan') ? 'text-desa-light after:w-full after:left-0' : '' }}">Pelayanan</a>
+                    class="relative text-gray-700 font-medium transition-all duration-300 hover:text-yellow-600 after:content-[''] after:absolute after:w-0 after:h-0.5 after:-bottom-1 after:left-0 after:bg-yellow-500 after:transition-all after:duration-300 hover:after:w-full hover:after:left-0 {{ request()->routeIs('pelayanan') ? 'text-yellow-600 after:w-full after:left-0' : '' }}">Pelayanan</a>
                 <a href="{{ route('login') }}"
-                    class="bg-gradient-to-r from-desa-medium to-desa-dark hover:from-desa-light hover:to-desa-medium text-desa-white px-4 py-2 rounded-lg font-medium transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg">
+                    class="bg-white text-yellow-600 border-2 border-yellow-500 hover:bg-yellow-500 hover:text-white px-4 py-2 rounded-lg font-semibold transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg">
                     <i class="fas fa-sign-in-alt mr-2"></i>Login
                 </a>
             </div>
@@ -62,14 +63,14 @@
     </nav>
     <!-- Mobile Menu -->
     <div id="mobileMenu"
-        class="fixed top-0 left-0 w-full h-full bg-desa-white z-40 md:hidden transform -translate-x-full transition-transform duration-300 ease-in-out">
+        class="fixed top-0 left-0 w-full h-full bg-white z-40 md:hidden transform -translate-x-full transition-transform duration-300 ease-in-out">
         <div class="p-6">
             <div class="flex items-center justify-between mb-8">
                 <div class="flex items-center space-x-3">
-                    <i class="fas fa-building text-2xl text-desa-light"></i>
+                    <i class="fas fa-building text-2xl text-yellow-600"></i>
                     <div>
-                        <h1 class="text-xl font-bold text-desa-dark">Desa Digital</h1>
-                        <p class="text-xs text-gray-600">Kabupaten Example</p>
+                        <h1 class="text-xl font-bold text-gray-800">Desa Digital</h1>
+                        <p class="text-xs text-gray-600">Kabupaten Morowali</p>
                     </div>
                 </div>
                 <button onclick="toggleMobileMenu()" class="text-gray-700 text-xl">
@@ -78,26 +79,26 @@
             </div>
             <div class="space-y-4">
                 <a href="{{ route('dashboard') }}"
-                    class="block py-3 text-gray-700 font-medium border-b border-gray-200 hover:text-desa-light transition-colors duration-200">Beranda</a>
+                    class="block py-3 text-gray-700 font-medium border-b border-gray-200 hover:text-yellow-600 transition-colors duration-200">Beranda</a>
                 <a href="{{ route('profil') }}"
-                    class="block py-3 text-gray-700 font-medium border-b border-gray-200 hover:text-desa-light transition-colors duration-200">Profil
+                    class="block py-3 text-gray-700 font-medium border-b border-gray-200 hover:text-yellow-600 transition-colors duration-200">Profil
                     Desa</a>
                 <a href="{{ route('berita.index') }}"
-                    class="block py-3 text-gray-700 font-medium border-b border-gray-200 hover:text-desa-light transition-colors duration-200">Berita</a>
+                    class="block py-3 text-gray-700 font-medium border-b border-gray-200 hover:text-yellow-600 transition-colors duration-200">Berita</a>
                 <a href="{{ route('arsip') }}"
-                    class="block py-3 text-gray-700 font-medium border-b border-gray-200 hover:text-desa-light transition-colors duration-200">Arsip</a>
+                    class="block py-3 text-gray-700 font-medium border-b border-gray-200 hover:text-yellow-600 transition-colors duration-200">Arsip</a>
                 <a href="{{ route('data-penduduk') }}"
-                    class="block py-3 text-gray-700 font-medium border-b border-gray-200 hover:text-desa-light transition-colors duration-200">Data
+                    class="block py-3 text-gray-700 font-medium border-b border-gray-200 hover:text-yellow-600 transition-colors duration-200">Data
                     Penduduk</a>
                 <a href="{{ route('dana-desa') }}"
-                    class="block py-3 text-gray-700 font-medium border-b border-gray-200 hover:text-desa-light transition-colors duration-200">Dana
+                    class="block py-3 text-gray-700 font-medium border-b border-gray-200 hover:text-yellow-600 transition-colors duration-200">Dana
                     Desa</a>
                 <a href="{{ route('media') }}"
-                    class="block py-3 text-gray-700 font-medium border-b border-gray-200 hover:text-desa-light transition-colors duration-200">Media</a>
+                    class="block py-3 text-gray-700 font-medium border-b border-gray-200 hover:text-yellow-600 transition-colors duration-200">Media</a>
                 <a href="{{ route('pelayanan') }}"
-                    class="block py-3 text-gray-700 font-medium border-b border-gray-200 hover:text-desa-light transition-colors duration-200">Pelayanan</a>
+                    class="block py-3 text-gray-700 font-medium border-b border-gray-200 hover:text-yellow-600 transition-colors duration-200">Pelayanan</a>
                 <a href="{{ route('login') }}"
-                    class="bg-gradient-to-r from-desa-medium to-desa-dark hover:from-desa-light hover:to-desa-medium text-desa-white px-4 py-3 rounded-lg font-medium inline-block mt-4 transition-all duration-300">
+                    class="bg-white text-yellow-600 border-2 border-yellow-500 hover:bg-yellow-500 hover:text-white px-4 py-3 rounded-lg font-semibold inline-block mt-4 transition-all duration-300">
                     <i class="fas fa-sign-in-alt mr-2"></i>Login Admin
                 </a>
             </div>
@@ -108,13 +109,13 @@
         @yield('content')
     </main>
     <!-- Footer -->
-    <footer class="bg-desa-verydark text-desa-white">
+    <footer class="bg-gray-900 text-white">
         <div class="w-full mx-auto px-16 pt-12 pb-7">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
                 <!-- About -->
                 <div class="col-span-1 md:col-span-2">
                     <div class="flex items-center space-x-3 mb-4">
-                        <i class="fas fa-building text-2xl text-desa-light"></i>
+                        <i class="fas fa-building text-2xl text-yellow-500"></i>
                         <div>
                             <h3 class="text-xl font-bold">Desa Digital Tudua</h3>
                             <p class="text-gray-300 text-sm">Kabupaten Morowali</p>
@@ -126,46 +127,46 @@
                         informasi.
                     </p>
                     <div class="flex space-x-4">
-                        <a href="#" class="text-gray-400 hover:text-desa-light transition-colors duration-200">
+                        <a href="#" class="text-gray-400 hover:text-yellow-500 transition-colors duration-200">
                             <i class="fab fa-facebook-f text-xl"></i>
                         </a>
-                        <a href="#" class="text-gray-400 hover:text-desa-light transition-colors duration-200">
+                        <a href="#" class="text-gray-400 hover:text-yellow-500 transition-colors duration-200">
                             <i class="fab fa-instagram text-xl"></i>
                         </a>
-                        <a href="#" class="text-gray-400 hover:text-desa-light transition-colors duration-200">
+                        <a href="#" class="text-gray-400 hover:text-yellow-500 transition-colors duration-200">
                             <i class="fab fa-youtube text-xl"></i>
                         </a>
-                        <a href="#" class="text-gray-400 hover:text-desa-light transition-colors duration-200">
+                        <a href="#" class="text-gray-400 hover:text-yellow-500 transition-colors duration-200">
                             <i class="fab fa-whatsapp text-xl"></i>
                         </a>
                     </div>
                 </div>
                 <!-- Quick Links -->
                 <div>
-                    <h4 class="text-lg font-semibold mb-4">Menu Utama</h4>
+                    <h4 class="text-lg font-semibold mb-4 text-yellow-500">Menu Utama</h4>
                     <ul class="space-y-2">
                         <li><a href="{{ route('dashboard') }}"
-                                class="text-gray-300 hover:text-desa-white transition-colors duration-200">Beranda</a>
+                                class="text-gray-300 hover:text-white transition-colors duration-200">Beranda</a>
                         </li>
                         <li><a href="{{ route('profil') }}"
-                                class="text-gray-300 hover:text-desa-white transition-colors duration-200">Profil
+                                class="text-gray-300 hover:text-white transition-colors duration-200">Profil
                                 Desa</a>
                         </li>
                         <li><a href="{{ route('berita.index') }}"
-                                class="text-gray-300 hover:text-desa-white transition-colors duration-200">Berita</a>
+                                class="text-gray-300 hover:text-white transition-colors duration-200">Berita</a>
                         </li>
                         <li><a href="{{ route('arsip') }}"
-                                class="text-gray-300 hover:text-desa-white transition-colors duration-200">Arsip</a>
+                                class="text-gray-300 hover:text-white transition-colors duration-200">Arsip</a>
                         </li>
                     </ul>
                 </div>
                 <!-- Contact Info -->
                 <div>
-                    <h4 class="text-lg font-semibold mb-4">Pelayanan</h4>
+                    <h4 class="text-lg font-semibold mb-4 text-yellow-500">Pelayanan</h4>
                     <div class="space-y-3">
                         <div class="flex items-start space-x-3">
                             <a href="https://maps.app.goo.gl/CqLQ2pw1Th8jsPT77" target="_blank"
-                                class="text-desa-light hover:text-desa-medium transition-colors duration-200">
+                                class="text-yellow-500 hover:text-yellow-400 transition-colors duration-200">
                                 <i class="fas fa-map-marker-alt mt-1"></i>
                             </a>
                             <div>
@@ -174,11 +175,11 @@
                             </div>
                         </div>
                         <div class="flex items-center space-x-3">
-                            <i class="fas fa-phone text-desa-light"></i>
+                            <i class="fas fa-phone text-yellow-500"></i>
                             <p class="text-gray-300">(xxx) xxxx</p>
                         </div>
                         <div class="flex items-center space-x-3">
-                            <i class="fas fa-envelope text-desa-light"></i>
+                            <i class="fas fa-envelope text-yellow-500"></i>
                             <p class="text-gray-300">xxx@desa.example.id</p>
                         </div>
                     </div>
@@ -198,11 +199,11 @@
 
             if (Math.abs(currentScroll - lastScroll) > 5) { // debounce ringan
                 if (currentScroll > 50) {
-                    navbar.classList.remove('bg-desa-white/95');
-                    navbar.classList.add('bg-desa-white/98', 'shadow-lg');
+                    navbar.classList.remove('bg-white/95');
+                    navbar.classList.add('bg-white/98', 'shadow-lg');
                 } else {
-                    navbar.classList.remove('bg-desa-white/98', 'shadow-lg');
-                    navbar.classList.add('bg-desa-white/95');
+                    navbar.classList.remove('bg-white/98', 'shadow-lg');
+                    navbar.classList.add('bg-white/95');
                 }
                 lastScroll = currentScroll;
             }
