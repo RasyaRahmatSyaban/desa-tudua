@@ -4,155 +4,204 @@
 @section('description', 'Informasi statistik dan demografi penduduk desa')
 
 @section('content')
-    <div class="container mx-auto px-4 pt-24 pb-20">
-        <!-- Header -->
-        <div class="text-center mb-12">
-            <h1 class="text-4xl font-bold text-gray-900 mb-4">Data Penduduk Desa</h1>
-            <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+    <style>
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+
+        .card-hover:hover {
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
+        }
+
+        .hero-gradient {
+            background: linear-gradient(135deg, rgba(17, 24, 39, 0.9) 0%, rgba(31, 41, 55, 0.8) 50%, rgba(55, 65, 81, 0.7) 100%);
+        }
+    </style>
+
+    <!-- Header Section -->
+    <section class="py-12 pt-24 bg-gray-900 border-b border-gray-700">
+        <div class="w-full mx-auto px-6 md:px-12 lg:px-24 text-center">
+            <h1 class="text-3xl lg:text-4xl font-bold text-white mb-4">Data Penduduk Desa</h1>
+            <p class="text-lg text-gray-400 max-w-2xl mx-auto">
                 Informasi statistik dan demografi penduduk desa berdasarkan data terkini
             </p>
         </div>
+    </section>
 
-        <!-- Main Statistics -->
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
-            <div class="bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg shadow-lg p-6 text-white">
-                <div class="flex items-center justify-between">
-                    <div>
-                        <p class="text-blue-100 text-sm font-medium">Total Penduduk</p>
-                        <p class="text-3xl font-bold">{{ $totalPenduduk }}</p>
-                        <p class="text-blue-200 text-xs mt-1">Jiwa</p>
+    <!-- Main Statistics -->
+    <section class="py-10 bg-gray-900">
+        <div class="w-full mx-auto px-6 md:px-12 lg:px-24">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+                <!-- Total Penduduk -->
+                <div
+                    class="card-hover bg-gray-800 rounded-2xl shadow-xl border border-gray-700 hover:border-blue-500/50 transition-all duration-300 p-6">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-blue-400 text-sm font-medium mb-1">Total Penduduk</p>
+                            <p class="text-3xl font-bold text-white">{{ $totalPenduduk }}</p>
+                            <p class="text-gray-400 text-xs mt-1">Jiwa</p>
+                        </div>
+                        <div class="w-12 h-12 bg-blue-500/20 rounded-xl flex items-center justify-center">
+                            <i class="fas fa-users text-2xl text-blue-400"></i>
+                        </div>
                     </div>
-                    <div class="w-12 h-12 bg-white/20 rounded-lg flex items-center justify-center">
-                        <i class="fas fa-users text-2xl"></i>
+                </div>
+
+                <!-- Kepala Keluarga -->
+                <div
+                    class="card-hover bg-gray-800 rounded-2xl shadow-xl border border-gray-700 hover:border-green-500/50 transition-all duration-300 p-6">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-green-400 text-sm font-medium mb-1">Kepala Keluarga</p>
+                            <p class="text-3xl font-bold text-white">{{ $totalKepalaKeluarga }}</p>
+                            <p class="text-gray-400 text-xs mt-1">KK</p>
+                        </div>
+                        <div class="w-12 h-12 bg-green-500/20 rounded-xl flex items-center justify-center">
+                            <i class="fas fa-home text-2xl text-green-400"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Laki-laki -->
+                <div
+                    class="card-hover bg-gray-800 rounded-2xl shadow-xl border border-gray-700 hover:border-purple-500/50 transition-all duration-300 p-6">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-purple-400 text-sm font-medium mb-1">Laki-laki</p>
+                            <p class="text-3xl font-bold text-white">{{ $totalLakiLaki }}</p>
+                            <p class="text-gray-400 text-xs mt-1">{{ $persenLaki }}%</p>
+                        </div>
+                        <div class="w-12 h-12 bg-purple-500/20 rounded-xl flex items-center justify-center">
+                            <i class="fas fa-male text-2xl text-purple-400"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Perempuan -->
+                <div
+                    class="card-hover bg-gray-800 rounded-2xl shadow-xl border border-gray-700 hover:border-pink-500/50 transition-all duration-300 p-6">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-pink-400 text-sm font-medium mb-1">Perempuan</p>
+                            <p class="text-3xl font-bold text-white">{{ $totalPerempuan }}</p>
+                            <p class="text-gray-400 text-xs mt-1">{{ $persenPerempuan }}%</p>
+                        </div>
+                        <div class="w-12 h-12 bg-pink-500/20 rounded-xl flex items-center justify-center">
+                            <i class="fas fa-female text-2xl text-pink-400"></i>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <div class="bg-gradient-to-br from-green-500 to-green-600 rounded-lg shadow-lg p-6 text-white">
-                <div class="flex items-center justify-between">
-                    <div>
-                        <p class="text-green-100 text-sm font-medium">Kepala Keluarga</p>
-                        <p class="text-3xl font-bold">{{ $totalKepalaKeluarga }}</p>
-                        <p class="text-green-200 text-xs mt-1">KK</p>
-                    </div>
-                    <div class="w-12 h-12 bg-white/20 rounded-lg flex items-center justify-center">
-                        <i class="fas fa-home text-2xl"></i>
-                    </div>
-                </div>
-            </div>
-
-            <div class="bg-gradient-to-br from-purple-500 to-purple-600 rounded-lg shadow-lg p-6 text-white">
-                <div class="flex items-center justify-between">
-                    <div>
-                        <p class="text-purple-100 text-sm font-medium">Laki-laki</p>
-                        <p class="text-3xl font-bold">{{ $totalLakiLaki }}</p>
-                        <p class="text-purple-200 text-xs mt-1">{{ $persenLaki }}%</p>
-                    </div>
-                    <div class="w-12 h-12 bg-white/20 rounded-lg flex items-center justify-center">
-                        <i class="fas fa-male text-2xl"></i>
-                    </div>
-                </div>
-            </div>
-
-            <div class="bg-gradient-to-br from-pink-500 to-pink-600 rounded-lg shadow-lg p-6 text-white">
-                <div class="flex items-center justify-between">
-                    <div>
-                        <p class="text-pink-100 text-sm font-medium">Perempuan</p>
-                        <p class="text-3xl font-bold">{{ $totalPerempuan }}</p>
-                        <p class="text-purple-200 text-xs mt-1">{{ $persenPerempuan }}%</p>
-                    </div>
-                    <div class="w-12 h-12 bg-white/20 rounded-lg flex items-center justify-center">
-                        <i class="fas fa-female text-2xl"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Demographics -->
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
-            <!-- Age Groups -->
-            <div class="bg-white rounded-lg shadow-md p-6">
-                <h3 class="text-2xl font-semibold text-gray-900 mb-6">Kelompok Usia</h3>
-                <div class="space-y-4">
-                    @foreach ($ageGroups as $group)
-                        <div class="flex items-center justify-between">
-                            <span class="text-gray-700 text-xl">{{ $group['label'] }}</span>
-                            <div class="flex items-center space-x-3">
-                                <div class="w-48 bg-gray-200 rounded-full h-2">
-                                    <div class="{{ $group['color'] }} h-2 rounded-full" style="width: {{ $group['percent'] }}%">
+            <!-- Demographics Section -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Age Groups -->
+                <div
+                    class="card-hover bg-gray-800 rounded-2xl shadow-xl border border-gray-700 hover:border-yellow-500/50 transition-all duration-300 p-6">
+                    <h3 class="text-2xl font-bold text-white mb-6 flex items-center">
+                        <i class="fas fa-chart-bar text-yellow-400 mr-3"></i>
+                        Kelompok Usia
+                    </h3>
+                    <div class="space-y-5">
+                        @foreach ($ageGroups as $group)
+                            <div class="bg-gray-700/50 rounded-xl p-4">
+                                <div class="flex items-center justify-between mb-3">
+                                    <span class="text-gray-300 font-medium">{{ $group['label'] }}</span>
+                                    <div class="text-right">
+                                        <span class="text-lg font-bold text-white block">{{ $group['count'] }}</span>
+                                        <span class="text-sm text-gray-400">{{ $group['percent'] }}%</span>
                                     </div>
                                 </div>
-                                <div class="text-right w-16">
-                                    <span class="text-md font-semibold text-gray-900 block">{{ $group['count'] }}</span>
-                                    <span class="text-sm text-gray-500">{{ $group['percent'] }}%</span>
+                                <div class="w-full bg-gray-600 rounded-full h-2">
+                                    <div class="{{ $group['color'] }} h-2 rounded-full transition-all duration-500 ease-out"
+                                        style="width: {{ $group['percent'] }}%">
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    @endforeach
+                        @endforeach
+                    </div>
                 </div>
-            </div>
 
-            <!-- Religion -->
-            <div class="bg-white rounded-lg shadow-md p-6">
-                <h3 class="text-2xl font-semibold text-gray-900 mb-6">Komposisi Agama</h3>
-                <div class="space-y-4">
-                    <div class="flex items-center justify-between p-3 bg-green-50 rounded-lg">
-                        <div class="flex items-center space-x-3">
-                            <div class="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center">
-                                <i class="fas fa-mosque text-white text-sm"></i>
+                <!-- Religion -->
+                <div
+                    class="card-hover bg-gray-800 rounded-2xl shadow-xl border border-gray-700 hover:border-yellow-500/50 transition-all duration-300 p-6">
+                    <h3 class="text-2xl font-bold text-white mb-6 flex items-center">
+                        <i class="fas fa-pray text-yellow-400 mr-3"></i>
+                        Komposisi Agama
+                    </h3>
+                    <div class="space-y-4">
+                        <div
+                            class="flex items-center justify-between p-4 bg-gray-700/50 rounded-xl hover:bg-gray-700 transition-colors duration-200">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-10 h-10 bg-green-500/20 rounded-xl flex items-center justify-center">
+                                    <i class="fas fa-mosque text-green-400"></i>
+                                </div>
+                                <span class="font-medium text-white text-lg">Islam</span>
                             </div>
-                            <span class="font-medium text-gray-900 text-xl">Islam</span>
-                        </div>
-                        <div class="text-right">
-                            <p class="font-bold text-green-600">{{$islam}}</p>
-                        </div>
-                    </div>
-                    <div class="flex items-center justify-between p-3 bg-blue-50 rounded-lg">
-                        <div class="flex items-center space-x-3">
-                            <div class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center">
-                                <i class="fas fa-cross text-white text-sm"></i>
+                            <div class="text-right">
+                                <p class="font-bold text-green-400 text-lg">{{ $islam }}</p>
+                                <p class="text-xs text-gray-400">Jiwa</p>
                             </div>
-                            <span class="font-medium text-gray-900 text-xl">Katolik</span>
                         </div>
-                        <div class="text-right">
-                            <p class="font-bold text-blue-600">{{$katolik}}</p>
-                        </div>
-                    </div>
-                    <div class="flex items-center justify-between p-3 bg-purple-50 rounded-lg">
-                        <div class="flex items-center space-x-3">
-                            <div class="w-8 h-8 bg-purple-500 rounded-full flex items-center justify-center">
-                                <i class="fas fa-church text-white text-sm"></i>
+
+                        <div
+                            class="flex items-center justify-between p-4 bg-gray-700/50 rounded-xl hover:bg-gray-700 transition-colors duration-200">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-10 h-10 bg-blue-500/20 rounded-xl flex items-center justify-center">
+                                    <i class="fas fa-cross text-blue-400"></i>
+                                </div>
+                                <span class="font-medium text-white text-lg">Katolik</span>
                             </div>
-                            <span class="font-medium text-gray-900 text-xl">Protestan</span>
-                        </div>
-                        <div class="text-right">
-                            <p class="font-bold text-purple-600">{{ $protestan }}</p>
-                        </div>
-                    </div>
-                    <div class="flex items-center justify-between p-3 bg-orange-50 rounded-lg">
-                        <div class="flex items-center space-x-3">
-                            <div class="w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center">
-                                <i class="fas fa-om text-white text-sm"></i>
+                            <div class="text-right">
+                                <p class="font-bold text-blue-400 text-lg">{{ $katolik }}</p>
+                                <p class="text-xs text-gray-400">Jiwa</p>
                             </div>
-                            <span class="font-medium text-gray-900 text-xl">Hindu</span>
                         </div>
-                        <div class="text-right">
-                            <p class="font-bold text-orange-600">{{ $hindu }}</p>
-                        </div>
-                    </div>
-                    <div class="flex items-center justify-between p-3 bg-yellow-50 rounded-lg">
-                        <div class="flex items-center space-x-3">
-                            <div class="w-8 h-8 bg-yellow-500 rounded-full flex items-center justify-center">
-                                <i class="fas fa-dharmachakra text-white text-sm"></i>
+
+                        <div
+                            class="flex items-center justify-between p-4 bg-gray-700/50 rounded-xl hover:bg-gray-700 transition-colors duration-200">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-10 h-10 bg-purple-500/20 rounded-xl flex items-center justify-center">
+                                    <i class="fas fa-church text-purple-400"></i>
+                                </div>
+                                <span class="font-medium text-white text-lg">Protestan</span>
                             </div>
-                            <span class="font-medium text-gray-900 text-xl">Buddha</span>
+                            <div class="text-right">
+                                <p class="font-bold text-purple-400 text-lg">{{ $protestan }}</p>
+                                <p class="text-xs text-gray-400">Jiwa</p>
+                            </div>
                         </div>
-                        <div class="text-right">
-                            <p class="font-bold text-yellow-600">{{ $buddha }}</p>
+
+                        <div
+                            class="flex items-center justify-between p-4 bg-gray-700/50 rounded-xl hover:bg-gray-700 transition-colors duration-200">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-10 h-10 bg-orange-500/20 rounded-xl flex items-center justify-center">
+                                    <i class="fas fa-om text-orange-400"></i>
+                                </div>
+                                <span class="font-medium text-white text-lg">Hindu</span>
+                            </div>
+                            <div class="text-right">
+                                <p class="font-bold text-orange-400 text-lg">{{ $hindu }}</p>
+                                <p class="text-xs text-gray-400">Jiwa</p>
+                            </div>
+                        </div>
+
+                        <div
+                            class="flex items-center justify-between p-4 bg-gray-700/50 rounded-xl hover:bg-gray-700 transition-colors duration-200">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-10 h-10 bg-yellow-500/20 rounded-xl flex items-center justify-center">
+                                    <i class="fas fa-dharmachakra text-yellow-400"></i>
+                                </div>
+                                <span class="font-medium text-white text-lg">Buddha</span>
+                            </div>
+                            <div class="text-right">
+                                <p class="font-bold text-yellow-400 text-lg">{{ $buddha }}</p>
+                                <p class="text-xs text-gray-400">Jiwa</p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 @endsection

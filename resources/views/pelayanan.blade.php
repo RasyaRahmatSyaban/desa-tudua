@@ -4,273 +4,97 @@
 @section('description', 'Berbagai layanan administrasi dan surat-menyurat yang tersedia di desa')
 
 @section('content')
-    <!-- Page Header -->
-    <section class="bg-gradient-to-r from-purple-600 to-purple-800 text-white pt-24 pb-16">
-        <div class="max-w-7xl mx-auto px-4">
-            <div class="text-center">
-                <h1 class="text-4xl font-bold mb-4">Pelayanan Desa</h1>
-                <p class="text-xl text-purple-100 max-w-2xl mx-auto">
-                    Layanan administrasi dan surat-menyurat untuk kemudahan masyarakat
-                </p>
-            </div>
+    <style>
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+
+        .card-hover:hover {
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+
+    <!-- Header Section -->
+    <section class="py-12 pt-24 bg-gray-900 border-b border-gray-700">
+        <div class="w-full mx-auto px-6 md:px-12 lg:px-24 text-center">
+            <h2 class="text-3xl font-bold text-white mb-4">Layanan Utama</h2>
+            <p class="text-gray-400 max-w-2xl mx-auto">
+                Berbagai layanan administrasi yang dapat Anda akses di kantor desa
+            </p>
         </div>
     </section>
 
     <!-- Jam Pelayanan -->
-    <section class="py-8 bg-white border-b">
-        <div class="max-w-7xl mx-auto px-4">
-            <div class="bg-blue-50 rounded-lg p-6">
-                <div class="flex items-center justify-center space-x-8">
-                    <div class="text-center">
-                        <i class="fas fa-clock text-blue-600 text-2xl mb-2"></i>
-                        <h3 class="font-semibold text-gray-900">Jam Pelayanan</h3>
-                        <p class="text-gray-600">Senin - Jumat: 08:00 - 15:00</p>
-                        <p class="text-gray-600">Sabtu: 08:00 - 12:00</p>
-                    </div>
-                    <div class="text-center">
-                        <i class="fas fa-phone text-blue-600 text-2xl mb-2"></i>
-                        <h3 class="font-semibold text-gray-900">Kontak</h3>
-                        <p class="text-gray-600">(021) 1234-5678</p>
-                        <p class="text-gray-600">pelayanan@desa.id</p>
-                    </div>
-                    <div class="text-center">
-                        <i class="fas fa-map-marker-alt text-blue-600 text-2xl mb-2"></i>
-                        <h3 class="font-semibold text-gray-900">Lokasi</h3>
-                        <p class="text-gray-600">Kantor Desa</p>
-                        <p class="text-gray-600">Jl. Raya Desa No. 123</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Layanan Utama -->
-    <section class="py-16 bg-gray-50">
-        <div class="max-w-7xl mx-auto px-4">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl font-bold text-gray-900 mb-4">Layanan Utama</h2>
-                <p class="text-gray-600 max-w-2xl mx-auto">
-                    Berbagai layanan administrasi yang dapat Anda akses di kantor desa
-                </p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    <section class="py-10 bg-gray-900">
+        <div class="w-full mx-auto px-6 md:px-12 lg:px-24">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
                 @foreach($pelayanans as $item)
-                    <div class="card-hover bg-white rounded-lg shadow-md overflow-hidden">
-                        <div class="p-6">
-                            <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
-                                <i class="fas fa-file-alt text-blue-600 text-xl"></i>
+                    <div
+                        class="card-hover bg-gray-800 rounded-2xl shadow-xl border border-gray-700 hover:border-yellow-500/50 transition-all duration-300 p-6">
+                        <div class="flex items-start space-x-4 mb-4">
+                            <div class="w-12 h-12 bg-yellow-500/20 rounded-xl flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-file-alt text-yellow-400 text-xl"></i>
                             </div>
-
-                            <h3 class="text-xl font-semibold text-gray-900 mb-3">{{ $item->nama_layanan }}</h3>
-                            <p class="text-gray-600 mb-4">{{ $item->deskripsi }}</p>
-
-                            <div class="space-y-3">
-                                <div>
-                                    <h4 class="text-sm font-medium text-gray-900 mb-2">Kategori:</h4>
-                                    <p class="text-sm text-gray-600">{{ $item->kategori }}</p>
-                                </div>
-
-                                @if($item->link_google_form)
-                                    <div class="pt-4">
-                                        <a href="{{ $item->link_google_form }}" target="_blank"
-                                            class="inline-block bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded text-sm font-medium">
-                                            <i class="fas fa-external-link-alt mr-1"></i> Ajukan Online
-                                        </a>
-                                    </div>
-                                @endif
+                            <div class="flex-1">
+                                <h3 class="text-xl font-semibold text-white mb-2">{{ $item->nama_layanan }}</h3>
+                                <span
+                                    class="inline-block px-3 py-1 bg-blue-500/20 text-blue-400 text-xs font-medium rounded-full">
+                                    {{ $item->kategori }}
+                                </span>
                             </div>
                         </div>
+
+                        <p class="text-gray-400 mb-6 leading-relaxed">{{ $item->deskripsi }}</p>
+
+                        @if($item->link_google_form)
+                            <div class="flex space-x-3">
+                                <a href="{{ $item->link_google_form }}" target="_blank"
+                                    class="flex-1 bg-yellow-600 hover:bg-yellow-500 text-white text-center px-4 py-3 rounded-lg font-semibold transition-all duration-300 hover:shadow-lg">
+                                    <i class="fas fa-external-link-alt mr-2"></i>
+                                    Ajukan Online
+                                </a>
+                            </div>
+                        @else
+                            <div class="bg-gray-700/50 rounded-lg p-4 text-center">
+                                <i class="fas fa-building text-gray-500 mb-2"></i>
+                                <p class="text-gray-500 text-sm">Kunjungi kantor desa untuk layanan ini</p>
+                            </div>
+                        @endif
                     </div>
                 @endforeach
             </div>
-        </div>
-    </section>
-
-    <!-- Prosedur Pelayanan
-                <section class="py-16 bg-white">
-                    <div class="max-w-7xl mx-auto px-4">
-                        <div class="text-center mb-12">
-                            <h2 class="text-3xl font-bold text-gray-900 mb-4">Prosedur Pelayanan</h2>
-                            <p class="text-gray-600 max-w-2xl mx-auto">
-                                Langkah-langkah mudah untuk mendapatkan layanan di desa
-                            </p>
+            <div
+                class="card-hover bg-gray-800 rounded-2xl shadow-xl border border-gray-700 hover:border-blue-500/50 transition-all duration-300 p-6 mb-12">
+                <h3 class="text-2xl font-bold text-white mb-6 text-center flex items-center justify-center">
+                    <i class="fas fa-info-circle text-blue-400 mr-3"></i>
+                    Informasi Pelayanan
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="text-center">
+                        <div class="w-16 h-16 bg-blue-500/20 rounded-xl flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-clock text-2xl text-blue-400"></i>
                         </div>
-
-                        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-                            @php
-                                $prosedur = [
-                                    [
-                                        'step' => '1',
-                                        'title' => 'Persiapan Dokumen',
-                                        'description' => 'Siapkan dokumen yang diperlukan sesuai jenis layanan yang dibutuhkan',
-                                        'icon' => 'file-alt'
-                                    ],
-                                    [
-                                        'step' => '2',
-                                        'title' => 'Datang ke Kantor Desa',
-                                        'description' => 'Kunjungi kantor desa pada jam pelayanan dengan membawa dokumen lengkap',
-                                        'icon' => 'building'
-                                    ],
-                                    [
-                                        'step' => '3',
-                                        'title' => 'Pengajuan Permohonan',
-                                        'description' => 'Isi formulir permohonan dan serahkan dokumen kepada petugas',
-                                        'icon' => 'edit'
-                                    ],
-                                    [
-                                        'step' => '4',
-                                        'title' => 'Pengambilan Surat',
-                                        'description' => 'Ambil surat yang sudah jadi sesuai waktu yang telah ditentukan',
-                                        'icon' => 'check-circle'
-                                    ]
-                                ];
-                            @endphp
-
-                            @foreach($prosedur as $index => $item)
-                                <div class="text-center">
-                                    <div class="relative">
-                                        <div class="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                                            <span class="text-white text-xl font-bold">{{ $item['step'] }}</span>
-                                        </div>
-                                        @if($index < count($prosedur) - 1)
-                                            <div
-                                                class="hidden md:block absolute top-8 left-full w-full h-0.5 bg-blue-200 transform -translate-y-0.5">
-                                            </div>
-                                        @endif
-                                    </div>
-
-                                    <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mx-auto mb-4">
-                                        <i class="fas fa-{{ $item['icon'] }} text-blue-600"></i>
-                                    </div>
-
-                                    <h3 class="text-lg font-semibold text-gray-900 mb-3">{{ $item['title'] }}</h3>
-                                    <p class="text-gray-600">{{ $item['description'] }}</p>
-                                </div>
-                            @endforeach
-                        </div>
+                        <h4 class="text-lg font-semibold text-white mb-2">Jam Pelayanan</h4>
+                        <p class="text-gray-400">Senin - Jumat <br>08:00 - 15:00</p>
                     </div>
-                </section> -->
-
-    <!-- Layanan Online -->
-    <!-- <section class="py-16 bg-blue-50">
-                    <div class="max-w-7xl mx-auto px-4">
-                        <div class="text-center mb-12">
-                            <h2 class="text-3xl font-bold text-gray-900 mb-4">Layanan Online</h2>
-                            <p class="text-gray-600 max-w-2xl mx-auto">
-                                Beberapa layanan dapat diakses secara online untuk kemudahan Anda
-                            </p>
+                    <div class="text-center">
+                        <div class="w-16 h-16 bg-green-500/20 rounded-xl flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-phone text-2xl text-green-400"></i>
                         </div>
-
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                            <div class="card-hover bg-white p-8 rounded-lg shadow-md text-center">
-                                <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                                    <i class="fas fa-download text-green-600 text-2xl"></i>
-                                </div>
-                                <h3 class="text-xl font-semibold text-gray-900 mb-4">Download Formulir</h3>
-                                <p class="text-gray-600 mb-6">
-                                    Unduh formulir permohonan surat untuk diisi terlebih dahulu di rumah
-                                </p>
-                                <button class="btn-primary text-white px-6 py-3 rounded-lg font-medium">
-                                    <i class="fas fa-download mr-2"></i>Download
-                                </button>
-                            </div>
-
-                            <div class="card-hover bg-white p-8 rounded-lg shadow-md text-center">
-                                <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                                    <i class="fas fa-calendar-check text-blue-600 text-2xl"></i>
-                                </div>
-                                <h3 class="text-xl font-semibold text-gray-900 mb-4">Cek Status Permohonan</h3>
-                                <p class="text-gray-600 mb-6">
-                                    Pantau status permohonan surat Anda secara online
-                                </p>
-                                <button class="btn-primary text-white px-6 py-3 rounded-lg font-medium">
-                                    <i class="fas fa-search mr-2"></i>Cek Status
-                                </button>
-                            </div>
-
-                            <div class="card-hover bg-white p-8 rounded-lg shadow-md text-center">
-                                <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                                    <i class="fas fa-headset text-purple-600 text-2xl"></i>
-                                </div>
-                                <h3 class="text-xl font-semibold text-gray-900 mb-4">Bantuan & Konsultasi</h3>
-                                <p class="text-gray-600 mb-6">
-                                    Hubungi kami untuk bantuan dan konsultasi layanan
-                                </p>
-                                <button class="btn-primary text-white px-6 py-3 rounded-lg font-medium">
-                                    <i class="fas fa-phone mr-2"></i>Hubungi
-                                </button>
-                            </div>
+                        <h4 class="text-lg font-semibold text-white mb-2">Kontak</h4>
+                        <p class="text-gray-400">xxx-xxx</p>
+                        <p class="text-gray-400">xxx@desa.example.id</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-16 h-16 bg-purple-500/20 rounded-xl flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-map-marker-alt text-2xl text-purple-400"></i>
                         </div>
-                    </div>
-                </section> -->
-
-    <!-- FAQ -->
-    <!-- <section class="py-16 bg-white">
-                <div class="max-w-4xl mx-auto px-4">
-                    <div class="text-center mb-12">
-                        <h2 class="text-3xl font-bold text-gray-900 mb-4">Pertanyaan Umum</h2>
-                        <p class="text-gray-600">
-                            Jawaban untuk pertanyaan yang sering diajukan tentang layanan desa
-                        </p>
-                    </div>
-
-                    <div class="space-y-4">
-                        @php
-                            $faq = [
-                                [
-                                    'question' => 'Apakah semua layanan gratis?',
-                                    'answer' => 'Ya, semua layanan administrasi desa tidak dikenakan biaya alias gratis sesuai dengan peraturan yang berlaku.'
-                                ],
-                                [
-                                    'question' => 'Berapa lama waktu pengurusan surat?',
-                                    'answer' => 'Waktu pengurusan bervariasi tergantung jenis surat, umumnya 1-3 hari kerja. Untuk surat yang mendesak bisa diproses pada hari yang sama.'
-                                ],
-                                [
-                                    'question' => 'Apakah bisa diwakilkan?',
-                                    'answer' => 'Beberapa jenis surat bisa diwakilkan dengan membawa surat kuasa dan fotokopi KTP pemberi kuasa. Namun untuk surat tertentu harus datang langsung.'
-                                ],
-                                [
-                                    'question' => 'Bagaimana jika dokumen hilang?',
-                                    'answer' => 'Jika dokumen persyaratan hilang, Anda bisa menggunakan fotokopi yang dilegalisir atau membuat surat keterangan kehilangan terlebih dahulu.'
-                                ],
-                                [
-                                    'question' => 'Apakah ada layanan di hari libur?',
-                                    'answer' => 'Untuk keperluan mendesak, kami menyediakan layanan darurat. Silakan hubungi nomor kontak yang tersedia.'
-                                ]
-                            ];
-                        @endphp
-
-                        @foreach($faq as $index => $item)
-                            <div class="border border-gray-200 rounded-lg">
-                                <button
-                                    class="w-full px-6 py-4 text-left flex items-center justify-between hover:bg-gray-50 focus:outline-none focus:bg-gray-50"
-                                    onclick="toggleFaq({{ $index }})">
-                                    <span class="font-medium text-gray-900">{{ $item['question'] }}</span>
-                                    <i class="fas fa-chevron-down text-gray-400 transform transition-transform duration-200"
-                                        id="icon-{{ $index }}"></i>
-                                </button>
-                                <div class="hidden px-6 pb-4" id="answer-{{ $index }}">
-                                    <p class="text-gray-600">{{ $item['answer'] }}</p>
-                                </div>
-                            </div>
-                        @endforeach
+                        <h4 class="text-lg font-semibold text-white mb-2">Lokasi</h4>
+                        <p class="text-gray-400">Kantor Desa Tudua</p>
+                        <p class="text-gray-400">Jl. Melati No. 2, Dusun 3</p>
                     </div>
                 </div>
-            </section> -->
-
-    <!-- <script>
-            function toggleFaq(index) {
-                const answer = document.getElementById(`answer-${index}`);
-                const icon = document.getElementById(`icon-${index}`);
-
-                if (answer.classList.contains('hidden')) {
-                    answer.classList.remove('hidden');
-                    icon.classList.add('rotate-180');
-                } else {
-                    answer.classList.add('hidden');
-                    icon.classList.remove('rotate-180');
-                }
-            }
-        </script> -->
+            </div>
+        </div>
+    </section>
 @endsection

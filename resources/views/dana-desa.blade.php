@@ -4,100 +4,162 @@
 @section('description', 'Transparansi pengelolaan dan penggunaan dana desa')
 
 @section('content')
+    <style>
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+
+        .card-hover:hover {
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, rgba(55, 65, 81, 0.9) 0%, rgba(31, 41, 55, 0.8) 100%);
+        }
+
+        .stat-card-green {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(5, 150, 105, 0.1) 100%);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+
+        .stat-card-blue {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(29, 78, 216, 0.1) 100%);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+        }
+
+        .stat-card-red {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.1) 0%, rgba(220, 38, 38, 0.1) 100%);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+    </style>
+
     <!-- Header -->
-    <section class="bg-gradient-to-r from-emerald-600 to-emerald-800 text-white pt-28 pb-20">
-        <div class="max-w-7xl mx-auto px-4">
+    <section class="pt-24 pb-12 bg-gray-900">
+        <div class="w-full mx-auto px-6 md:px-12 lg:px-24">
             <div class="text-center">
-                <h1 class="text-4xl font-bold mb-4">Dana Desa</h1>
-                <p class="text-xl text-emerald-100 max-w-2xl mx-auto">
+                <h1 class="text-4xl lg:text-5xl font-bold text-white mb-4">Dana Desa</h1>
+                <p class="text-xl text-gray-300 max-w-2xl mx-auto">
                     Transparansi pengelolaan dan penggunaan dana desa untuk kesejahteraan masyarakat
                 </p>
             </div>
         </div>
     </section>
 
-    <!-- Ringkasan Anggaran -->
-    <section class="py-16 bg-white">
-        <div class="max-w-7xl mx-auto px-4">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl font-bold text-gray-900 mb-4">Ringkasan Anggaran {{ $tahunDipilih }}</h2>
-                <p class="text-gray-600 max-w-2xl mx-auto">
-                    Total anggaran dan realisasi dana desa tahun {{ $tahunDipilih }}
-                </p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <!-- Dana Masuk -->
-                <div class="bg-white p-6 rounded-lg shadow border text-center">
-                    <div class="w-14 h-14 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <i class="fas fa-arrow-down text-green-600 text-xl"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-900">Rp {{ number_format($totalMasuk, 0, ',', '.') }}</h3>
-                    <p class="text-green-600 font-medium mt-1">Dana Masuk</p>
+    <!-- Filter Tahun -->
+    <section class="py-8 bg-gray-900 border-b border-gray-700">
+        <div class="w-full mx-auto px-6 md:px-12 lg:px-24">
+            <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div>
+                    <h2 class="text-2xl font-bold text-white mb-2">Ringkasan Anggaran {{ $tahunDipilih }}</h2>
+                    <p class="text-gray-400">Total anggaran dan realisasi dana desa tahun {{ $tahunDipilih }}</p>
                 </div>
 
-                <!-- Saldo -->
-                <div class="bg-white p-6 rounded-lg shadow border text-center">
-                    <div class="w-14 h-14 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <i class="fas fa-wallet text-blue-600 text-xl"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-900">Rp {{ number_format($saldo, 0, ',', '.') }}</h3>
-                    <p class="text-blue-600 font-medium mt-1">Saldo</p>
-                </div>
-
-                <!-- Dana Keluar -->
-                <div class="bg-white p-6 rounded-lg shadow border text-center">
-                    <div class="w-14 h-14 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <i class="fas fa-arrow-up text-red-600 text-xl"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-900">Rp {{ number_format($totalKeluar, 0, ',', '.') }}</h3>
-                    <p class="text-red-600 font-medium mt-1">Dana Keluar</p>
-                </div>
-            </div>
-
-            <!-- Filter Tahun -->
-            <div class="text-center mt-12 mb-8">
-                <form method="GET">
-                    <label for="tahun" class="block text-sm font-medium text-gray-700 mb-2">Pilih Tahun</label>
-                    <select name="tahun" id="tahun" onchange="this.form.submit()"
-                        class="inline-block w-40 px-4 py-2 border border-gray-300 rounded-lg focus:ring focus:ring-emerald-500">
+                <form method="GET" class="flex items-center gap-3">
+                    <label for="tahun" class="text-sm font-medium text-gray-300">Pilih Tahun:</label>
+                    <select name="tahun" id="tahun" onchange="this.form.submit()" class="bg-gray-800 border border-gray-600 rounded-xl px-4 py-2 text-white focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 transition-all duration-300 min-w-[120px]">
                         @foreach($availableYears as $year)
                             <option value="{{ $year }}" {{ $tahunDipilih == $year ? 'selected' : '' }}>{{ $year }}</option>
                         @endforeach
                     </select>
                 </form>
             </div>
+        </div>
+    </section>
+
+    <!-- Ringkasan Anggaran -->
+    <section class="py-12 bg-gray-900">
+        <div class="w-full mx-auto px-6 md:px-12 lg:px-24">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+                <!-- Dana Masuk -->
+                <div class="card-hover stat-card stat-card-green rounded-2xl shadow-xl p-6 text-center">
+                    <div
+                        class="w-16 h-16 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-4 border border-green-500/30">
+                        <i class="fas fa-arrow-down text-green-400 text-2xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-2">Rp {{ number_format($totalMasuk, 0, ',', '.') }}</h3>
+                    <p class="text-green-400 font-semibold">Dana Masuk</p>
+                </div>
+
+                <!-- Saldo -->
+                <div class="card-hover stat-card stat-card-blue rounded-2xl shadow-xl p-6 text-center">
+                    <div
+                        class="w-16 h-16 bg-blue-500/20 rounded-full flex items-center justify-center mx-auto mb-4 border border-blue-500/30">
+                        <i class="fas fa-wallet text-blue-400 text-2xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-2">Rp {{ number_format($saldo, 0, ',', '.') }}</h3>
+                    <p class="text-blue-400 font-semibold">Saldo</p>
+                </div>
+
+                <!-- Dana Keluar -->
+                <div class="card-hover stat-card stat-card-red rounded-2xl shadow-xl p-6 text-center">
+                    <div
+                        class="w-16 h-16 bg-red-500/20 rounded-full flex items-center justify-center mx-auto mb-4 border border-red-500/30">
+                        <i class="fas fa-arrow-up text-red-400 text-2xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-2">Rp {{ number_format($totalKeluar, 0, ',', '.') }}</h3>
+                    <p class="text-red-400 font-semibold">Dana Keluar</p>
+                </div>
+            </div>
 
             <!-- Dana Masuk per Bulan -->
-            <div class="bg-white p-6 rounded-lg shadow-md border mb-10">
-                <h3 class="text-xl font-semibold text-green-600 mb-4 flex items-center">
-                    <i class="fas fa-arrow-down mr-2"></i> Dana Masuk - {{ $tahunDipilih }}
-                </h3>
+            <div
+                class="card-hover bg-gray-800 rounded-2xl shadow-xl border border-gray-700 hover:border-green-500/50 p-6 mb-8">
+                <div class="flex items-center mb-6">
+                    <div class="w-12 h-12 bg-green-500/20 rounded-full flex items-center justify-center mr-4">
+                        <i class="fas fa-arrow-down text-green-400 text-lg"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-bold text-white">Dana Masuk</h3>
+                        <p class="text-gray-400">Tahun {{ $tahunDipilih }}</p>
+                    </div>
+                </div>
+
                 @if ($danaMasukDetailBulanan->isEmpty())
-                    <p class="text-gray-500">Belum ada data dana masuk untuk tahun ini.</p>
+                    <div class="text-center py-12">
+                        <div class="w-20 h-20 bg-gray-700 rounded-full mx-auto mb-4 flex items-center justify-center">
+                            <i class="fas fa-inbox text-3xl text-gray-500"></i>
+                        </div>
+                        <h4 class="text-lg font-semibold text-white mb-2">Belum Ada Data</h4>
+                        <p class="text-gray-400">Belum ada data dana masuk untuk tahun ini.</p>
+                    </div>
                 @else
                     <div class="overflow-x-auto">
-                        <table class="min-w-full divide-y divide-gray-200">
-                            <thead class="bg-gray-50">
-                                <tr>
-                                    <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Tahun</th>
-                                    <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Bulan</th>
-                                    <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Jumlah</th>
-                                    <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Sumber</th>
-                                    <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Keterangan</th>
+                        <table class="min-w-full">
+                            <thead>
+                                <tr class="border-b border-gray-700">
+                                    <th
+                                        class="px-4 py-3 text-left text-xs font-semibold text-gray-400 uppercase tracking-wider">
+                                        Tahun</th>
+                                    <th
+                                        class="px-4 py-3 text-left text-xs font-semibold text-gray-400 uppercase tracking-wider">
+                                        Bulan</th>
+                                    <th
+                                        class="px-4 py-3 text-left text-xs font-semibold text-gray-400 uppercase tracking-wider">
+                                        Jumlah</th>
+                                    <th
+                                        class="px-4 py-3 text-left text-xs font-semibold text-gray-400 uppercase tracking-wider">
+                                        Sumber</th>
+                                    <th
+                                        class="px-4 py-3 text-left text-xs font-semibold text-gray-400 uppercase tracking-wider">
+                                        Keterangan</th>
                                 </tr>
                             </thead>
-                            <tbody class="bg-white divide-y divide-gray-200">
+                            <tbody class="divide-y divide-gray-700">
                                 @foreach ($danaMasukDetailBulanan as $bulan => $details)
                                     @foreach ($details as $index => $detail)
-                                        <tr>
+                                        <tr class="hover:bg-gray-700/50 transition-colors duration-200">
                                             @if ($index === 0)
-                                                <td class="px-4 py-2 border" rowspan="{{ count($details) }}">{{ $tahunDipilih }}</td>
-                                                <td class="px-4 py-2 border" rowspan="{{ count($details) }}">{{ $bulanMapping[$bulan] }}</td>
+                                                <td class="px-4 py-3 text-white font-medium" rowspan="{{ count($details) }}">
+                                                    {{ $tahunDipilih }}</td>
+                                                <td class="px-4 py-3 text-white font-medium" rowspan="{{ count($details) }}">
+                                                    <span
+                                                        class="bg-gray-700 px-3 py-1 rounded-full text-sm">{{ $bulanMapping[$bulan] }}</span>
+                                                </td>
                                             @endif
-                                            <td class="px-4 py-2 border">Rp {{ number_format($detail['jumlah'], 0, ',', '.') }}</td>
-                                            <td class="px-4 py-2 border">{{ $detail['sumber'] }}</td>
-                                            <td class="px-4 py-2 border">{{ $detail['keterangan'] }}</td>
+                                            <td class="px-4 py-3 text-green-400 font-semibold">Rp
+                                                {{ number_format($detail['jumlah'], 0, ',', '.') }}</td>
+                                            <td class="px-4 py-3 text-gray-300">{{ $detail['sumber'] }}</td>
+                                            <td class="px-4 py-3 text-gray-300">{{ $detail['keterangan'] }}</td>
                                         </tr>
                                     @endforeach
                                 @endforeach
@@ -108,35 +170,63 @@
             </div>
 
             <!-- Dana Keluar per Bulan -->
-            <div class="bg-white p-6 rounded-lg shadow-md border">
-                <h3 class="text-xl font-semibold text-red-600 mb-4 flex items-center">
-                    <i class="fas fa-arrow-up mr-2"></i> Dana Keluar - {{ $tahunDipilih }}
-                </h3>
+            <div class="card-hover bg-gray-800 rounded-2xl shadow-xl border border-gray-700 hover:border-red-500/50 p-6">
+                <div class="flex items-center mb-6">
+                    <div class="w-12 h-12 bg-red-500/20 rounded-full flex items-center justify-center mr-4">
+                        <i class="fas fa-arrow-up text-red-400 text-lg"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-bold text-white">Dana Keluar</h3>
+                        <p class="text-gray-400">Tahun {{ $tahunDipilih }}</p>
+                    </div>
+                </div>
+
                 @if ($danaKeluarDetailBulanan->isEmpty())
-                    <p class="text-gray-500">Belum ada data dana keluar untuk tahun ini.</p>
+                    <div class="text-center py-12">
+                        <div class="w-20 h-20 bg-gray-700 rounded-full mx-auto mb-4 flex items-center justify-center">
+                            <i class="fas fa-file-invoice text-3xl text-gray-500"></i>
+                        </div>
+                        <h4 class="text-lg font-semibold text-white mb-2">Belum Ada Data</h4>
+                        <p class="text-gray-400">Belum ada data dana keluar untuk tahun ini.</p>
+                    </div>
                 @else
                     <div class="overflow-x-auto">
-                        <table class="min-w-full divide-y divide-gray-200">
-                            <thead class="bg-gray-50">
-                                <tr>
-                                    <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Tahun</th>
-                                    <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Bulan</th>
-                                    <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Jumlah</th>
-                                    <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Kategori</th>
-                                    <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Keterangan</th>
+                        <table class="min-w-full">
+                            <thead>
+                                <tr class="border-b border-gray-700">
+                                    <th
+                                        class="px-4 py-3 text-left text-xs font-semibold text-gray-400 uppercase tracking-wider">
+                                        Tahun</th>
+                                    <th
+                                        class="px-4 py-3 text-left text-xs font-semibold text-gray-400 uppercase tracking-wider">
+                                        Bulan</th>
+                                    <th
+                                        class="px-4 py-3 text-left text-xs font-semibold text-gray-400 uppercase tracking-wider">
+                                        Jumlah</th>
+                                    <th
+                                        class="px-4 py-3 text-left text-xs font-semibold text-gray-400 uppercase tracking-wider">
+                                        Kategori</th>
+                                    <th
+                                        class="px-4 py-3 text-left text-xs font-semibold text-gray-400 uppercase tracking-wider">
+                                        Keterangan</th>
                                 </tr>
                             </thead>
-                            <tbody class="bg-white divide-y divide-gray-200">
+                            <tbody class="divide-y divide-gray-700">
                                 @foreach ($danaKeluarDetailBulanan as $bulan => $details)
                                     @foreach ($details as $index => $detail)
-                                        <tr>
+                                        <tr class="hover:bg-gray-700/50 transition-colors duration-200">
                                             @if ($index === 0)
-                                                <td class="px-4 py-2 border" rowspan="{{ count($details) }}">{{ $tahunDipilih }}</td>
-                                                <td class="px-4 py-2 border" rowspan="{{ count($details) }}">{{ $bulanMapping[$bulan] }}</td>
+                                                <td class="px-4 py-3 text-white font-medium" rowspan="{{ count($details) }}">
+                                                    {{ $tahunDipilih }}</td>
+                                                <td class="px-4 py-3 text-white font-medium" rowspan="{{ count($details) }}">
+                                                    <span
+                                                        class="bg-gray-700 px-3 py-1 rounded-full text-sm">{{ $bulanMapping[$bulan] }}</span>
+                                                </td>
                                             @endif
-                                            <td class="px-4 py-2 border">Rp {{ number_format($detail['jumlah'], 0, ',', '.') }}</td>
-                                            <td class="px-4 py-2 border">{{ $detail['kategori'] }}</td>
-                                            <td class="px-4 py-2 border">{{ $detail['keterangan'] }}</td>
+                                            <td class="px-4 py-3 text-red-400 font-semibold">Rp
+                                                {{ number_format($detail['jumlah'], 0, ',', '.') }}</td>
+                                            <td class="px-4 py-3 text-gray-300">{{ $detail['kategori'] }}</td>
+                                            <td class="px-4 py-3 text-gray-300">{{ $detail['keterangan'] }}</td>
                                         </tr>
                                     @endforeach
                                 @endforeach
