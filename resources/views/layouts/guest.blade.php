@@ -18,7 +18,7 @@
 
 <body class="font-sans">
     <!-- Navigation -->
-    <nav class="fixed top-0 left-0 right-0 z-50 px-18 py-2 bg-gray-900/95 backdrop-blur-md transition-all duration-300 shadow-sm"
+    <nav class="fixed top-0 left-0 right-0 z-50 px-18 py-2 bg-gray-800/95 backdrop-blur-md transition-all duration-300 shadow-sm"
         id="navbar">
         <div class="w-full mx-auto flex items-center justify-between">
             <!-- Logo -->
@@ -51,7 +51,7 @@
                 <a href="{{ route('pelayanan') }}"
                     class="relative text-gray-300 font-medium transition-all duration-300 hover:text-yellow-400 after:content-[''] after:absolute after:w-0 after:h-0.5 after:-bottom-1 after:left-0 after:bg-yellow-500 after:transition-all after:duration-300 hover:after:w-full hover:after:left-0 {{ request()->routeIs('pelayanan') ? 'text-yellow-400 after:w-full after:left-0' : '' }}">Pelayanan</a>
                 <a href="{{ route('login') }}"
-                    class="bg-yellow-600 text-white border-2 border-yellow-600 hover:bg-yellow-500 hover:border-yellow-500 px-4 py-2 rounded-lg font-semibold transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg">
+                    class="bg-yellow-600 text-white border-2 border-yellow-600 hover:bg-yellow-500 hover:border-yellow-500 px-4 py-2 rounded-lg font-semibold transition-all duration-300 hover:shadow-lg">
                     <i class="fas fa-sign-in-alt mr-2"></i>Login
                 </a>
             </div>
@@ -111,7 +111,7 @@
         @yield('content')
     </main>
     <!-- Footer -->
-    <footer class="bg-gray-900 text-white">
+    <footer class="bg-gray-800 text-white">
         <div class="w-full mx-auto px-18 pt-12 pb-7">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
                 <!-- About -->
@@ -201,11 +201,11 @@
 
             if (Math.abs(currentScroll - lastScroll) > 5) { // debounce ringan
                 if (currentScroll > 50) {
-                    navbar.classList.remove('bg-gray-900/95');
-                    navbar.classList.add('bg-gray-900/98', 'shadow-lg');
+                    navbar.classList.remove('bg-gray-800/95');
+                    navbar.classList.add('bg-gray-800/98', 'shadow-lg');
                 } else {
-                    navbar.classList.remove('bg-gray-900/98', 'shadow-lg');
-                    navbar.classList.add('bg-gray-900/95');
+                    navbar.classList.remove('bg-gray-800/98', 'shadow-lg');
+                    navbar.classList.add('bg-gray-800/95');
                 }
                 lastScroll = currentScroll;
             }

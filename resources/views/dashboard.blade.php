@@ -31,7 +31,6 @@
         }
 
         .card-hover:hover {
-            transform: translateY(-5px);
             box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
         }
 
@@ -146,67 +145,8 @@
         </div>
     </section>
 
-    <!-- Sambutan Kepala Desa -->
-    <section class="py-20 bg-gray-800">
-        <div class="w-full mx-auto px-24">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-
-                <!-- Teks Sambutan -->
-                <div class="order-2 lg:order-1">
-                    <div class="glass-effect p-8 lg:p-10 rounded-3xl shadow-xl relative overflow-hidden">
-                        <!-- Decorative element -->
-                        <div
-                            class="absolute top-0 left-0 w-20 h-20 bg-gradient-to-br from-yellow-400/30 to-yellow-500/20 rounded-full -translate-x-10 -translate-y-10">
-                        </div>
-
-                        <div class="relative">
-                            <span
-                                class="inline-block bg-yellow-500/20 text-yellow-300 px-4 py-2 rounded-full text-sm font-medium mb-6">
-                                <i class="fas fa-quote-left mr-2"></i>Sambutan
-                            </span>
-                            <h2 class="text-3xl lg:text-4xl font-extrabold text-white mb-6">Kepala Desa</h2>
-                            <p class="text-gray-300 mb-5 leading-relaxed text-lg">
-                                "Assalamu'alaikum warahmatullahi wabarakatuh. Selamat datang di website resmi desa kami.
-                                Melalui platform digital ini, kami berkomitmen untuk memberikan pelayanan terbaik,
-                                informasi yang akurat, dan transparansi dalam pengelolaan desa."
-                            </p>
-                            <p class="text-gray-300 mb-8 leading-relaxed text-lg">
-                                "Mari bersama-sama membangun desa yang maju, sejahtera, dan berkeadilan untuk
-                                kesejahteraan seluruh masyarakat."
-                            </p>
-                            <div class="flex items-center space-x-5 p-4 bg-gray-800/50 rounded-2xl border border-gray-700">
-                                <div class="w-16 h-16 rounded-full overflow-hidden border-3 border-yellow-400 shadow-lg">
-                                    <img src="{{ asset('storage/' . $kepalaDesa->foto) }}" alt="Foto Kepala Desa"
-                                        class="w-full h-full object-cover">
-                                </div>
-                                <div>
-                                    <p class="font-bold text-white text-lg">{{$kepalaDesa->nama}}</p>
-                                    <p class="text-yellow-300 text-sm font-medium">{{$kepalaDesa->jabatan}}</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Gambar Kepala Desa -->
-                <div class="order-1 lg:order-2 text-center">
-                    <div class="relative inline-block">
-                        <div
-                            class="absolute inset-0 bg-gradient-to-br from-yellow-400/30 to-yellow-500/20 rounded-3xl transform rotate-6">
-                        </div>
-                        <img src="{{ asset('storage/' . $kepalaDesa->foto) }}" alt="{{$kepalaDesa->nama}}"
-                            class="relative rounded-3xl shadow-2xl w-full max-w-sm mx-auto mb-6 transform hover:scale-105 transition-transform duration-300 border border-gray-700">
-                    </div>
-                    <h3 class="font-bold text-white text-xl mb-2">{{$kepalaDesa->nama}}</h3>
-                    <p class="text-yellow-300 font-medium">{{$kepalaDesa->jabatan}}</p>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
     <!-- Fitur Utama -->
-    <section class="py-10 bg-gray-900">
+    <section class="py-10 bg-gray-800">
         <div class="w-full mx-auto px-24">
             <div class="text-center mb-16">
                 <h2 class="text-3xl lg:text-4xl font-bold mb-4 text-white">Fitur & Layanan Utama</h2>
@@ -324,7 +264,7 @@
     </section>
 
     <!-- Berita Terbaru -->
-    <section class="py-10 bg-gray-800">
+    <section class="py-10 bg-gray-900">
         <div class="w-full mx-auto px-24">
             <div class="flex items-center justify-between mb-12">
                 <div>

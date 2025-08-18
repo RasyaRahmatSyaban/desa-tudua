@@ -4,138 +4,170 @@
 @section('meta-description', Str::limit(strip_tags($berita->isi), 160))
 
 @section('content')
-    <div class="container mx-auto px-4 py-20">
-        <!-- Breadcrumb -->
-        <nav class="flex mb-8" aria-label="Breadcrumb">
-            <ol class="inline-flex items-center space-x-1 md:space-x-3">
-                <li class="inline-flex items-center">
-                    <a href="{{ route('dashboard') }}"
-                        class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600">
-                        <i class="fas fa-home mr-2"></i>
-                        Beranda
-                    </a>
-                </li>
-                <li>
-                    <div class="flex items-center">
-                        <i class="fas fa-chevron-right text-gray-400 mx-2"></i>
-                        <a href="{{ route('berita.index') }}"
-                            class="ml-1 text-sm font-medium text-gray-700 hover:text-blue-600">Berita</a>
-                    </div>
-                </li>
-                <li aria-current="page">
-                    <div class="flex items-center">
-                        <i class="fas fa-chevron-right text-gray-400 mx-2"></i>
-                        <span class="ml-1 text-sm font-medium text-gray-500">{{ Str::limit($berita->judul, 50) }}</span>
-                    </div>
-                </li>
-            </ol>
-        </nav>
+    <style>
+        .card-hover {
+            transition: all 0.3s ease;
+        }
 
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
-            <!-- Main Content -->
-            <div class="lg:col-span-2 h-full">
-                <article class="bg-white rounded-lg shadow-md overflow-hidden flex flex-col h-full">
-                    <!-- Article Header -->
-                    <div class="px-6 py-1 border-b border-gray-200">
-                        <h1 class="text-3xl font-bold text-gray-900 mb-2">{{ $berita->judul }}</h1>
+        .card-hover:hover {
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
+        }
 
-                        <div class="flex items-center space-x-4 mb-2">
-                            <span class="text-gray-500 text-sm">
-                                <i class="fas fa-calendar mr-1"></i>
-                                {{ $berita->tanggal_terbit->format('d F Y') }}
-                            </span>
-                            <div class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center mr-2">
-                                <i class="fas fa-user text-white text-xs"></i>
+        .btn-primary {
+            background: linear-gradient(45deg, #EAB308, #F59E0B);
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(45deg, #D97706, #EAB308);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(234, 179, 8, 0.3);
+        }
+
+        .share-btn {
+            transition: all 0.3s ease;
+        }
+
+        .share-btn:hover {
+            transform: translateY(-2px);
+        }
+    </style>
+
+    <div class="bg-gray-900 min-h-screen pt-20 pb-6">
+        <div class="w-full mx-auto px-6 md:px-12 lg:px-24 py-10">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Main Content -->
+                <div class="lg:col-span-2">
+                    <article class="bg-gray-800 rounded-2xl shadow-xl overflow-hidden border border-gray-700">
+                        <!-- Article Header -->
+                        <div class="p-6 lg:p-8 border-b border-gray-700">
+                            <div class="flex items-center mb-4">
+                                <span class="bg-yellow-500 text-gray-900 px-4 py-2 rounded-full text-sm font-bold">
+                                    BERITA
+                                </span>
                             </div>
-                            <span>{{ $berita->penulis ?? 'Admin Desa' }}</span>
-                        </div>
-                    </div>
 
-                    <!-- Featured Image -->
-                    @if($berita->foto)
-                        <div class="relative">
-                            <img src="{{ asset('storage/' . $berita->foto) }}" alt="{{ $berita->judul }}"
-                                class="w-full h-64 md:h-96 object-cover">
-                            <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
-                        </div>
-                    @endif
+                            <h1 class="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-6 leading-tight">
+                                {{ $berita->judul }}
+                            </h1>
 
-                    <!-- Article Content -->
-                    <div class="p-6 flex flex-col flex-1">
-                        <div class="prose prose-lg max-w-none">
-                            {!! nl2br(e($berita->isi)) !!}
-                        </div>
-
-                        <!-- Share Buttons -->
-                        <div class="mt-auto pt-6 border-t border-gray-200">
-                            <h4 class="text-sm font-medium text-gray-700 mb-3">Bagikan artikel ini:</h4>
-                            <div class="flex items-center space-x-3">
-                                <button onclick="shareToFacebook()"
-                                    class="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
-                                    <i class="fab fa-facebook-f mr-2"></i>
-                                    Facebook
-                                </button>
-                                <button onclick="shareToTwitter()"
-                                    class="flex items-center px-4 py-2 bg-blue-400 text-white rounded-lg hover:bg-blue-500 transition-colors">
-                                    <i class="fab fa-twitter mr-2"></i>
-                                    Twitter
-                                </button>
-                                <button onclick="shareToWhatsApp()"
-                                    class="flex items-center px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors">
-                                    <i class="fab fa-whatsapp mr-2"></i>
-                                    WhatsApp
-                                </button>
-                                <button onclick="copyLink()"
-                                    class="flex items-center px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors">
-                                    <i class="fas fa-link mr-2"></i>
-                                    Copy Link
-                                </button>
+                            <div class="flex flex-wrap items-center gap-6 text-sm text-gray-400">
+                                <div class="flex items-center">
+                                    <i class="fas fa-calendar mr-2 text-yellow-400"></i>
+                                    <span>{{ $berita->tanggal_terbit->format('d F Y') }}</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <div class="w-8 h-8 bg-yellow-500 rounded-full flex items-center justify-center mr-3">
+                                        <i class="fas fa-user text-gray-900 text-xs"></i>
+                                    </div>
+                                    <span class="text-gray-300">{{ $berita->penulis ?? 'Admin Desa' }}</span>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </article>
-            </div>
 
-            <!-- Sidebar -->
-            <div class="flex flex-col">
-                <!-- Card Berita Terkait -->
-                <div class="bg-white rounded-lg shadow-md p-6 flex flex-col justify-between flex-1">
-                    <div>
-                        <h3 class="text-lg font-semibold text-gray-900 mb-6 border-b pb-2">Berita Terkait</h3>
-                        <div class="space-y-5">
-                            @foreach ($beritaTerkait as $item)
-                                <a href="{{ route('berita.show', $item->id) }}" class="flex items-start space-x-4 group">
-                                    <div class="w-28 h-24 rounded-lg overflow-hidden bg-gray-100 flex-shrink-0">
-                                        @if ($item->foto)
-                                            <img src="{{ asset('storage/' . $item->foto) }}" alt="{{ $item->judul }}"
-                                                class="object-cover w-full h-full">
-                                        @else
-                                            <div class="flex items-center justify-center w-full h-full text-gray-400">
-                                                <i class="fas fa-newspaper text-xl"></i>
+                        <!-- Featured Image -->
+                        @if($berita->foto)
+                            <div class="relative overflow-hidden">
+                                <img src="{{ asset('storage/' . $berita->foto) }}" alt="{{ $berita->judul }}"
+                                    class="w-full h-64 md:h-96 object-cover">
+                                <div class="absolute inset-0 bg-gradient-to-t from-gray-900/50 to-transparent"></div>
+                            </div>
+                        @endif
+
+                        <!-- Article Content -->
+                        <div class="p-6 lg:p-8">
+                            <div class="prose prose-lg max-w-none text-gray-300 leading-relaxed">
+                                <div class="text-lg leading-8 space-y-6">
+                                    {!! nl2br(e($berita->isi)) !!}
+                                </div>
+                            </div>
+
+                            <!-- Share Buttons -->
+                            <div class="mt-12 pt-8 border-t border-gray-700">
+                                <h4 class="text-lg font-semibold text-white mb-6">Bagikan artikel ini:</h4>
+                                <div class="flex flex-wrap items-center gap-4">
+                                    <button onclick="shareToFacebook()"
+                                        class="share-btn flex items-center px-6 py-1 bg-blue-600 text-white rounded-xl hover:bg-blue-700 font-medium shadow-lg">
+                                        <i class="fab fa-facebook-f mr-3"></i>
+                                        Facebook
+                                    </button>
+                                    <button onclick="shareToTwitter()"
+                                        class="share-btn flex items-center px-6 py-1 bg-blue-400 text-white rounded-xl hover:bg-blue-500 font-medium shadow-lg">
+                                        <i class="fab fa-twitter mr-3"></i>
+                                        Twitter
+                                    </button>
+                                    <button onclick="shareToWhatsApp()"
+                                        class="share-btn flex items-center px-6 py-1 bg-green-500 text-white rounded-xl hover:bg-green-600 font-medium shadow-lg">
+                                        <i class="fab fa-whatsapp mr-3"></i>
+                                        WhatsApp
+                                    </button>
+                                    <button onclick="copyLink()"
+                                        class="share-btn flex items-center px-6 py-1 bg-gray-600 text-white rounded-xl hover:bg-gray-500 font-medium shadow-lg">
+                                        <i class="fas fa-link mr-3"></i>
+                                        Copy Link
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- Sidebar -->
+                <div class="lg:col-span-1">
+                    <!-- Berita Terkait Card -->
+                    <div class="bg-gray-800 rounded-2xl shadow-xl border border-gray-700 top-24">
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-white mb-6 border-b border-gray-700 pb-4">
+                                Berita Terkait
+                            </h3>
+
+                            <div class="space-y-6">
+                                @forelse ($beritaTerkait as $item)
+                                    <a href="{{ route('berita.show', $item->id) }}"
+                                        class="card-hover block group bg-gray-700 rounded-xl overflow-hidden border border-gray-600 hover:border-yellow-500/50 transition-all duration-300">
+                                        <div class="flex gap-4 p-4">
+                                            <div class="w-20 h-16 rounded-lg overflow-hidden bg-gray-600 flex-shrink-0">
+                                                @if ($item->foto)
+                                                    <img src="{{ asset('storage/' . $item->foto) }}" alt="{{ $item->judul }}"
+                                                        class="object-cover w-full h-full">
+                                                @else
+                                                    <div class="flex items-center justify-center w-full h-full text-gray-400">
+                                                        <i class="fas fa-newspaper text-lg"></i>
+                                                    </div>
+                                                @endif
                                             </div>
-                                        @endif
+                                            <div class="flex-1 min-w-0">
+                                                <h4
+                                                    class="text-sm font-semibold text-white group-hover:text-yellow-400 line-clamp-2 leading-snug mb-2 transition-colors duration-200">
+                                                    {{ $item->judul }}
+                                                </h4>
+                                                <p class="text-xs text-gray-400 flex items-center mb-2">
+                                                    <i class="fas fa-calendar mr-1"></i>
+                                                    {{ $item->tanggal_terbit->format('d M Y') }}
+                                                </p>
+                                                <p class="text-xs text-gray-300 line-clamp-2">
+                                                    {{ Str::limit(strip_tags($item->isi), 60) }}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </a>
+                                @empty
+                                    <div class="text-center py-8">
+                                        <i class="fas fa-newspaper text-3xl text-gray-500 mb-3"></i>
+                                        <p class="text-gray-400 text-sm">Tidak ada berita terkait</p>
                                     </div>
-                                    <div class="flex-1">
-                                        <h4 class="text-xl font-semibold text-gray-800 group-hover:text-blue-600 line-clamp-2">
-                                            {{ $item->judul }}
-                                        </h4>
-                                        <p class="text-xs text-gray-500 mt-1">
-                                            <i class="fas fa-calendar mr-1"></i>
-                                            {{ $item->tanggal_terbit->format('d M Y') }}
-                                        </p>
-                                        <p class="text-md text-gray-600 mb-6 leading-relaxed">
-                                            {{ Str::limit(strip_tags($item->isi), 40) }}
-                                        </p>
-                                    </div>
+                                @endforelse
+                            </div>
+
+                            <div class="mt-8 pt-6 border-t border-gray-700">
+                                <a href="{{ route('berita.index') }}"
+                                    class="btn-primary w-full text-center text-gray-900 py-3 rounded-xl font-semibold inline-flex items-center justify-center hover:shadow-lg transition-all duration-300">
+                                    <i class="fas fa-arrow-left mr-2"></i>
+                                    Lihat Semua Berita
                                 </a>
-                            @endforeach
+                            </div>
                         </div>
                     </div>
-
-                    <a href="{{ route('berita.index') }}"
-                        class="mt-6 text-center text-md font-medium text-blue-600 hover:underline">
-                        Lihat Semua Berita →
-                    </a>
                 </div>
             </div>
         </div>
@@ -162,6 +194,25 @@
 
         function copyLink() {
             navigator.clipboard.writeText(window.location.href).then(function () {
+                // Custom notification
+                const notification = document.createElement('div');
+                notification.className = 'fixed top-24 right-6 bg-green-500 text-white px-6 py-3 rounded-xl shadow-lg z-50 transform translate-x-full transition-transform duration-300';
+                notification.innerHTML = '<i class="fas fa-check mr-2"></i>Link berhasil disalin!';
+                document.body.appendChild(notification);
+
+                // Show notification
+                setTimeout(() => {
+                    notification.classList.remove('translate-x-full');
+                }, 100);
+
+                // Hide notification
+                setTimeout(() => {
+                    notification.classList.add('translate-x-full');
+                    setTimeout(() => {
+                        document.body.removeChild(notification);
+                    }, 300);
+                }, 3000);
+            }).catch(function () {
                 alert('Link berhasil disalin!');
             });
         }
