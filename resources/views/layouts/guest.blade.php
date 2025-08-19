@@ -148,17 +148,17 @@
                     <h4 class="text-lg font-semibold mb-4 text-yellow-500">Menu Utama</h4>
                     <ul class="space-y-2">
                         <li><a href="{{ route('dashboard') }}"
-                                class="text-gray-300 hover:text-white transition-colors duration-200">Beranda</a>
+                                class="text-gray-300 hover:text-yellow-400 transition-colors duration-200">Beranda</a>
                         </li>
                         <li><a href="{{ route('profil') }}"
-                                class="text-gray-300 hover:text-white transition-colors duration-200">Profil
+                                class="text-gray-300 hover:text-yellow-400 transition-colors duration-200">Profil
                                 Desa</a>
                         </li>
                         <li><a href="{{ route('berita.index') }}"
-                                class="text-gray-300 hover:text-white transition-colors duration-200">Berita</a>
+                                class="text-gray-300 hover:text-yellow-400 transition-colors duration-200">Berita</a>
                         </li>
                         <li><a href="{{ route('arsip') }}"
-                                class="text-gray-300 hover:text-white transition-colors duration-200">Arsip</a>
+                                class="text-gray-300 hover:text-yellow-400 transition-colors duration-200">Arsip</a>
                         </li>
                     </ul>
                 </div>
