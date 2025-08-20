@@ -11,7 +11,7 @@ class BeritaService
     {
         return Berita::select('id', 'foto', 'judul', 'isi', 'tanggal_terbit', 'penulis', 'status', 'created_at')->get();
     }
-    public function getPaginated($perPage = 10)
+    public function getPaginated($perPage = 12)
     {
         return Berita::select('id', 'foto', 'judul', 'isi', 'tanggal_terbit', 'penulis', 'status', 'created_at', 'updated_at')->latest()->paginate($perPage);
     }
@@ -30,7 +30,7 @@ class BeritaService
             }, function ($query) {
                 $query->latest('tanggal_terbit');
             })
-            ->paginate(10)
+            ->paginate(12)
             ->withQueryString();
     }
 

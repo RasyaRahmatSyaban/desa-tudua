@@ -11,7 +11,7 @@ class MediaService
     {
         return Media::select('id', 'nama', 'tipe', 'file', 'deskripsi', 'thumbnail')->get();
     }
-    public function getPaginated($perPage = 10)
+    public function getPaginated($perPage = 12)
     {
         return Media::select('id', 'nama', 'tipe', 'file', 'deskripsi', 'thumbnail')->latest()->paginate($perPage);
     }
@@ -25,7 +25,7 @@ class MediaService
                 $query->where('tipe', $request->tipe);
             })
             ->latest()
-            ->paginate(10)
+            ->paginate(12)
             ->withQueryString();
     }
     public function getById($id)
