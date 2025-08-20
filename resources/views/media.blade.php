@@ -93,11 +93,6 @@
                                     <source src="{{ asset('storage/' . $item->file) }}" type="video/mp4">
                                     Browser tidak mendukung pemutar video.
                                 </video>
-                                <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-30">
-                                    <button onclick="playVideo(this)" class="bg-white bg-opacity-90 hover:bg-opacity-100 rounded-full p-4 transform hover:scale-110 transition-all duration-300">
-                                        <i class="fas fa-play text-gray-800 text-xl ml-1"></i>
-                                    </button>
-                                </div>
                                 <div class="absolute top-4 left-4">
                                     <span class="bg-red-500 text-white px-3 py-1 rounded-full text-xs font-bold">
                                         <i class="fas fa-video mr-1"></i>VIDEO
@@ -286,14 +281,6 @@
             modal.classList.add('hidden');
             modal.classList.remove('flex');
             document.body.style.overflow = 'auto';
-        }
-
-        function playVideo(button) {
-            const video = button.closest('.relative').querySelector('video');
-            if (video.paused) {
-                video.play();
-                button.style.display = 'none';
-            }
         }
 
         // Close modal when clicking outside

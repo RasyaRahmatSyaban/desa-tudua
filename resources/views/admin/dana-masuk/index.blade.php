@@ -212,15 +212,50 @@
                             Menampilkan {{ $danaMasuk->firstItem() ?? 0 }} sampai {{ $danaMasuk->lastItem() ?? 0 }}
                             dari {{ $danaMasuk->total() }} data
                         </div>
-                        <div class="flex justify-center sm:justify-end">
-                            {{ $danaMasuk->appends(request()->query())->links('pagination::tailwind') }}
-                        </div>
-                    </div>
-                @else
-                    <div class="flex items-center justify-between mt-6">
-                        <div class="text-sm text-slate-600">
-                            Menampilkan {{ $danaMasuk->firstItem() ?? 0 }} sampai {{ $danaMasuk->lastItem() ?? 0 }}
-                            dari {{ $danaMasuk->total() }} data
+
+                        <div class="flex items-center justify-center sm:justify-end">
+                            <div class="flex items-center space-x-2">
+                                {{-- Previous Page Link --}}
+                                @if ($danaMasuk->onFirstPage())
+                                    <span
+                                        class="px-2 py-0.5 text-gray-400 bg-slate-100 border border-slate-300 rounded-lg cursor-not-allowed">
+                                        <i class="fas fa-chevron-left"></i>
+                                    </span>
+                                @else
+                                    <a href="{{ $danaMasuk->previousPageUrl() }}"
+                                        class="px-2 py-0.5 text-white bg-blue-600 border border-blue-600 rounded-lg hover:bg-blue-700 transition-colors duration-200">
+                                        <i class="fas fa-chevron-left"></i>
+                                    </a>
+                                @endif
+
+                                {{-- Pagination Elements --}}
+                                @foreach ($danaMasuk->getUrlRange(1, $danaMasuk->lastPage()) as $page => $url)
+                                    @if ($page == $danaMasuk->currentPage())
+                                        <span
+                                            class="px-2 py-0.5 text-white bg-blue-500 border border-blue-500 rounded-lg font-semibold">
+                                            {{ $page }}
+                                        </span>
+                                    @else
+                                        <a href="{{ $url }}"
+                                            class="px-2 py-0.5 text-blue-600 bg-white border border-slate-300 rounded-lg hover:bg-blue-50 transition-colors duration-200">
+                                            {{ $page }}
+                                        </a>
+                                    @endif
+                                @endforeach
+
+                                {{-- Next Page Link --}}
+                                @if ($danaMasuk->hasMorePages())
+                                    <a href="{{ $danaMasuk->nextPageUrl() }}"
+                                        class="px-2 py-0.5 text-white bg-blue-600 border border-blue-600 rounded-lg hover:bg-blue-700 transition-colors duration-200">
+                                        <i class="fas fa-chevron-right"></i>
+                                    </a>
+                                @else
+                                    <span
+                                        class="px-2 py-0.5 text-gray-400 bg-slate-100 border border-slate-300 rounded-lg cursor-not-allowed">
+                                        <i class="fas fa-chevron-right"></i>
+                                    </span>
+                                @endif
+                            </div>
                         </div>
                     </div>
                 @endif

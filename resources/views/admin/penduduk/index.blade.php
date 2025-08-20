@@ -135,7 +135,8 @@
                                     <td class="py-4 px-4 text-sm text-slate-600">
                                         <div class="font-medium">{{ $item->tempat_lahir }}</div>
                                         <div class="text-xs text-slate-500 mt-1">
-                                            {{ \Carbon\Carbon::parse($item->tanggal_lahir)->format('d M Y') }}</div>
+                                            {{ \Carbon\Carbon::parse($item->tanggal_lahir)->format('d M Y') }}
+                                        </div>
                                     </td>
                                     <td class="py-4 px-4 text-sm text-slate-600 max-w-xs">
                                         <div class="line-clamp-2 leading-relaxed">{{ $item->alamat }}</div>
@@ -204,8 +205,50 @@
                             Menampilkan {{ $penduduk->firstItem() ?? 0 }} sampai {{ $penduduk->lastItem() ?? 0 }}
                             dari {{ $penduduk->total() }} data
                         </div>
-                        <div class="flex justify-center sm:justify-end">
-                            {{ $penduduk->links() }}
+
+                        <div class="flex items-center justify-center sm:justify-end">
+                            <div class="flex items-center space-x-2">
+                                {{-- Previous Page Link --}}
+                                @if ($penduduk->onFirstPage())
+                                    <span
+                                        class="px-2 py-0.5 text-gray-400 bg-slate-100 border border-slate-300 rounded-lg cursor-not-allowed">
+                                        <i class="fas fa-chevron-left"></i>
+                                    </span>
+                                @else
+                                    <a href="{{ $penduduk->previousPageUrl() }}"
+                                        class="px-2 py-0.5 text-white bg-blue-600 border border-blue-600 rounded-lg hover:bg-blue-700 transition-colors duration-200">
+                                        <i class="fas fa-chevron-left"></i>
+                                    </a>
+                                @endif
+
+                                {{-- Pagination Elements --}}
+                                @foreach ($penduduk->getUrlRange(1, $penduduk->lastPage()) as $page => $url)
+                                    @if ($page == $penduduk->currentPage())
+                                        <span
+                                            class="px-2 py-0.5 text-white bg-blue-500 border border-blue-500 rounded-lg font-semibold">
+                                            {{ $page }}
+                                        </span>
+                                    @else
+                                        <a href="{{ $url }}"
+                                            class="px-2 py-0.5 text-blue-600 bg-white border border-slate-300 rounded-lg hover:bg-blue-50 transition-colors duration-200">
+                                            {{ $page }}
+                                        </a>
+                                    @endif
+                                @endforeach
+
+                                {{-- Next Page Link --}}
+                                @if ($penduduk->hasMorePages())
+                                    <a href="{{ $penduduk->nextPageUrl() }}"
+                                        class="px-2 py-0.5 text-white bg-blue-600 border border-blue-600 rounded-lg hover:bg-blue-700 transition-colors duration-200">
+                                        <i class="fas fa-chevron-right"></i>
+                                    </a>
+                                @else
+                                    <span
+                                        class="px-2 py-0.5 text-gray-400 bg-slate-100 border border-slate-300 rounded-lg cursor-not-allowed">
+                                        <i class="fas fa-chevron-right"></i>
+                                    </span>
+                                @endif
+                            </div>
                         </div>
                     </div>
                 @endif

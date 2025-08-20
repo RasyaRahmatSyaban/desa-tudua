@@ -75,7 +75,7 @@
         <div class="absolute inset-0 hero-gradient"></div>
 
         <!-- Main Content -->
-        <div class="relative z-10 max-w-md w-full space-y-8">
+        <div class="relative z-10 max-w-md w-full pt-12">
             <!-- Login Form -->
             <div class="glass-effect rounded-2xl shadow-2xl p-8 card-hover">
                 @if(session('error'))
@@ -240,12 +240,12 @@
             // Add shake keyframes
             const style = document.createElement('style');
             style.textContent = `
-                                                                                @keyframes shake {
-                                                                                    0%, 100% { transform: translateX(0); }
-                                                                                    25% { transform: translateX(-5px); }
-                                                                                    75% { transform: translateX(5px); }
-                                                                                }
-                                                                            `;
+                                                                                                                                                        @keyframes shake {
+                                                                                                                                                            0%, 100% { transform: translateX(0); }
+                                                                                                                                                            25% { transform: translateX(-5px); }
+                                                                                                                                                            75% { transform: translateX(5px); }
+                                                                                                                                                        }
+                                                                                                                                                    `;
             document.head.appendChild(style);
         @endif
 

@@ -138,13 +138,56 @@
 
                 <!-- Pagination -->
                 @if($perangkatDesa->hasPages())
-                    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mt-6 pt-6 border-t border-slate-200">
+                    <div
+                        class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mt-6 pt-6 border-t border-slate-200">
                         <div class="text-sm text-slate-600">
                             Menampilkan {{ $perangkatDesa->firstItem() ?? 0 }} sampai {{ $perangkatDesa->lastItem() ?? 0 }}
                             dari {{ $perangkatDesa->total() }} data
                         </div>
-                        <div class="flex justify-center sm:justify-end">
-                            {{ $perangkatDesa->appends(request()->query())->links('pagination::tailwind') }}
+
+                        <div class="flex items-center justify-center sm:justify-end">
+                            <div class="flex items-center space-x-2">
+                                {{-- Previous Page Link --}}
+                                @if ($perangkatDesa->onFirstPage())
+                                    <span
+                                        class="px-2 py-0.5 text-gray-400 bg-slate-100 border border-slate-300 rounded-lg cursor-not-allowed">
+                                        <i class="fas fa-chevron-left"></i>
+                                    </span>
+                                @else
+                                    <a href="{{ $perangkatDesa->previousPageUrl() }}"
+                                        class="px-2 py-0.5 text-white bg-blue-600 border border-blue-600 rounded-lg hover:bg-blue-700 transition-colors duration-200">
+                                        <i class="fas fa-chevron-left"></i>
+                                    </a>
+                                @endif
+
+                                {{-- Pagination Elements --}}
+                                @foreach ($perangkatDesa->getUrlRange(1, $perangkatDesa->lastPage()) as $page => $url)
+                                    @if ($page == $perangkatDesa->currentPage())
+                                        <span
+                                            class="px-2 py-0.5 text-white bg-blue-500 border border-blue-500 rounded-lg font-semibold">
+                                            {{ $page }}
+                                        </span>
+                                    @else
+                                        <a href="{{ $url }}"
+                                            class="px-2 py-0.5 text-blue-600 bg-white border border-slate-300 rounded-lg hover:bg-blue-50 transition-colors duration-200">
+                                            {{ $page }}
+                                        </a>
+                                    @endif
+                                @endforeach
+
+                                {{-- Next Page Link --}}
+                                @if ($perangkatDesa->hasMorePages())
+                                    <a href="{{ $perangkatDesa->nextPageUrl() }}"
+                                        class="px-2 py-0.5 text-white bg-blue-600 border border-blue-600 rounded-lg hover:bg-blue-700 transition-colors duration-200">
+                                        <i class="fas fa-chevron-right"></i>
+                                    </a>
+                                @else
+                                    <span
+                                        class="px-2 py-0.5 text-gray-400 bg-slate-100 border border-slate-300 rounded-lg cursor-not-allowed">
+                                        <i class="fas fa-chevron-right"></i>
+                                    </span>
+                                @endif
+                            </div>
                         </div>
                     </div>
                 @endif

@@ -145,42 +145,38 @@
                                 <p class="text-xs text-slate-500 line-clamp-2 leading-relaxed">
                                     {{ Str::limit($media->deskripsi, 80) }}
                                 </p>
-
-                                <div class="flex items-center gap-2 pt-2">
-                                    <a href="{{ asset('storage/' . $media->file) }}" target="_blank"
-                                        class="text-xs text-blue-600 hover:text-blue-700 hover:underline font-medium">
-                                        Lihat File
-                                    </a>
-                                    <span class="text-slate-300">•</span>
-                                    <a href="{{ asset('storage/' . $media->file) }}" target="_blank" download
-                                        class="text-xs text-blue-600 hover:text-blue-700 hover:underline font-medium">
-                                        Unduh
-                                    </a>
-                                </div>
                             </div>
 
-                            <div class="px-4 py-3 bg-white border-t border-slate-100 flex justify-start gap-1 items-center">
-                                <button type="button"
-                                    class="viewModal inline-flex items-center justify-center w-8 h-8 text-blue-600 hover:text-blue-700 hover:bg-blue-50 rounded-lg transition-colors duration-200"
-                                    data-type="{{ strtolower($media->tipe) }}" data-url="{{ asset('storage/' . $media->file) }}"
-                                    title="Lihat Preview">
-                                    <i class="fas fa-eye text-sm"></i>
-                                </button>
-                                <a href="{{ route('admin.media.edit', $media->id) }}"
-                                    class="inline-flex items-center justify-center w-8 h-8 text-amber-600 hover:text-amber-700 hover:bg-amber-50 rounded-lg transition-colors duration-200"
-                                    title="Edit Media">
-                                    <i class="fas fa-edit text-sm"></i>
-                                </a>
-                                <form action="{{ route('admin.media.destroy', $media->id) }}" method="POST"
-                                    class="inline delete-form">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit"
-                                        class="inline-flex items-center justify-center w-8 h-8 text-red-600 hover:text-red-700 hover:bg-red-50 rounded-lg transition-colors duration-200 delete-button"
-                                        title="Hapus Media">
-                                        <i class="fas fa-trash text-sm"></i>
+                            <div class="px-4 py-3 bg-white border-t border-slate-100 flex justify-between gap-1 items-center">
+                                <div class="flex justify-between items-center">
+                                    <button type="button"
+                                        class="viewModal inline-flex items-center justify-center w-8 h-8 text-blue-600 hover:text-blue-700 hover:bg-blue-50 rounded-lg transition-colors duration-200"
+                                        data-type="{{ strtolower($media->tipe) }}"
+                                        data-url="{{ asset('storage/' . $media->file) }}" title="Lihat Preview">
+                                        <i class="fas fa-eye text-sm"></i>
                                     </button>
-                                </form>
+                                    <a href="{{ route('admin.media.edit', $media->id) }}"
+                                        class="inline-flex items-center justify-center w-8 h-8 text-amber-600 hover:text-amber-700 hover:bg-amber-50 rounded-lg transition-colors duration-200"
+                                        title="Edit Media">
+                                        <i class="fas fa-edit text-sm"></i>
+                                    </a>
+                                    <form action="{{ route('admin.media.destroy', $media->id) }}" method="POST"
+                                        class="inline delete-form">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit"
+                                            class="inline-flex items-center justify-center w-8 h-8 text-red-600 hover:text-red-700 hover:bg-red-50 rounded-lg transition-colors duration-200 delete-button"
+                                            title="Hapus Media">
+                                            <i class="fas fa-trash text-sm"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <a href="{{ asset('storage/' . $media->file) }}" target="_blank" download
+                                        class="text-xs text-green-600 hover:text-green-700 hover:underline font-medium">
+                                        <i class="fas fa-download text-sm"></i>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     @empty
@@ -209,8 +205,50 @@
                             Menampilkan {{ $medias->firstItem() ?? 0 }} sampai {{ $medias->lastItem() ?? 0 }}
                             dari {{ $medias->total() }} data
                         </div>
-                        <div class="flex justify-center sm:justify-end">
-                            {{ $medias->appends(request()->query())->links('pagination::tailwind') }}
+
+                        <div class="flex items-center justify-center sm:justify-end">
+                            <div class="flex items-center space-x-2">
+                                {{-- Previous Page Link --}}
+                                @if ($medias->onFirstPage())
+                                    <span
+                                        class="px-2 py-0.5 text-gray-400 bg-slate-100 border border-slate-300 rounded-lg cursor-not-allowed">
+                                        <i class="fas fa-chevron-left"></i>
+                                    </span>
+                                @else
+                                    <a href="{{ $medias->previousPageUrl() }}"
+                                        class="px-2 py-0.5 text-white bg-blue-600 border border-blue-600 rounded-lg hover:bg-blue-700 transition-colors duration-200">
+                                        <i class="fas fa-chevron-left"></i>
+                                    </a>
+                                @endif
+
+                                {{-- Pagination Elements --}}
+                                @foreach ($medias->getUrlRange(1, $medias->lastPage()) as $page => $url)
+                                    @if ($page == $medias->currentPage())
+                                        <span
+                                            class="px-2 py-0.5 text-white bg-blue-500 border border-blue-500 rounded-lg font-semibold">
+                                            {{ $page }}
+                                        </span>
+                                    @else
+                                        <a href="{{ $url }}"
+                                            class="px-2 py-0.5 text-blue-600 bg-white border border-slate-300 rounded-lg hover:bg-blue-50 transition-colors duration-200">
+                                            {{ $page }}
+                                        </a>
+                                    @endif
+                                @endforeach
+
+                                {{-- Next Page Link --}}
+                                @if ($medias->hasMorePages())
+                                    <a href="{{ $medias->nextPageUrl() }}"
+                                        class="px-2 py-0.5 text-white bg-blue-600 border border-blue-600 rounded-lg hover:bg-blue-700 transition-colors duration-200">
+                                        <i class="fas fa-chevron-right"></i>
+                                    </a>
+                                @else
+                                    <span
+                                        class="px-2 py-0.5 text-gray-400 bg-slate-100 border border-slate-300 rounded-lg cursor-not-allowed">
+                                        <i class="fas fa-chevron-right"></i>
+                                    </span>
+                                @endif
+                            </div>
                         </div>
                     </div>
                 @endif

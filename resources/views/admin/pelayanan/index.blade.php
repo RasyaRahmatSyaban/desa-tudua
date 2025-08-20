@@ -220,8 +220,50 @@
                             Menampilkan {{ $pelayanans->firstItem() ?? 0 }} sampai {{ $pelayanans->lastItem() ?? 0 }}
                             dari {{ $pelayanans->total() }} data
                         </div>
-                        <div class="flex justify-center sm:justify-end">
-                            {{ $pelayanans->appends(request()->query())->links('pagination::tailwind') }}
+
+                        <div class="flex items-center justify-center sm:justify-end">
+                            <div class="flex items-center space-x-2">
+                                {{-- Previous Page Link --}}
+                                @if ($pelayanans->onFirstPage())
+                                    <span
+                                        class="px-2 py-0.5 text-gray-400 bg-slate-100 border border-slate-300 rounded-lg cursor-not-allowed">
+                                        <i class="fas fa-chevron-left"></i>
+                                    </span>
+                                @else
+                                    <a href="{{ $pelayanans->previousPageUrl() }}"
+                                        class="px-2 py-0.5 text-white bg-blue-600 border border-blue-600 rounded-lg hover:bg-blue-700 transition-colors duration-200">
+                                        <i class="fas fa-chevron-left"></i>
+                                    </a>
+                                @endif
+
+                                {{-- Pagination Elements --}}
+                                @foreach ($pelayanans->getUrlRange(1, $pelayanans->lastPage()) as $page => $url)
+                                    @if ($page == $pelayanans->currentPage())
+                                        <span
+                                            class="px-2 py-0.5 text-white bg-blue-500 border border-blue-500 rounded-lg font-semibold">
+                                            {{ $page }}
+                                        </span>
+                                    @else
+                                        <a href="{{ $url }}"
+                                            class="px-2 py-0.5 text-blue-600 bg-white border border-slate-300 rounded-lg hover:bg-blue-50 transition-colors duration-200">
+                                            {{ $page }}
+                                        </a>
+                                    @endif
+                                @endforeach
+
+                                {{-- Next Page Link --}}
+                                @if ($pelayanans->hasMorePages())
+                                    <a href="{{ $pelayanans->nextPageUrl() }}"
+                                        class="px-2 py-0.5 text-white bg-blue-600 border border-blue-600 rounded-lg hover:bg-blue-700 transition-colors duration-200">
+                                        <i class="fas fa-chevron-right"></i>
+                                    </a>
+                                @else
+                                    <span
+                                        class="px-2 py-0.5 text-gray-400 bg-slate-100 border border-slate-300 rounded-lg cursor-not-allowed">
+                                        <i class="fas fa-chevron-right"></i>
+                                    </span>
+                                @endif
+                            </div>
                         </div>
                     </div>
                 @endif
