@@ -136,7 +136,7 @@
                                         {{ $item->penulis }}
                                     </span>
                                     <div class="text-xs text-slate-500">
-                                        {{ $item->updated_at ? $item->updated_at->format('d M Y H:i') : ($item->created_at ? $item->created_at->format('d M Y H:i') : '-') }}
+                                        {{ $item->tanggal_terbit->format('d M Y') }}
                                     </div>
                                 </div>
                             </div>
@@ -144,11 +144,6 @@
                             <!-- Actions -->
                             <div class="px-4 py-3 bg-white border-t border-slate-100 flex justify-between items-center">
                                 <div class="flex gap-1">
-                                    <a href="{{ route('admin.berita.show', $item->id) }}"
-                                        class="inline-flex items-center justify-center w-8 h-8 text-blue-600 hover:text-blue-700 hover:bg-blue-50 rounded-lg transition-colors duration-200"
-                                        title="Lihat Detail">
-                                        <i class="fas fa-eye text-sm"></i>
-                                    </a>
                                     <a href="{{ route('admin.berita.edit', $item->id) }}"
                                         class="inline-flex items-center justify-center w-8 h-8 text-amber-600 hover:text-amber-700 hover:bg-amber-50 rounded-lg transition-colors duration-200"
                                         title="Edit Berita">

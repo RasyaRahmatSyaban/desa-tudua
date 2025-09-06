@@ -106,10 +106,6 @@
                         <thead>
                             <tr class="border-b border-slate-200">
                                 <th
-                                    class="text-left py-3 px-1 text-xs font-semibold text-slate-600 uppercase tracking-wider w-16">
-                                    No
-                                </th>
-                                <th
                                     class="text-left py-3 px-4 text-xs font-semibold text-slate-600 uppercase tracking-wider">
                                     Nama Pelayanan
                                 </th>
@@ -130,9 +126,6 @@
                         <tbody class="divide-y divide-slate-100">
                             @forelse($pelayanans as $index => $pelayanan)
                                 <tr class="hover:bg-slate-50 transition-colors duration-200">
-                                    <td class="py-4 px-1 text-sm text-slate-600">
-                                        {{ $pelayanans->firstItem() + $index }}
-                                    </td>
                                     <td class="py-4 px-4">
                                         <div>
                                             <p class="text-sm font-medium text-slate-900">{{ $pelayanan->nama_layanan }}</p>
@@ -165,11 +158,6 @@
                                     </td>
                                     <td class="py-4 px-4">
                                         <div class="flex items-center space-x-1">
-                                            <a href="{{ route('admin.pelayanan.show', $pelayanan->id) }}"
-                                                class="inline-flex items-center justify-center w-8 h-8 text-blue-600 hover:text-blue-700 hover:bg-blue-50 rounded-lg transition-colors duration-200"
-                                                title="Lihat Detail">
-                                                <i class="fas fa-eye text-sm"></i>
-                                            </a>
                                             <a href="{{ route('admin.pelayanan.edit', $pelayanan->id) }}"
                                                 class="inline-flex items-center justify-center w-8 h-8 text-amber-600 hover:text-amber-700 hover:bg-amber-50 rounded-lg transition-colors duration-200"
                                                 title="Edit Pelayanan">

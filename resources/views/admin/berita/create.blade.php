@@ -121,9 +121,9 @@
             </div>
 
             <!-- Action Buttons -->
-            <div class="flex items-center justify-between">
+            <div class="flex items-center justify-end gap-4">
                 <a href="{{ route('admin.berita.index') }}"
-                    class="px-6 py-3 border border-gray-300 rounded-lg text-gray-700 font-medium hover:bg-gray-50 transition-colors">
+                    class="px-6 py-2.5 border border-gray-300 rounded-lg text-gray-700 font-medium hover:bg-gray-50 transition-colors">
                     <i class="fas fa-arrow-left mr-2"></i>Kembali
                 </a>
 

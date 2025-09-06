@@ -135,20 +135,11 @@
                                     </p>
                                 @enderror
                             </div>
-
-                            <!-- File Preview Area -->
-                            <div
-                                class="mt-6 flex items-center justify-center h-32 bg-slate-50 border-2 border-dashed border-slate-300 rounded-lg">
-                                <div class="text-center">
-                                    <i class="fas fa-cloud-upload-alt text-3xl text-slate-400 mb-2"></i>
-                                    <p class="text-sm text-slate-500">File akan ditampilkan di sini</p>
-                                </div>
-                            </div>
                         </div>
                     </div>
 
                     <!-- Action Buttons -->
-                    <div class="flex items-center justify-between space-x-3 pt-6 ">
+                    <div class="flex items-center justify-end space-x-3 pt-6 ">
                         <a href="{{ route('admin.surat-masuk.index') }}"
                             class="inline-flex items-center px-4 py-2.5 border border-slate-300 rounded-lg text-slate-700 text-sm font-medium hover:bg-slate-50 transition-colors duration-200">
                             <i class="fas fa-arrow-left mr-2 text-xs"></i>

@@ -145,19 +145,9 @@
                                         <div class="text-sm text-slate-600">
                                             {{ $item->berlaku_hingga ? \Carbon\Carbon::parse($item->berlaku_hingga)->format('d M Y') : '-' }}
                                         </div>
-                                        @if($item->berlaku_hingga)
-                                            <div class="text-xs text-slate-500">
-                                                {{ \Carbon\Carbon::parse($item->berlaku_hingga)->format('H:i') }}
-                                            </div>
-                                        @endif
                                     </td>
                                     <td class="py-4 px-4">
                                         <div class="flex items-center space-x-1">
-                                            <a href="{{ route('admin.pengumuman.show', $item->id) }}"
-                                                class="inline-flex items-center justify-center w-8 h-8 text-blue-600 hover:text-blue-700 hover:bg-blue-50 rounded-lg transition-colors duration-200"
-                                                title="Lihat Detail">
-                                                <i class="fas fa-eye text-sm"></i>
-                                            </a>
                                             <a href="{{ route('admin.pengumuman.edit', $item->id) }}"
                                                 class="inline-flex items-center justify-center w-8 h-8 text-amber-600 hover:text-amber-700 hover:bg-amber-50 rounded-lg transition-colors duration-200"
                                                 title="Edit Pengumuman">

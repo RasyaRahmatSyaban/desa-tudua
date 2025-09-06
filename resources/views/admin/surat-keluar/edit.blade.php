@@ -163,7 +163,7 @@
                     </div>
 
                     <!-- Action Buttons -->
-                    <div class="flex items-center justify-between space-x-3 pt-6">
+                    <div class="flex items-center justify-end space-x-3 pt-6">
                         <a href="{{ route('admin.surat-keluar.index') }}"
                             class="inline-flex items-center px-4 py-2.5 border border-slate-300 rounded-lg text-slate-700 text-sm font-medium hover:bg-slate-50 transition-colors duration-200">
                             <i class="fas fa-arrow-left mr-2 text-xs"></i>

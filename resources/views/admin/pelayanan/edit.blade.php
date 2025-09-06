@@ -121,7 +121,7 @@
 
                     <!-- Action Buttons -->
                     <div
-                        class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 pt-6 border-t border-slate-200">
+                        class="flex flex-col sm:flex-row sm:items-center sm:justify-end gap-3 pt-6 border-t border-slate-200">
                         <a href="{{ route('admin.pelayanan.index') }}"
                             class="inline-flex items-center justify-center px-4 py-2.5 bg-white border border-slate-300 text-slate-700 text-sm font-medium rounded-lg hover:bg-slate-50 hover:border-slate-400 transition-colors duration-200">
                             <i class="fas fa-times mr-2"></i>

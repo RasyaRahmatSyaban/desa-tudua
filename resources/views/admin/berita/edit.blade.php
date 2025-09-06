@@ -160,10 +160,10 @@
             </div>
 
             <!-- Action Buttons -->
-            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pt-2">
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-end gap-4 pt-2">
                 <a href="{{ route('admin.berita.index') }}"
-                    class="inline-flex items-center justify-center px-5 py-2.5 bg-white border border-slate-300 rounded-lg text-slate-700 text-sm font-medium hover:bg-slate-50 hover:border-slate-400 transition-colors duration-200">
-                    <i class="fas fa-arrow-left mr-2"></i>Kembali ke Daftar
+                    class="inline-flex items-center justify-center px-6 py-2.5 bg-white border border-slate-300 rounded-lg text-slate-700 text-sm font-medium hover:bg-slate-50 hover:border-slate-400 transition-colors duration-200">
+                    <i class="fas fa-arrow-left mr-2"></i>Kembali
                 </a>
 
                 <div class="flex items-center space-x-3">

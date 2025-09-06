@@ -129,10 +129,7 @@
                                     </td>
                                     <td class="py-4 px-4">
                                         <div class="text-sm font-medium text-slate-900">
-                                            {{ \Carbon\Carbon::parse($surat->tanggal_terima)->format('d M Y') }}
-                                        </div>
-                                        <div class="text-xs text-slate-500">
-                                            {{ \Carbon\Carbon::parse($surat->tanggal_terima)->format('H:i') }}
+                                            {{ $surat->tanggal_terima->format('d M Y') }}
                                         </div>
                                     </td>
                                     <td class="py-4 px-4">
@@ -152,11 +149,6 @@
                                     </td>
                                     <td class="py-4 px-4">
                                         <div class="flex items-center space-x-1">
-                                            <a href="{{ route('admin.surat-masuk.show', $surat->id) }}"
-                                                class="inline-flex items-center justify-center w-8 h-8 text-blue-600 hover:text-blue-700 hover:bg-blue-50 rounded-lg transition-colors duration-200"
-                                                title="Lihat Detail">
-                                                <i class="fas fa-eye text-sm"></i>
-                                            </a>
                                             <a href="{{ route('admin.surat-masuk.edit', $surat->id) }}"
                                                 class="inline-flex items-center justify-center w-8 h-8 text-amber-600 hover:text-amber-700 hover:bg-amber-50 rounded-lg transition-colors duration-200"
                                                 title="Edit Surat">

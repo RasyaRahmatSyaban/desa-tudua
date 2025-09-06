@@ -56,7 +56,7 @@
     </section>
 
     <!-- All Media Section -->
-    <section class="py-10 bg-gray-900">
+    <section class="py-12 bg-gray-900">
         <div class="w-full mx-auto px-6 md:px-12 lg:px-24">
             <div class="flex items-center justify-between">
                 @if(request('search') || request('tipe'))
@@ -127,7 +127,7 @@
                                     <div class="flex gap-2">
                                         <a href="{{ asset('storage/' . $item->file) }}" target="_blank"
                                             class="inline-flex items-center text-yellow-400 font-semibold hover:text-yellow-300 transition-colors duration-200 text-sm">
-                                            <i class="fas fa-eye mr-1"></i>Lihat {{$item->tipe}}
+                                            <i class="fas fa-eye mr-1"></i>Lihat
                                         </a>
                                         <a href="{{ asset('storage/' . $item->file) }}" download
                                             class="inline-flex items-center text-green-400 font-semibold hover:text-green-300 transition-colors duration-200 text-sm">
@@ -137,8 +137,8 @@
                                 @else
                                     <div class="flex gap-2">
                                         <button onclick="openModal('{{ $item->tipe }}', '{{ asset('storage/' . $item->file) }}', '{{ $item->nama }}', '{{ $item->deskripsi }}')"
-                                            class="inline-flex items-center text-yellow-400 font-semibold hover:text-yellow-300 transition-colors duration-200">
-                                            <i class="fas fa-eye mr-2"></i>Lihat {{$item->tipe}}
+                                            class="inline-flex items-center text-yellow-400 font-semibold hover:text-yellow-300 transition-colors duration-200 cursor-pointer">
+                                            <i class="fas fa-eye mr-2"></i>Lihat
                                         </button>
                                         <a href="{{ asset('storage/' . $item->file) }}" download class="inline-flex items-center text-green-400 font-semibold hover:text-green-300 transition-colors duration-200 text-sm">
                                             <i class="fas fa-download mr-1"></i>Unduh
@@ -146,7 +146,7 @@
                                     </div>
                                 @endif
 
-                                <span class="text-xs text-gray-500 capitalize">
+                                <span class="text-xs text-gray-400 capitalize">
                                     <i class="fas fa-tag mr-1"></i>{{ $item->tipe }}
                                 </span>
                             </div>

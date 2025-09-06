@@ -153,11 +153,6 @@
                                     </td>
                                     <td class="py-4 px-4">
                                         <div class="flex items-center space-x-1">
-                                            <a href="{{ route('admin.surat-keluar.show', $surat->id) }}"
-                                                class="inline-flex items-center justify-center w-8 h-8 text-blue-600 hover:text-blue-700 hover:bg-blue-50 rounded-lg transition-colors duration-200"
-                                                title="Lihat Detail">
-                                                <i class="fas fa-eye text-sm"></i>
-                                            </a>
                                             <a href="{{ route('admin.surat-keluar.edit', $surat->id) }}"
                                                 class="inline-flex items-center justify-center w-8 h-8 text-amber-600 hover:text-amber-700 hover:bg-amber-50 rounded-lg transition-colors duration-200"
                                                 title="Edit Surat">

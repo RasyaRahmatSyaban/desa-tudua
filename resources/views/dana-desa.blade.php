@@ -31,6 +31,31 @@
             background: linear-gradient(135deg, rgba(239, 68, 68, 0.1) 0%, rgba(220, 38, 38, 0.1) 100%);
             border: 1px solid rgba(239, 68, 68, 0.3);
         }
+
+        /* Fixed table column widths */
+        .dana-table {
+            table-layout: fixed;
+        }
+
+        .dana-table .col-tahun {
+            width: 10%;
+        }
+
+        .dana-table .col-bulan {
+            width: 15%;
+        }
+
+        .dana-table .col-jumlah {
+            width: 20%;
+        }
+
+        .dana-table .col-kategori {
+            width: 20%;
+        }
+
+        .dana-table .col-keterangan {
+            width: 35%;
+        }
     </style>
 
     <!-- Header -->
@@ -124,23 +149,18 @@
                     </div>
                 @else
                     <div class="overflow-x-auto">
-                        <table class="min-w-full">
+                        <table class="min-w-full dana-table">
                             <thead>
                                 <tr class="border-b border-gray-700">
-                                    <th
-                                        class="px-4 py-3 text-left text-xs font-semibold text-gray-400 uppercase tracking-wider">
+                                    <th class="col-tahun px-4 py-3 text-left text-xs font-semibold text-gray-400 uppercase tracking-wider">
                                         Tahun</th>
-                                    <th
-                                        class="px-4 py-3 text-left text-xs font-semibold text-gray-400 uppercase tracking-wider">
+                                    <th class="col-bulan px-4 py-3 text-left text-xs font-semibold text-gray-400 uppercase tracking-wider">
                                         Bulan</th>
-                                    <th
-                                        class="px-4 py-3 text-left text-xs font-semibold text-gray-400 uppercase tracking-wider">
+                                    <th class="col-jumlah px-4 py-3 text-left text-xs font-semibold text-gray-400 uppercase tracking-wider">
                                         Jumlah</th>
-                                    <th
-                                        class="px-4 py-3 text-left text-xs font-semibold text-gray-400 uppercase tracking-wider">
+                                    <th class="col-kategori px-4 py-3 text-left text-xs font-semibold text-gray-400 uppercase tracking-wider">
                                         Sumber</th>
-                                    <th
-                                        class="px-4 py-3 text-left text-xs font-semibold text-gray-400 uppercase tracking-wider">
+                                    <th class="col-keterangan px-4 py-3 text-left text-xs font-semibold text-gray-400 uppercase tracking-wider">
                                         Keterangan</th>
                                 </tr>
                             </thead>
@@ -149,17 +169,17 @@
                                     @foreach ($details as $index => $detail)
                                         <tr class="hover:bg-gray-700/50 transition-colors duration-200">
                                             @if ($index === 0)
-                                                <td class="px-4 py-3 text-white font-medium" rowspan="{{ count($details) }}">
+                                                <td class="col-tahun px-4 py-3 text-white font-medium" rowspan="{{ count($details) }}">
                                                     {{ $tahunDipilih }}</td>
-                                                <td class="px-4 py-3 text-white font-medium" rowspan="{{ count($details) }}">
+                                                <td class="col-bulan px-4 py-3 text-white font-medium" rowspan="{{ count($details) }}">
                                                     <span
                                                         class="bg-gray-700 px-3 py-1 rounded-full text-sm">{{ $bulanMapping[$bulan] }}</span>
                                                 </td>
                                             @endif
-                                            <td class="px-4 py-3 text-green-400 font-semibold">Rp
+                                            <td class="col-jumlah px-4 py-3 text-green-400 font-semibold">Rp
                                                 {{ number_format($detail['jumlah'], 0, ',', '.') }}</td>
-                                            <td class="px-4 py-3 text-gray-300">{{ $detail['sumber'] }}</td>
-                                            <td class="px-4 py-3 text-gray-300">{{ $detail['keterangan'] }}</td>
+                                            <td class="col-kategori px-4 py-3 text-gray-300">{{ $detail['sumber'] }}</td>
+                                            <td class="col-keterangan px-4 py-3 text-gray-300">{{ $detail['keterangan'] }}</td>
                                         </tr>
                                     @endforeach
                                 @endforeach
@@ -191,23 +211,18 @@
                     </div>
                 @else
                     <div class="overflow-x-auto">
-                        <table class="min-w-full">
+                        <table class="min-w-full dana-table">
                             <thead>
                                 <tr class="border-b border-gray-700">
-                                    <th
-                                        class="px-4 py-3 text-left text-xs font-semibold text-gray-400 uppercase tracking-wider">
+                                    <th class="col-tahun px-4 py-3 text-left text-xs font-semibold text-gray-400 uppercase tracking-wider">
                                         Tahun</th>
-                                    <th
-                                        class="px-4 py-3 text-left text-xs font-semibold text-gray-400 uppercase tracking-wider">
+                                    <th class="col-bulan px-4 py-3 text-left text-xs font-semibold text-gray-400 uppercase tracking-wider">
                                         Bulan</th>
-                                    <th
-                                        class="px-4 py-3 text-left text-xs font-semibold text-gray-400 uppercase tracking-wider">
+                                    <th class="col-jumlah px-4 py-3 text-left text-xs font-semibold text-gray-400 uppercase tracking-wider">
                                         Jumlah</th>
-                                    <th
-                                        class="px-4 py-3 text-left text-xs font-semibold text-gray-400 uppercase tracking-wider">
+                                    <th class="col-kategori px-4 py-3 text-left text-xs font-semibold text-gray-400 uppercase tracking-wider">
                                         Kategori</th>
-                                    <th
-                                        class="px-4 py-3 text-left text-xs font-semibold text-gray-400 uppercase tracking-wider">
+                                    <th class="col-keterangan px-4 py-3 text-left text-xs font-semibold text-gray-400 uppercase tracking-wider">
                                         Keterangan</th>
                                 </tr>
                             </thead>
@@ -216,17 +231,17 @@
                                     @foreach ($details as $index => $detail)
                                         <tr class="hover:bg-gray-700/50 transition-colors duration-200">
                                             @if ($index === 0)
-                                                <td class="px-4 py-3 text-white font-medium" rowspan="{{ count($details) }}">
+                                                <td class="col-tahun px-4 py-3 text-white font-medium" rowspan="{{ count($details) }}">
                                                     {{ $tahunDipilih }}</td>
-                                                <td class="px-4 py-3 text-white font-medium" rowspan="{{ count($details) }}">
+                                                <td class="col-bulan px-4 py-3 text-white font-medium" rowspan="{{ count($details) }}">
                                                     <span
                                                         class="bg-gray-700 px-3 py-1 rounded-full text-sm">{{ $bulanMapping[$bulan] }}</span>
                                                 </td>
                                             @endif
-                                            <td class="px-4 py-3 text-red-400 font-semibold">Rp
+                                            <td class="col-jumlah px-4 py-3 text-red-400 font-semibold">Rp
                                                 {{ number_format($detail['jumlah'], 0, ',', '.') }}</td>
-                                            <td class="px-4 py-3 text-gray-300">{{ $detail['kategori'] }}</td>
-                                            <td class="px-4 py-3 text-gray-300">{{ $detail['keterangan'] }}</td>
+                                            <td class="col-kategori px-4 py-3 text-gray-300">{{ $detail['kategori'] }}</td>
+                                            <td class="col-keterangan px-4 py-3 text-gray-300">{{ $detail['keterangan'] }}</td>
                                         </tr>
                                     @endforeach
                                 @endforeach

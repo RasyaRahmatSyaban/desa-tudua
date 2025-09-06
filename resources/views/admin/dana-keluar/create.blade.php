@@ -119,7 +119,7 @@
                     </div>
 
                     <!-- Form Actions -->
-                    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 pt-6">
+                    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-end gap-3 pt-6">
                         <a href="{{ route('admin.dana-keluar.index') }}"
                             class="inline-flex items-center justify-center px-4 py-2.5 text-sm font-medium text-slate-700 bg-white border border-slate-300 rounded-lg hover:bg-slate-50 hover:border-slate-400 transition-colors duration-200">
                             <i class="fas fa-times mr-2 text-xs"></i>

@@ -98,11 +98,11 @@
             </div>
 
             <!-- Action Buttons -->
-            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-end gap-4">
                 <a href="{{ route('admin.pengumuman.index') }}"
                     class="inline-flex items-center justify-center px-4 py-2.5 bg-white border border-slate-300 text-slate-700 text-sm font-medium rounded-lg hover:bg-slate-50 hover:border-slate-400 transition-colors duration-200">
                     <i class="fas fa-arrow-left mr-2 text-xs"></i>
-                    Kembali ke Daftar
+                    Kembali
                 </a>
 
                 <div class="flex items-center space-x-3">

@@ -72,7 +72,7 @@
     </section>
 
     <!-- Daftar Surat -->
-    <section class="py-10 bg-gray-900">
+    <section class="py-10 bg-gray-900 min-h-screen">
         <div class="w-full mx-auto px-6 md:px-12 lg:px-24">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 @forelse($surat as $item)
