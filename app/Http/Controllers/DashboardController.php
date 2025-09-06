@@ -18,13 +18,20 @@ class DashboardController extends Controller
     public function index()
     {
         $user = auth()->user();
+
+        $danaMasukService = new DanaMasukService();
+        $danaKeluarService = new DanaKeluarService();
+        $beritaService = new BeritaService();
+        $pengumumanService = new PengumumanService();
+        $perangkatService = new PerangkatDesaService();
+
         if ($user) {
             $totalPenduduk = Penduduk::count();
             $totalSuratMasuk = SuratMasuk::count();
-            $totalDanaMasuk = new DanaMasukService()->getAll()->sum('jumlah');
-            $totalDanaKeluar = new DanaKeluarService()->getAll()->sum('jumlah');
-            $berita = new BeritaService()->getPaginated();
-            $pengumuman = new PengumumanService()->getPaginated();
+            $totalDanaMasuk = $danaMasukService->getAll()->sum('jumlah');
+            $totalDanaKeluar = $danaKeluarService->getAll()->sum('jumlah');
+            $berita = $beritaService->getPaginated();
+            $pengumuman = $pengumumanService->getPaginated();
             return view('admin.dashboard', compact(
                 'totalPenduduk',
                 'totalSuratMasuk',
@@ -34,10 +41,11 @@ class DashboardController extends Controller
                 'pengumuman'
             ));
         } else {
-            $berita = new BeritaService()->getPaginated(3);
-            $kepalaDesa = new PerangkatDesaService()->getKepalaDesa();
+            $berita = $beritaService->getPaginated(3);
+            $berita = $berita->where('status', 'Dipublikasi');
+            $kepalaDesa = $perangkatService->getKepalaDesa();
             $request = new Request(['status' => 'aktif']);
-            $pengumumanAktif = (new PengumumanService())->getFiltered($request);
+            $pengumumanAktif = ($pengumumanService)->getFiltered($request);
             return view('dashboard', compact('berita', 'kepalaDesa', 'pengumumanAktif'));
         }
     }

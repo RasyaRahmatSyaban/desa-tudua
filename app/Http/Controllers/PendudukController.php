@@ -32,7 +32,8 @@ class PendudukController extends Controller
             $penduduk = $this->pendudukService->getPaginated();
         }
 
-        $kepalaKeluarga = (new KepalaKeluargaService())->getAll();
+        $kepalaKeluargaService = new KepalaKeluargaService();
+        $kepalaKeluarga = $kepalaKeluargaService->getAll();
         $kepalaKeluargaByNik = $kepalaKeluarga->keyBy('nik');
 
         $totalPenduduk = Penduduk::count();
@@ -179,7 +180,8 @@ class PendudukController extends Controller
     public function update(Request $request, $id)
     {
         $penduduk = $this->pendudukService->getById($id);
-        $kepalaKeluarga = new KepalaKeluargaService()->getByNik($penduduk->nik);
+        $kepalaKeluargaService = new KepalaKeluargaService();
+        $kepalaKeluarga = $kepalaKeluargaService->getByNik($penduduk->nik);
         $idKK = optional($kepalaKeluarga)->id;
         $validated = $request->validate([
             'nama' => 'required|string|max:100',
