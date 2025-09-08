@@ -31,14 +31,14 @@
 
     <!-- Filter & Search -->
     <section class="py-8 pt-24 bg-gray-900 border-b border-gray-700">
-        <div class="w-full mx-auto px-6 md:px-12 lg:px-24 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
+        <div class="w-full mx-auto px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
             <div>
                 <h2 class="text-2xl lg:text-3xl font-bold text-white mb-2">Arsip Surat</h2>
                 <p class="text-gray-400 text-base">Kelola dan cari surat masuk dan keluar desa</p>
             </div>
 
-            <form method="GET" action="{{ route('arsip') }}" class="flex flex-col md:flex-row items-center justify-between gap-6 w-full lg:w-auto">
-                <div class="flex flex-col sm:flex-row items-center gap-4 w-full md:w-auto">
+            <form method="GET" action="{{ route('arsip') }}" class="flex flex-col md:flex-row justify-between gap-6 w-full lg:w-auto">
+                <div class="flex flex-col sm:flex-row items-start gap-4 w-full md:w-auto">
                     <div class="relative w-full sm:w-80 flex flex-row items-center">
                         <input type="text" 
                             name="search" 
@@ -73,13 +73,13 @@
 
     <!-- Daftar Surat -->
     <section class="py-10 bg-gray-900 min-h-screen">
-        <div class="w-full mx-auto px-6 md:px-12 lg:px-24">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="w-full mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
                 @forelse($surat as $item)
                     <div class="card-hover bg-gray-800 rounded-2xl shadow-xl border border-gray-700 hover:border-yellow-500/50 transition-all duration-300">
-                        <div class="p-6 flex flex-row h-full justify-between">
+                        <div class="p-6 flex flex-col h-full justify-between">
                             <!-- Info Surat -->
-                            <div>
+                            <div class="flex-grow">
                                 <!-- Header dengan badge dan nomor surat -->
                                 <div class="flex flex-wrap items-center gap-3 mb-3">
                                     @if($item->jenis == 'masuk')
@@ -91,7 +91,7 @@
                                             <i class="fas fa-paper-plane mr-2"></i> SURAT KELUAR
                                         </span>
                                     @endif
-                                    <span class="text-gray-400 text-sm font-mono">{{ $item->nomor_surat }}</span>
+                                    <span class="text-gray-400 text-sm font-mono break-all">{{ $item->nomor_surat }}</span>
                                 </div>
 
                                 <!-- Perihal -->
@@ -102,21 +102,21 @@
                                 <!-- Detail surat -->
                                 <div class="space-y-1.5 text-sm text-gray-300">
                                     @if($item->jenis == 'masuk')
-                                        <div class="flex items-center">
-                                            <i class="fas fa-user text-yellow-400 mr-2 w-4"></i>
+                                        <div class="flex items-start">
+                                            <i class="fas fa-user text-yellow-400 mr-2 w-4 mt-0.5 flex-shrink-0"></i>
                                             <span><strong>Pengirim:</strong> {{ $item->pengirim }}</span>
                                         </div>
                                         <div class="flex items-center">
-                                            <i class="fas fa-calendar-alt text-yellow-400 mr-2 w-4"></i>
+                                            <i class="fas fa-calendar-alt text-yellow-400 mr-2 w-4 flex-shrink-0"></i>
                                             <span><strong>Tanggal Terima:</strong> {{ $item->tanggal_terima->translatedFormat('d F Y') }}</span>
                                         </div>
                                     @else
-                                        <div class="flex items-center">
-                                            <i class="fas fa-user-check text-yellow-400 mr-2 w-4"></i>
+                                        <div class="flex items-start">
+                                            <i class="fas fa-user-check text-yellow-400 mr-2 w-4 mt-0.5 flex-shrink-0"></i>
                                             <span><strong>Penerima:</strong> {{ $item->penerima }}</span>
                                         </div>
                                         <div class="flex items-center">
-                                            <i class="fas fa-calendar-alt text-yellow-400 mr-2 w-4"></i>
+                                            <i class="fas fa-calendar-alt text-yellow-400 mr-2 w-4 flex-shrink-0"></i>
                                             <span><strong>Tanggal Kirim:</strong> {{ $item->tanggal_kirim->translatedFormat('d F Y') }}</span>
                                         </div>
                                     @endif
@@ -124,20 +124,20 @@
                             </div>
 
                             <!-- Action Button -->
-                            <div class="mt-4">
+                            <div class="mt-6">
                                 @if($item->file)
-                                    <div class="flex flex-wrap flex-col gap-3">
+                                    <div class="flex flex-col gap-2">
                                         <a href="{{ asset('storage/' . $item->file) }}" target="_blank"
-                                            class="px-4 py-2 bg-yellow-400 text-gray-900 font-semibold rounded-xl shadow hover:bg-yellow-300 transition-all duration-300">
+                                            class="w-full text-center px-4 py-2 bg-yellow-400 text-gray-900 font-semibold rounded-xl shadow hover:bg-yellow-300 transition-all duration-300">
                                             <i class="fas fa-eye mr-2"></i>Lihat File
                                         </a>
                                         <a href="{{ asset('storage/' . $item->file) }}" download
-                                            class="px-4 py-2 bg-gray-200 text-gray-900 font-semibold rounded-xl shadow hover:bg-gray-300 transition-all duration-300">
+                                            class="w-full text-center px-4 py-2 bg-gray-200 text-gray-900 font-semibold rounded-xl shadow hover:bg-gray-300 transition-all duration-300">
                                             <i class="fas fa-download mr-2"></i>Unduh File
                                         </a>
                                     </div>
                                 @else
-                                    <div class="flex items-center text-gray-500 px-4 py-3 bg-gray-700 rounded-xl border border-gray-600">
+                                    <div class="flex items-center justify-center text-gray-500 px-4 py-3 bg-gray-700 rounded-xl border border-gray-600">
                                         <i class="fas fa-file-times mr-2"></i> Tidak Ada File
                                     </div>
                                 @endif
