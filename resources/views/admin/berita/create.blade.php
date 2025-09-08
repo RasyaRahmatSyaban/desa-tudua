@@ -23,7 +23,7 @@
                             </label>
                             <input type="text" id="penulis" name="penulis" value="{{ old('penulis') }}"
                                 class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                                @error('penulis') border-red-500 @enderror placeholder="Isi Nama Penulis..." required>
+                                placeholder="Isi Nama Penulis..." required>
                             @error('penulis')
                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                             @enderror
@@ -34,7 +34,7 @@
                             </label>
                             <input type="text" id="judul" name="judul" value="{{ old('judul') }}"
                                 class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                                @error('judul') border-red-500 @enderror placeholder="Masukkan judul berita..." required>
+                                placeholder="Masukkan judul berita..." required>
                             @error('judul')
                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                             @enderror
@@ -47,8 +47,7 @@
                             </label>
                             <textarea id="isi" name="isi" rows="12"
                                 class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                                @error('isi') border-red-500 @enderror placeholder="Tulis isi berita di sini..."
-                                required>{{ old('isi') }}</textarea>
+                                placeholder="Tulis isi berita di sini..." required>{{ old('isi') }}</textarea>
                             @error('isi')
                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                             @enderror
@@ -93,7 +92,6 @@
                             </label>
                             <select id="status" name="status"
                                 class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                                @error('status') border-red-500 @enderror
                                 <option value="Draft" {{ old('status') === 'Draft' ? 'selected' : '' }}>Draft</option>
                                 <option value="Dipublikasi" {{ old('status') === 'Dipublikasi' ? 'selected' : '' }}>
                                     Dipublikasi</option>
@@ -111,7 +109,6 @@
                             <input type="date" id="tanggal_terbit" name="tanggal_terbit"
                                 value="{{ old('tanggal_terbit', now()->format('Y-m-d')) }}"
                                 class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                            @error('tanggal_terbit') border-red-500 @enderror
                             @error('tanggal_terbit')
                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                             @enderror

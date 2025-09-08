@@ -7,20 +7,14 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title', 'Admin Dashboard') - Web Desa Digital</title>
 
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
-    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body class="bg-slate-100 font-inter antialiased">
+<body class="bg-slate-100 font-sans antialiased text-gray-900">
     <div class="flex h-screen bg-slate-100">
         <!-- Sidebar -->
         <div class="w-64 bg-slate-800 shadow-xl border-r border-slate-700 flex-shrink-0">
@@ -154,8 +148,7 @@
                                     {{ Auth::user()->email ?? 'admin@desa.id' }}
                                 </p>
                             </div>
-                            <div
-                                class="w-8 h-8 bg-gradient-to-br from-slate-600 to-slate-700 rounded-lg flex items-center justify-center shadow-lg">
+                            <div class="w-8 h-8 rounded-lg flex items-center justify-center shadow-lg">
                                 <i class="fas fa-user text-black text-sm"></i>
                             </div>
                         </div>
