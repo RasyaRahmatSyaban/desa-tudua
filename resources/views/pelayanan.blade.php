@@ -16,7 +16,7 @@
 
     <!-- Header Section -->
     <section class="py-12 pt-24 bg-gray-900 border-b border-gray-700">
-        <div class="w-full mx-auto px-6 md:px-12 lg:px-24 text-center">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h2 class="text-3xl font-bold text-white mb-4">Layanan Utama</h2>
             <p class="text-gray-400 max-w-2xl mx-auto">
                 Berbagai layanan administrasi yang dapat Anda akses di kantor desa
@@ -26,7 +26,7 @@
 
     <!-- Jam Pelayanan -->
     <section class="py-10 bg-gray-900">
-        <div class="w-full mx-auto px-6 md:px-12 lg:px-24">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
                 @foreach($pelayanans as $item)
                     <div

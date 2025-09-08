@@ -21,9 +21,7 @@ use App\Http\Controllers\UserController;
 // Public Routes
 Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
-Route::get('/profil', function () {
-    return view('profil');
-})->name('profil');
+Route::get('/profil', [PerangkatDesaController::class, 'index'])->name('profil');
 
 Route::get('/kontak', function () {
     return view('kontak');

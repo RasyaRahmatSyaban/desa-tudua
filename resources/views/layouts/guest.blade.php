@@ -18,7 +18,7 @@
 
 <body class="font-sans">
     <!-- Navigation -->
-    <nav class="fixed top-0 left-0 right-0 z-50 px-18 py-2 bg-gray-800/95 backdrop-blur-md transition-all duration-300 shadow-sm"
+    <nav class="fixed top-0 left-0 right-0 z-50 px-6 py-2 bg-gray-800/95 backdrop-blur-md transition-all duration-300 shadow-sm"
         id="navbar">
         <div class="w-full mx-auto flex items-center justify-between">
             <!-- Logo -->
@@ -111,7 +111,7 @@
         @yield('content')
     </main>
     <!-- Footer -->
-    <footer class="bg-gray-800 text-white">
+    <footer class="bg-gray-800 text-white border-t border-white">
         <div class="w-full mx-auto px-18 pt-12 pb-7">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
                 <!-- About -->
@@ -128,20 +128,6 @@
                         pelayanan terbaik kepada masyarakat. Kami berkomitmen untuk transparansi dan kemudahan akses
                         informasi.
                     </p>
-                    <div class="flex space-x-4">
-                        <a href="#" class="text-gray-400 hover:text-yellow-500 transition-colors duration-200">
-                            <i class="fab fa-facebook-f text-xl"></i>
-                        </a>
-                        <a href="#" class="text-gray-400 hover:text-yellow-500 transition-colors duration-200">
-                            <i class="fab fa-instagram text-xl"></i>
-                        </a>
-                        <a href="#" class="text-gray-400 hover:text-yellow-500 transition-colors duration-200">
-                            <i class="fab fa-youtube text-xl"></i>
-                        </a>
-                        <a href="#" class="text-gray-400 hover:text-yellow-500 transition-colors duration-200">
-                            <i class="fab fa-whatsapp text-xl"></i>
-                        </a>
-                    </div>
                 </div>
                 <!-- Quick Links -->
                 <div>

@@ -73,13 +73,13 @@
     <!-- Filter Tahun -->
     <section class="py-8 bg-gray-900 border-b border-gray-700">
         <div class="w-full mx-auto px-6 md:px-12 lg:px-24">
-            <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="flex flex-col sm:flex-row justify-between gap-4">
                 <div>
                     <h2 class="text-2xl font-bold text-white mb-2">Ringkasan Anggaran {{ $tahunDipilih }}</h2>
                     <p class="text-gray-400">Total anggaran dan realisasi dana desa tahun {{ $tahunDipilih }}</p>
                 </div>
 
-                <form method="GET" class="flex items-center gap-3">
+                <form method="GET" class="flex sm:items-center gap-3">
                     <label for="tahun" class="text-sm font-medium text-gray-300">Pilih Tahun:</label>
                     <select name="tahun" id="tahun" onchange="this.form.submit()" class="bg-gray-800 border border-gray-600 rounded-xl px-4 py-2 text-white focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 transition-all duration-300 min-w-[120px]">
                         @foreach($availableYears as $year)
