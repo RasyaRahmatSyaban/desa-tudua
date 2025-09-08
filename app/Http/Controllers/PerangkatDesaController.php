@@ -31,7 +31,7 @@ class PerangkatDesaController extends Controller
         if ($user) {
             return view('admin.perangkat-desa.index', compact('perangkatDesa'));
         } else {
-            return view('perangkat-desa.index', compact('perangkatDesa'));
+            return view('profil', compact('perangkatDesa'));
         }
     }
 
