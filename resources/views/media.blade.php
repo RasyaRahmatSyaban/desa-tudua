@@ -237,7 +237,7 @@
     </section>
 
     <!-- Modal for Media Preview -->
-    <div id="mediaModal" class="fixed inset-0 bg-black bg-opacity-75 z-50 hidden items-center justify-center p-4">
+    <div id="mediaModal" class="fixed inset-0 backdrop-blur-xs z-50 hidden items-center justify-center p-4">
         <div class="bg-gray-800 rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden border border-gray-700">
             <div class="flex items-center justify-between p-6 border-b border-gray-700">
                 <h3 id="modalTitle" class="text-xl font-bold text-white"></h3>
@@ -263,9 +263,9 @@
             modalDescription.textContent = description;
 
             if (type === 'Foto') {
-                modalContent.innerHTML = `<img src="${src}" alt="${title}" class="max-w-full max-h-96 rounded-lg mx-auto">`;
+                modalContent.innerHTML = `<img src="${src}" alt="${title}" class="w-full h-full rounded-lg mx-auto">`;
             } else if (type === 'Video') {
-                modalContent.innerHTML = `<video controls class="max-w-full max-h-96 rounded-lg mx-auto">
+                modalContent.innerHTML = `<video controls class="w-full h-full rounded-lg mx-auto">
                     <source src="${src}" type="video/mp4">
                     Browser tidak mendukung pemutar video.
                 </video>`;

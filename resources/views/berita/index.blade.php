@@ -72,11 +72,6 @@
                         <div class="relative overflow-hidden">
                             <img src="{{ asset('storage/' . $item->foto) }}" alt="{{ $item->judul }}"
                                 class="w-full h-48 object-cover transform hover:scale-110 transition-transform duration-500">
-                            <div class="absolute top-4 left-4">
-                                <span class="bg-yellow-500 text-gray-900 px-3 py-1 rounded-full text-xs font-bold">
-                                    BERITA
-                                </span>
-                            </div>
                         </div>
 
                         <div class="flex flex-col flex-grow px-6 py-4">

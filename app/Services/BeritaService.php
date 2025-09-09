@@ -41,6 +41,7 @@ class BeritaService
     public function getRandomBerita($currentId, $limit = 5)
     {
         return Berita::where('id', '!=', $currentId)
+            ->where('status', 'Dipublikasi')
             ->inRandomOrder()
             ->limit($limit)
             ->get();
