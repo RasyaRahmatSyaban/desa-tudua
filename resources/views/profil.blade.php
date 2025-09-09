@@ -222,11 +222,11 @@
 
                     if (item) {
                         item.style.cssText = `
-                                                                                                                                                opacity: ${pos.opacity};
-                                                                                                                                                transform: translateX(calc(-50% + ${pos.x}px)) scale(${pos.scale});
-                                                                                                                                                z-index: ${pos.z};
-                                                                                                                                                transition: transform 0.7s ease-in-out, opacity 0.7s ease-in-out;
-                                                                                                                                            `;
+                                                                                                                                                    opacity: ${pos.opacity};
+                                                                                                                                                    transform: translateX(calc(-50% + ${pos.x}px)) scale(${pos.scale});
+                                                                                                                                                    z-index: ${pos.z};
+                                                                                                                                                    transition: transform 0.7s ease-in-out, opacity 0.7s ease-in-out;
+                                                                                                                                                `;
                     }
                 });
             }

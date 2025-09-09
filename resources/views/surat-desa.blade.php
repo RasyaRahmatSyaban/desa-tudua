@@ -74,7 +74,7 @@
     <!-- Daftar Surat -->
     <section class="py-10 bg-gray-900 min-h-screen">
         <div class="w-full mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                 @forelse($surat as $item)
                     <div class="card-hover bg-gray-800 rounded-2xl shadow-xl border border-gray-700 hover:border-yellow-500/50 transition-all duration-300">
                         <div class="p-6 flex flex-col h-full justify-between">

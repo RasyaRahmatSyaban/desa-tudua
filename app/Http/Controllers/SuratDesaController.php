@@ -28,9 +28,6 @@ class SuratDesaController extends Controller
             'sort' => 'nullable|in:terbaru,terlama',
         ]);
 
-        // Deteksi jika ada filter
-        $hasFilter = $request->filled('search') || $request->filled('jenis') || $request->filled('sort');
-
         // Ambil berdasarkan jenis
         $masuk = collect();
         $keluar = collect();
@@ -62,7 +59,7 @@ class SuratDesaController extends Controller
 
         // Paginate manual
         $currentPage = LengthAwarePaginator::resolveCurrentPage();
-        $perPage = 10;
+        $perPage = 12;
         $pagedData = $all->slice(($currentPage - 1) * $perPage, $perPage);
         $pagination = new LengthAwarePaginator(
             $pagedData,
