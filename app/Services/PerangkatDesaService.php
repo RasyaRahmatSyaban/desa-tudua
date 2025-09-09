@@ -14,7 +14,16 @@ class PerangkatDesaService
     }
     public function getPaginated($perPage = 10)
     {
-        return PerangkatDesa::select('id', 'nama', 'nip', 'jabatan', 'foto')->latest()->paginate($perPage);
+        return PerangkatDesa::select('id', 'nama', 'nip', 'jabatan', 'foto')
+            ->orderByRaw("
+            CASE 
+                WHEN jabatan = 'kepala desa' THEN 1
+                WHEN jabatan = 'sekretaris' THEN 2
+                WHEN jabatan = 'bendahara' THEN 3
+                ELSE 4
+            END
+        ")
+            ->paginate($perPage);
     }
     public function getFiltered(Request $request)
     {

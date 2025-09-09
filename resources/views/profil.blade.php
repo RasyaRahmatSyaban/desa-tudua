@@ -37,7 +37,7 @@
     </section>
 
     <!-- Sejarah Desa -->
-    <section class="py-16 bg-gray-900">
+    <section class="pb-12 bg-gray-900">
         <div class="w-full mx-auto px-6 md:px-12 lg:px-24">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                 <div>
@@ -72,7 +72,7 @@
     </section>
 
     <!-- Visi & Misi -->
-    <section class="py-16 bg-gray-900">
+    <section class="pb-12 bg-gray-900">
         <div class="w-full mx-auto px-6 md:px-12 lg:px-24">
             <div class="text-center mb-12">
                 <h2 class="text-3xl lg:text-4xl font-bold text-white mb-4">Visi & Misi</h2>
@@ -136,9 +136,9 @@
     </section>
 
     <!-- Struktur Organisasi -->
-    <section class="py-16 bg-gray-900">
+    <section class="pb-8 bg-gray-900">
         <div class="w-full mx-auto px-6 md:px-12 lg:px-24 ">
-            <div class="text-center mb-12">
+            <div class="text-center mb-16">
                 <h2 class="text-3xl lg:text-4xl font-bold text-white mb-4">Struktur Organisasi</h2>
                 <p class="text-gray-400 max-w-2xl mx-auto text-lg">
                     Perangkat desa yang berkomitmen melayani masyarakat dengan dedikasi tinggi
@@ -185,61 +185,128 @@
         const carouselContainer = document.getElementById('aparaturCarousel');
         const items = Array.from(carouselContainer.children);
         const totalItems = items.length;
-        let currentIndex = 0; // Mulai dari 0
+        let currentIndex = 0;
 
-        // Pastikan ada item yang bisa di-loop. Jika tidak ada, jangan jalankan script.
         if (totalItems === 0) {
             console.warn('Tidak ada item carousel yang ditemukan.');
         } else {
-            // Fungsi untuk mendapatkan item dengan looping
-            function getItemAt(index) {
-                // Gunakan modulo untuk memastikan indeks selalu berada dalam rentang yang valid
-                return items[(index + totalItems) % totalItems];
+            function getCarouselConfig() {
+                const width = window.innerWidth;
+                if (width < 768) {
+                    return {
+                        visibleItems: 1,
+                        positions: [
+                            { offset: 0, x: 0, scale: 1.1, opacity: 1, z: 20 }
+                        ]
+                    };
+                } else if (width < 1280) {
+                    return {
+                        visibleItems: 3,
+                        positions: [
+                            { offset: -1, x: -255, scale: 0.8, opacity: 0.7, z: 15 },
+                            { offset: 0, x: 0, scale: 1.2, opacity: 1, z: 20 },
+                            { offset: 1, x: 255, scale: 0.8, opacity: 0.7, z: 15 }
+                        ]
+                    };
+                } else {
+                    return {
+                        visibleItems: 5,
+                        positions: [
+                            { offset: -2, x: -440, scale: 0.85, opacity: 0.3, z: 10 },
+                            { offset: -1, x: -265, scale: 0.95, opacity: 0.8, z: 15 },
+                            { offset: 0, x: 0, scale: 1.2, opacity: 1, z: 20 },
+                            { offset: 1, x: 265, scale: 0.95, opacity: 0.8, z: 15 },
+                            { offset: 2, x: 440, scale: 0.85, opacity: 0.3, z: 10 }
+                        ]
+                    };
+                }
             }
 
-            function updateCarousel() {
-                // Sembunyikan semua item terlebih dahulu untuk memuat ulang
-                items.forEach((item) => {
-                    item.style.opacity = '0';
-                    item.style.transform = 'scale(0.5)';
-                    item.style.zIndex = '1';
-                });
+            function updateCarousel(direction = null) {
+                const config = getCarouselConfig();
+                const prevItems = items.slice(); // Salin array item sebelum diubah
 
-                // Tentukan posisi dan properti visual untuk 5 slot
-                const positions = [
-                    { offset: -2, x: -420, scale: 0.85, opacity: 0.6, z: 10 }, // left2
-                    { offset: -1, x: -220, scale: 0.95, opacity: 0.8, z: 15 }, // left1
-                    { offset: 0, x: 0, scale: 1.2, opacity: 1, z: 20 },      // active
-                    { offset: 1, x: 220, scale: 0.95, opacity: 0.8, z: 15 }, // right1
-                    { offset: 2, x: 420, scale: 0.85, opacity: 0.6, z: 10 }, // right2
-                ];
-
-                // Terapkan properti visual untuk 5 item yang di-loop
-                positions.forEach((pos) => {
-                    // Hitung indeks yang benar dengan looping
+                // Terapkan properti visual sesuai konfigurasi untuk item yang terlihat
+                config.positions.forEach((pos) => {
                     const itemIndex = (currentIndex + pos.offset + totalItems) % totalItems;
                     const item = items[itemIndex];
 
                     if (item) {
+                        let initialTransform = '';
+
+                        // Kasus khusus: mobile (1 item) → arah animasi tetap ditentukan
+                        if (direction && config.visibleItems === 1 && pos.offset === 0) {
+                            if (direction === 'next') {
+                                initialTransform = `translateX(calc(100% + 50px)) scale(0.5)`;
+                            } else if (direction === 'prev') {
+                                initialTransform = `translateX(calc(-100% - 50px)) scale(0.5)`;
+                            }
+                        }
+
+                        if (initialTransform) {
+                            // Set posisi awal di luar layar
+                            item.style.transform = initialTransform;
+                            item.style.opacity = 0;
+
+                            // Biarkan browser hitung frame dulu
+                            requestAnimationFrame(() => {
+                                item.style.transition = 'transform 0.7s ease-in-out, opacity 0.7s ease-in-out';
+                                item.style.transform = `translateX(calc(-50% + ${pos.x}px)) scale(${pos.scale})`;
+                                item.style.opacity = pos.opacity;
+                                item.style.zIndex = pos.z;
+                            });
+                        } else {
+                            // Default (desktop & tablet)
+                            item.style.cssText = `
+                                                                                                    opacity: ${pos.opacity};
+                                                                                                    transform: translateX(calc(-50% + ${pos.x}px)) scale(${pos.scale});
+                                                                                                    z-index: ${pos.z};
+                                                                                                    transition: transform 0.7s ease-in-out, opacity 0.7s ease-in-out;
+                                                                                                    `;
+                        }
+                    }
+                });
+
+                prevItems.forEach((item, index) => {
+                    const isVisible = config.positions.some(pos => {
+                        const itemIndex = (currentIndex + pos.offset + totalItems) % totalItems;
+                        return index === itemIndex;
+                    });
+
+                    if (!isVisible) {
+                        let exitTransform = 'scale(0.5)';
+
+                        if (direction === 'next') {
+                            // geser ke kiri (keluar layar kiri)
+                            exitTransform = 'translateX(calc(-100% - 50px)) scale(0.5)';
+                        } else if (direction === 'prev') {
+                            // geser ke kanan (keluar layar kanan)
+                            exitTransform = 'translateX(calc(100% + 50px)) scale(0.5)';
+                        }
+
                         item.style.cssText = `
-                                                                                                                                                    opacity: ${pos.opacity};
-                                                                                                                                                    transform: translateX(calc(-50% + ${pos.x}px)) scale(${pos.scale});
-                                                                                                                                                    z-index: ${pos.z};
-                                                                                                                                                    transition: transform 0.7s ease-in-out, opacity 0.7s ease-in-out;
-                                                                                                                                                `;
+                            opacity: 0;
+                            transform: ${exitTransform};
+                            z-index: 1;
+                            transition: transform 0.7s ease-in-out, opacity 0.7s ease-in-out;
+                            `;
                     }
                 });
             }
 
             function nextSlide() {
                 currentIndex = (currentIndex + 1) % totalItems;
-                updateCarousel();
+                updateCarousel('next');
             }
 
             function prevSlide() {
                 currentIndex = (currentIndex - 1 + totalItems) % totalItems;
-                updateCarousel();
+                updateCarousel('prev');
             }
+
+            window.addEventListener('resize', () => {
+                updateCarousel();
+            });
 
             document.addEventListener('DOMContentLoaded', () => {
                 updateCarousel();

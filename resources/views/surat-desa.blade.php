@@ -31,10 +31,10 @@
 
     <!-- Filter & Search -->
     <section class="py-8 pt-24 bg-gray-900 border-b border-gray-700">
-        <div class="w-full mx-auto px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
+        <div class="w-full mx-auto px-6 md:px-12 lg:px-24 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
             <div>
                 <h2 class="text-2xl lg:text-3xl font-bold text-white mb-2">Arsip Surat</h2>
-                <p class="text-gray-400 text-base">Kelola dan cari surat masuk dan keluar desa</p>
+                <p class="text-gray-400 text-base">Dokumentasi arsip surat desa</p>
             </div>
 
             <form method="GET" action="{{ route('arsip') }}" class="flex flex-col md:flex-row justify-between gap-6 w-full lg:w-auto">
@@ -73,7 +73,7 @@
 
     <!-- Daftar Surat -->
     <section class="py-10 bg-gray-900 min-h-screen">
-        <div class="w-full mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="w-full mx-auto px-6 md:px-12 lg:px-24">
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                 @forelse($surat as $item)
                     <div class="card-hover bg-gray-800 rounded-2xl shadow-xl border border-gray-700 hover:border-yellow-500/50 transition-all duration-300">

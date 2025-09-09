@@ -160,49 +160,56 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
                 <!-- Berita & Informasi -->
                 <div
-                    class="card-hover bg-gray-700 p-6 md:p-8 rounded-2xl border border-gray-600 hover:border-yellow-500/50 transition-all duration-300">
+                    class="card-hover bg-gray-700 px-6 md:px-8 py-4 rounded-2xl border border-gray-600 hover:border-yellow-500/50 transition-all duration-300 flex flex-col">
                     <div
                         class="w-12 h-12 md:w-14 md:h-14 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center mb-4 md:mb-6">
                         <i class="fas fa-newspaper text-white text-lg md:text-xl"></i>
                     </div>
                     <h3 class="text-lg md:text-xl font-semibold mb-3 md:mb-4 text-white">Berita & Informasi</h3>
-                    <p class="text-gray-300 mb-4 md:mb-6 leading-relaxed text-sm md:text-base">
-                        Dapatkan informasi terkini seputar kegiatan dan perkembangan desa
+                    <p class="text-gray-300 leading-relaxed text-sm md:text-base flex-1">
+                        Dapatkan berita dan informasi terkini seputar kegiatan, program, serta perkembangan desa yang
+                        penting bagi masyarakat.
                     </p>
                     <a href="{{ route('berita.index') }}"
-                        class="text-yellow-400 font-medium hover:text-yellow-300 transition-colors duration-200 inline-flex items-center text-sm md:text-base">
+                        class="mt-3 text-yellow-400 font-medium hover:text-yellow-300 transition-colors duration-200 inline-flex items-center text-sm md:text-base">
                         Baca Selengkapnya
-                        <i class="fas fa-arrow-right ml-2 transform group-hover:translate-x-1 transition-transform"></i>
+                        <i class="fas fa-arrow-right ml-2"></i>
                     </a>
                 </div>
 
-                <!-- Pengumuman -->
+                <!-- Media -->
                 <div
-                    class="card-hover bg-gray-700 p-6 md:p-8 rounded-2xl border border-gray-600 hover:border-yellow-500/50 transition-all duration-300">
+                    class="card-hover bg-gray-700 px-6 md:px-8 py-4 rounded-2xl border border-gray-600 hover:border-yellow-500/50 transition-all duration-300 flex flex-col">
                     <div
                         class="w-12 h-12 md:w-14 md:h-14 bg-gradient-to-br from-yellow-500 to-yellow-600 rounded-xl flex items-center justify-center mb-4 md:mb-6">
-                        <i class="fas fa-bullhorn text-white text-lg md:text-xl"></i>
+                        <i class="fas fa-photo-video text-white text-lg md:text-xl"></i>
                     </div>
-                    <h3 class="text-lg md:text-xl font-semibold mb-3 md:mb-4 text-white">Pengumuman</h3>
-                    <p class="text-gray-300 mb-4 md:mb-6 leading-relaxed text-sm md:text-base">
-                        Pengumuman penting dari pemerintah desa untuk masyarakat
+                    <h3 class="text-lg md:text-xl font-semibold mb-3 md:mb-4 text-white">Media</h3>
+                    <p class="text-gray-300 leading-relaxed text-sm md:text-base flex-1">
+                        Koleksi foto, video, serta publikasi resmi yang mendokumentasikan berbagai aktivitas dan momen
+                        penting desa.
                     </p>
-                    <span class="text-gray-400 font-medium text-sm md:text-base">Coming Soon</span>
+                    <a href="{{ route('media') }}"
+                        class="mt-3 text-yellow-400 font-medium hover:text-yellow-300 transition-colors duration-200 inline-flex items-center text-sm md:text-base">
+                        Lihat Media
+                        <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
                 </div>
 
                 <!-- Pelayanan -->
                 <div
-                    class="card-hover bg-gray-700 p-6 md:p-8 rounded-2xl border border-gray-600 hover:border-yellow-500/50 transition-all duration-300">
+                    class="card-hover bg-gray-700 px-6 md:px-8 py-4 rounded-2xl border border-gray-600 hover:border-yellow-500/50 transition-all duration-300 flex flex-col">
                     <div
                         class="w-12 h-12 md:w-14 md:h-14 bg-gradient-to-br from-green-500 to-green-600 rounded-xl flex items-center justify-center mb-4 md:mb-6">
                         <i class="fas fa-concierge-bell text-white text-lg md:text-xl"></i>
                     </div>
                     <h3 class="text-lg md:text-xl font-semibold mb-3 md:mb-4 text-white">Pelayanan Desa</h3>
-                    <p class="text-gray-300 mb-4 md:mb-6 leading-relaxed text-sm md:text-base">
-                        Berbagai layanan administrasi dan surat-menyurat untuk masyarakat
+                    <p class="text-gray-300 leading-relaxed text-sm md:text-base flex-1">
+                        Akses berbagai layanan administrasi dan surat-menyurat desa dengan lebih cepat, praktis, dan
+                        transparan.
                     </p>
                     <a href="{{ route('pelayanan') }}"
-                        class="text-yellow-400 font-medium hover:text-yellow-300 transition-colors duration-200 inline-flex items-center text-sm md:text-base">
+                        class="mt-3 text-yellow-400 font-medium hover:text-yellow-300 transition-colors duration-200 inline-flex items-center text-sm md:text-base">
                         Lihat Layanan
                         <i class="fas fa-arrow-right ml-2"></i>
                     </a>
@@ -210,17 +217,18 @@
 
                 <!-- Data Penduduk -->
                 <div
-                    class="card-hover bg-gray-700 p-6 md:p-8 rounded-2xl border border-gray-600 hover:border-yellow-500/50 transition-all duration-300">
+                    class="card-hover bg-gray-700 px-6 md:px-8 py-4 rounded-2xl border border-gray-600 hover:border-yellow-500/50 transition-all duration-300 flex flex-col">
                     <div
                         class="w-12 h-12 md:w-14 md:h-14 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl flex items-center justify-center mb-4 md:mb-6">
                         <i class="fas fa-users text-white text-lg md:text-xl"></i>
                     </div>
                     <h3 class="text-lg md:text-xl font-semibold mb-3 md:mb-4 text-white">Data Penduduk</h3>
-                    <p class="text-gray-300 mb-4 md:mb-6 leading-relaxed text-sm md:text-base">
-                        Informasi statistik dan demografi penduduk desa
+                    <p class="text-gray-300 leading-relaxed text-sm md:text-base flex-1">
+                        Informasi statistik kependudukan yang lengkap, mencakup demografi, jumlah keluarga, dan profil
+                        masyarakat.
                     </p>
                     <a href="{{ route('data-penduduk') }}"
-                        class="text-yellow-400 font-medium hover:text-yellow-300 transition-colors duration-200 inline-flex items-center text-sm md:text-base">
+                        class="mt-3 text-yellow-400 font-medium hover:text-yellow-300 transition-colors duration-200 inline-flex items-center text-sm md:text-base">
                         Lihat Data
                         <i class="fas fa-arrow-right ml-2"></i>
                     </a>
@@ -228,36 +236,37 @@
 
                 <!-- Dana Desa -->
                 <div
-                    class="card-hover bg-gray-700 p-6 md:p-8 rounded-2xl border border-gray-600 hover:border-yellow-500/50 transition-all duration-300">
+                    class="card-hover bg-gray-700 px-6 md:px-8 py-4 rounded-2xl border border-gray-600 hover:border-yellow-500/50 transition-all duration-300 flex flex-col">
                     <div
                         class="w-12 h-12 md:w-14 md:h-14 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-xl flex items-center justify-center mb-4 md:mb-6">
                         <i class="fas fa-money-bill-wave text-white text-lg md:text-xl"></i>
                     </div>
                     <h3 class="text-lg md:text-xl font-semibold mb-3 md:mb-4 text-white">Dana Desa</h3>
-                    <p class="text-gray-300 mb-4 md:mb-6 leading-relaxed text-sm md:text-base">
-                        Transparansi pengelolaan dan penggunaan dana desa
+                    <p class="text-gray-300 leading-relaxed text-sm md:text-base flex-1">
+                        Transparansi penggunaan dana desa, mulai dari perencanaan, realisasi, hingga laporan
+                        pertanggungjawaban.
                     </p>
                     <a href="{{ route('dana-desa') }}"
-                        class="text-yellow-400 font-medium hover:text-yellow-300 transition-colors duration-200 inline-flex items-center text-sm md:text-base">
+                        class="mt-3 text-yellow-400 font-medium hover:text-yellow-300 transition-colors duration-200 inline-flex items-center text-sm md:text-base">
                         Lihat Laporan
                         <i class="fas fa-arrow-right ml-2"></i>
                     </a>
                 </div>
 
-                <!-- Kontak -->
+                <!-- Arsip -->
                 <div
-                    class="card-hover bg-gray-700 p-6 md:p-8 rounded-2xl border border-gray-600 hover:border-yellow-500/50 transition-all duration-300">
+                    class="card-hover bg-gray-700 px-6 md:px-8 py-4 rounded-2xl border border-gray-600 hover:border-yellow-500/50 transition-all duration-300 flex flex-col">
                     <div
                         class="w-12 h-12 md:w-14 md:h-14 bg-gradient-to-br from-pink-500 to-pink-600 rounded-xl flex items-center justify-center mb-4 md:mb-6">
-                        <i class="fas fa-phone text-white text-lg md:text-xl"></i>
+                        <i class="fas fa-archive text-white text-lg md:text-xl"></i>
                     </div>
-                    <h3 class="text-lg md:text-xl font-semibold mb-3 md:mb-4 text-white">Kontak & Lokasi</h3>
-                    <p class="text-gray-300 mb-4 md:mb-6 leading-relaxed text-sm md:text-base">
-                        Hubungi kami atau kunjungi kantor desa untuk informasi lebih lanjut
+                    <h3 class="text-lg md:text-xl font-semibold mb-3 md:mb-4 text-white">Arsip</h3>
+                    <p class="text-gray-300 leading-relaxed text-sm md:text-base flex-1">
+                        Akses mudah arsip surat masuk dan keluar desa, lengkap dengan pencarian cepat sesuai kebutuhan.
                     </p>
-                    <a href="{{ route('kontak') }}"
-                        class="text-yellow-400 font-medium hover:text-yellow-300 transition-colors duration-200 inline-flex items-center text-sm md:text-base">
-                        Hubungi Kami
+                    <a href="{{ route('arsip') }}"
+                        class="mt-3 text-yellow-400 font-medium hover:text-yellow-300 transition-colors duration-200 inline-flex items-center text-sm md:text-base">
+                        Lihat Arsip
                         <i class="fas fa-arrow-right ml-2"></i>
                     </a>
                 </div>
@@ -282,7 +291,8 @@
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
                 @forelse($berita as $b)
-                    <article class="card-hover bg-gray-800 rounded-2xl shadow-xl overflow-hidden border border-gray-700">
+                    <article
+                        class="card-hover bg-gray-800 rounded-2xl shadow-xl overflow-hidden border border-gray-700 flex flex-col">
                         <div class="relative overflow-hidden">
                             <img src="{{asset('storage/' . $b->foto)}}" alt="{{ $b->judul }}"
                                 class="w-full h-40 md:h-48 object-cover transform hover:scale-110 transition-transform duration-500">
@@ -292,7 +302,7 @@
                                 </span>
                             </div>
                         </div>
-                        <div class="p-4 md:p-6">
+                        <div class="p-4 md:p-6 flex flex-col flex-1">
                             <div class="flex items-center text-xs md:text-sm text-gray-400 mb-3">
                                 <i class="fas fa-calendar mr-2 text-yellow-400"></i>
                                 {{ $b->created_at->format('d M Y') }}
@@ -301,14 +311,17 @@
                                 class="text-base md:text-lg font-bold text-white mb-3 line-clamp-2 hover:text-yellow-400 transition-colors duration-200">
                                 {{ $b->judul }}
                             </h3>
-                            <p class="text-sm md:text-base text-gray-300 mb-4 line-clamp-3 leading-relaxed">
-                                {{ Str::limit(strip_tags($b->isi), 120) }}
+                            <p class="text-sm md:text-base text-gray-300 mb-4 leading-relaxed line-clamp-4">
+                                {{ Str::limit(strip_tags($b->isi), 130) }}
                             </p>
-                            <a href="{{ route('berita.show', $b->id) }}"
-                                class="inline-flex items-center text-yellow-400 font-semibold hover:text-yellow-300 transition-colors duration-200 text-sm md:text-base">
-                                Baca Selengkapnya
-                                <i class="fas fa-arrow-right ml-2 transform group-hover:translate-x-1 transition-transform"></i>
-                            </a>
+                            <div class="mt-auto">
+                                <a href="{{ route('berita.show', $b->id) }}"
+                                    class="inline-flex items-center text-yellow-400 font-semibold hover:text-yellow-300 transition-colors duration-200 text-sm md:text-base">
+                                    Baca Selengkapnya
+                                    <i
+                                        class="fas fa-arrow-right ml-2 transform group-hover:translate-x-1 transition-transform"></i>
+                                </a>
+                            </div>
                         </div>
                     </article>
                 @empty
