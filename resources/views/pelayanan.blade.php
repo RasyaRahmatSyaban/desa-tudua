@@ -36,9 +36,8 @@
                                 <i class="fas fa-file-alt text-yellow-400 text-xl"></i>
                             </div>
                             <div class="flex-1">
-                                <h3 class="text-xl font-semibold text-white mb-2">{{ $item->nama_layanan }}</h3>
-                                <span
-                                    class="inline-block px-3 py-1 bg-blue-500/20 text-blue-400 text-xs font-medium rounded-full">
+                                <h3 class="text-xl font-semibold text-white">{{ $item->nama_layanan }}</h3>
+                                <span class="inline-block text-blue-400 text-xs font-medium rounded-full">
                                     {{ $item->kategori }}
                                 </span>
                             </div>

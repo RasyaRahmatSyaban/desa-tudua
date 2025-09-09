@@ -53,6 +53,7 @@ Route::get('/login', function () {
 
 Route::post('/login', [AuthController::class, 'authenticate'])->name('auth.login');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+Route::put('/reset-password', [AuthController::class, 'resetPassword'])->name('reset-password');
 
 // Admin Routes Group
 Route::prefix('admin')->name('admin.')->middleware(['auth'])->group(function () {
