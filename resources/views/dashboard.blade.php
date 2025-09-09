@@ -96,12 +96,12 @@
                 <div class="grid grid-cols-2 gap-3 md:gap-4 lg:gap-6 mt-6 lg:mt-0">
                     <div
                         class="bg-white/10 backdrop-blur-md rounded-xl p-4 md:p-6 border border-white/20 hover:bg-white/15 transition-all duration-300">
-                        <div class="text-2xl md:text-3xl font-bold text-yellow-400 mb-2">1,234</div>
+                        <div class="text-2xl md:text-3xl font-bold text-yellow-400 mb-2">{{$totalPenduduk}}</div>
                         <div class="text-gray-200 text-xs md:text-sm">Total Penduduk</div>
                     </div>
                     <div
                         class="bg-white/10 backdrop-blur-md rounded-xl p-4 md:p-6 border border-white/20 hover:bg-white/15 transition-all duration-300">
-                        <div class="text-2xl md:text-3xl font-bold text-yellow-400 mb-2">456</div>
+                        <div class="text-2xl md:text-3xl font-bold text-yellow-400 mb-2">{{$totalKepalaKeluarga}}</div>
                         <div class="text-gray-200 text-xs md:text-sm">Kepala Keluarga</div>
                     </div>
                 </div>
@@ -303,9 +303,12 @@
                             </div>
                         </div>
                         <div class="p-4 md:p-6 flex flex-col flex-1">
-                            <div class="flex items-center text-xs md:text-sm text-gray-400 mb-3">
+                            <div class="flex items-center text-sm text-gray-400 mb-3">
                                 <i class="fas fa-calendar mr-2 text-yellow-400"></i>
-                                {{ $b->created_at->format('d M Y') }}
+                                {{ $b->tanggal_terbit->format('d M Y') }}
+                                <span class="mx-2">•</span>
+                                <i class="fas fa-user mr-2 text-yellow-400"></i>
+                                {{ $b->penulis }}
                             </div>
                             <h3
                                 class="text-base md:text-lg font-bold text-white mb-3 line-clamp-2 hover:text-yellow-400 transition-colors duration-200">

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\DanaKeluar;
 use App\Models\DanaMasuk;
+use App\Models\KepalaKeluarga;
 use App\Models\Penduduk;
 use App\Models\SuratMasuk;
 use App\Services\BeritaService;
@@ -25,8 +26,9 @@ class DashboardController extends Controller
         $pengumumanService = new PengumumanService();
         $perangkatService = new PerangkatDesaService();
 
+        $totalPenduduk = Penduduk::count();
+        $totalKepalaKeluarga = KepalaKeluarga::count();
         if ($user) {
-            $totalPenduduk = Penduduk::count();
             $totalSuratMasuk = SuratMasuk::count();
             $totalDanaMasuk = $danaMasukService->getAll()->sum('jumlah');
             $totalDanaKeluar = $danaKeluarService->getAll()->sum('jumlah');
@@ -46,7 +48,7 @@ class DashboardController extends Controller
             $kepalaDesa = $perangkatService->getKepalaDesa();
             $request = new Request(['status' => 'aktif']);
             $pengumumanAktif = ($pengumumanService)->getFiltered($request);
-            return view('dashboard', compact('berita', 'kepalaDesa', 'pengumumanAktif'));
+            return view('dashboard', compact('berita', 'kepalaDesa', 'pengumumanAktif', 'totalPenduduk', 'totalKepalaKeluarga'));
         }
     }
 }

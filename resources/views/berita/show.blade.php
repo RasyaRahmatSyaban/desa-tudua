@@ -71,8 +71,9 @@
                         <!-- Article Content -->
                         <div class="p-6 lg:p-8">
                             <div class="prose prose-lg max-w-none text-gray-300 leading-relaxed">
-                                <div class="text-base sm:text-lg leading-6 sm:leading-8 
-                                                            space-y-4 sm:space-y-6 break-words whitespace-pre-line">
+                                <div
+                                    class="text-base sm:text-lg leading-6 sm:leading-8 
+                                                                                                                                                                                                                                                                        space-y-4 sm:space-y-6 break-words whitespace-pre-line">
                                     {!! nl2br(e($berita->isi)) !!}
                                 </div>
                             </div>
@@ -112,13 +113,13 @@
                             </h3>
 
                             <div class="space-y-6">
-                                @forelse ($beritaTerkait as $item)
-                                    <a href="{{ route('berita.show', $item->id) }}"
+                                @forelse ($beritaTerkait as $b)
+                                    <a href="{{ route('berita.show', $b->id) }}"
                                         class="card-hover block group bg-gray-700 rounded-xl overflow-hidden border border-gray-600 hover:border-yellow-500/50 transition-all duration-300">
                                         <div class="flex gap-4 pr-2">
                                             <div class="w-52 h-44 rounded-lg overflow-hidden bg-gray-600 flex-shrink-0">
-                                                @if ($item->foto)
-                                                    <img src="{{ asset('storage/' . $item->foto) }}" alt="{{ $item->judul }}"
+                                                @if ($b->foto)
+                                                    <img src="{{ asset('storage/' . $b->foto) }}" alt="{{ $b->judul }}"
                                                         class="object-cover w-full h-full">
                                                 @else
                                                     <div class="flex items-center justify-center w-full h-full text-gray-400">
@@ -126,17 +127,20 @@
                                                     </div>
                                                 @endif
                                             </div>
-                                            <div class="flex-1 min-w-0">
+                                            <div class="py-1 md:py-3 flex flex-col flex-1">
+                                                <div class="flex items-center text-sm text-gray-300 mb-2">
+                                                    <i class="fas fa-calendar mr-2 text-yellow-400"></i>
+                                                    {{ $b->tanggal_terbit->format('d M Y') }}
+                                                    <span class="mx-2">•</span>
+                                                    <i class="fas fa-user mr-2 text-yellow-400"></i>
+                                                    {{ $b->penulis }}
+                                                </div>
                                                 <h4
-                                                    class="text-xl font-semibold text-white group-hover:text-yellow-400 line-clamp-2 leading-snug mb-1">
-                                                    {{ $item->judul }}
+                                                    class="text-lg font-semibold text-white group-hover:text-yellow-400 line-clamp-2 leading-snug mb-1">
+                                                    {{ $b->judul }}
                                                 </h4>
-                                                <p class="text-sm text-gray-400 flex items-center mb-4">
-                                                    <i class="fas fa-calendar mr-1"></i>
-                                                    {{ $item->tanggal_terbit->format('d M Y') }}
-                                                </p>
-                                                <p class="text-lg text-gray-300 line-clamp-2">
-                                                    {{ Str::limit(strip_tags($item->isi), 200) }}
+                                                <p class="text-md text-gray-300 line-clamp-2">
+                                                    {{ Str::limit(strip_tags($b->isi), 160) }}
                                                 </p>
                                             </div>
                                         </div>
@@ -183,9 +187,12 @@
                                     class="w-full h-40 md:h-48 object-cover transform hover:scale-110 transition-transform duration-500">
                             </div>
                             <div class="p-4 md:p-6">
-                                <div class="flex items-center text-xs md:text-sm text-gray-400 mb-1">
+                                <div class="flex items-center text-sm text-gray-400 mb-3">
                                     <i class="fas fa-calendar mr-2 text-yellow-400"></i>
-                                    {{ $b->created_at->format('d M Y') }}
+                                    {{ $b->tanggal_terbit->format('d M Y') }}
+                                    <span class="mx-2">•</span>
+                                    <i class="fas fa-user mr-2 text-yellow-400"></i>
+                                    {{ $b->penulis }}
                                 </div>
                                 <h3 class="text-base md:text-lg font-bold text-white mb-4 line-clamp-2 hover:text-yellow-400">
                                     {{ $b->judul }}
