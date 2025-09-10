@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Penduduk extends Model
 {
@@ -25,9 +24,5 @@ class Penduduk extends Model
     public function kepalaKeluarga(): BelongsTo
     {
         return $this->belongsTo(Penduduk::class, 'id_kepalakeluarga');
-    }
-    public function anggotaKeluarga(): HasMany
-    {
-        return $this->hasMany(Penduduk::class, 'id_kepalakeluarga');
     }
 }

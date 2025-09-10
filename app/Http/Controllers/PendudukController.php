@@ -114,7 +114,8 @@ class PendudukController extends Controller
     public function show($id)
     {
         $data = $this->pendudukService->getById($id);
-        return view('admin.penduduk.show', compact('data'));
+        $keluarga = $this->pendudukService->getDetailKeluarga($data->id);
+        return view('admin.penduduk.show', compact('data', 'keluarga'));
     }
     public function create()
     {

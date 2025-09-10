@@ -23,6 +23,20 @@ class PendudukService
         return $query->get();
     }
 
+    public function getDetailKeluarga($id)
+    {
+        $penduduk = $this->getById($id);
+
+        if (!$penduduk) {
+            return [];
+        }
+
+        return Penduduk::with('kepalaKeluarga')
+            ->select('id', 'nama', 'nik', 'nomor_kk', 'alamat', 'tempat_lahir', 'tanggal_lahir', 'jenis_kelamin', 'agama', 'id_kepalakeluarga')
+            ->where('nomor_kk', $penduduk->nomor_kk)
+            ->get();
+    }
+
     public function getPaginated($perPage = 10)
     {
         return Penduduk::select('id', 'nama', 'nik', 'nomor_kk', 'alamat', 'tempat_lahir', 'tanggal_lahir', 'jenis_kelamin', 'agama', 'id_kepalakeluarga')->latest()->paginate($perPage);
@@ -77,14 +91,14 @@ class PendudukService
     }
     public function update($id, array $data)
     {
-        $penduduk = Penduduk::findOrFail($id);
+        $penduduk = $this->getById($id);
 
         $penduduk->update($data);
         return $penduduk;
     }
     public function delete($id)
     {
-        $penduduk = Penduduk::findOrFail($id);
+        $penduduk = $this->getById($id);
         return $penduduk->destroy($id);
     }
 
