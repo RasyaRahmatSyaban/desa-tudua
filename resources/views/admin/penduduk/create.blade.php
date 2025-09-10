@@ -119,11 +119,11 @@
                                 Kepala Keluarga <span class="text-red-500">*</span>
                             </label>
                             <select name="id_kepalakeluarga" id="id_kepalakeluarga"
-                                class="w-full px-4 py-2.5 bg-white border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200 {{ $errors->has('id_kepalakeluarga') ? 'border-red-300 focus:ring-red-500 focus:border-red-500' : '' }}">
+                                class="w-full px-4 py-3 bg-white border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200 {{ $errors->has('id_kepalakeluarga') ? 'border-red-300 focus:ring-red-500 focus:border-red-500' : '' }}">
                                 <option value="" class="text-slate-400">Pilih Kepala Keluarga</option>
                                 @foreach($listKepalaKeluarga as $k)
                                     <option value="{{ $k->id }}" {{ old('id_kepalakeluarga') == $k->id ? 'selected' : '' }}
-                                        class="text-slate-700 py-2">
+                                        class="text-slate-700 py-3">
                                         {{ $k->nama }}
                                     </option>
                                 @endforeach

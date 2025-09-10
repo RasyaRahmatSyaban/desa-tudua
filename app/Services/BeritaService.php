@@ -16,6 +16,13 @@ class BeritaService
         return Berita::select('id', 'foto', 'judul', 'isi', 'tanggal_terbit', 'penulis', 'status', 'created_at', 'updated_at')->latest()->paginate($perPage);
     }
 
+    public function getPublishedPaginated($perPage = 12)
+    {
+        return Berita::select('id', 'foto', 'judul', 'isi', 'tanggal_terbit', 'penulis', 'status', 'created_at', 'updated_at')->where('status', 'Dipublikasi')
+            ->latest('tanggal_terbit')
+            ->paginate($perPage);
+    }
+
     public function getFiltered(Request $request)
     {
         return Berita::select('id', 'foto', 'judul', 'isi', 'tanggal_terbit', 'penulis', 'status', 'created_at', 'updated_at')

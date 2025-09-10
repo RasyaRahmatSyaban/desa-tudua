@@ -43,7 +43,7 @@ class DashboardController extends Controller
                 'pengumuman'
             ));
         } else {
-            $berita = $beritaService->getPaginated(3);
+            $berita = $beritaService->getPublishedPaginated(3);
             $berita = $berita->where('status', 'Dipublikasi');
             $kepalaDesa = $perangkatService->getKepalaDesa();
             $request = new Request(['status' => 'aktif']);
