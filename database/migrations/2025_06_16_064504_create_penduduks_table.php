@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -15,12 +14,13 @@ return new class extends Migration
             $table->id();
             $table->string('nama', 100);
             $table->string('nik', 16)->unique();
+            $table->string('nomor_kk', 16);
             $table->text('alamat');
             $table->string('tempat_lahir', 30);
             $table->date('tanggal_lahir');
             $table->enum('jenis_kelamin', ['Laki-laki', 'Perempuan']);
-            $table->string('agama', 50);
-            $table->foreignId('id_kepalakeluarga')->nullable()->constrained('kepala_keluarga')->onDelete('set null');
+            $table->enum('agama', ['Islam', 'Kristen', 'Katolik', 'Hindu', 'Buddha']);
+            $table->foreignId('id_kepalakeluarga')->nullable()->constrained('penduduk')->onDelete('set null');
             $table->timestamps();
         });
     }

@@ -2,9 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\DanaKeluar;
-use App\Models\DanaMasuk;
-use App\Models\KepalaKeluarga;
 use App\Models\Penduduk;
 use App\Models\SuratMasuk;
 use App\Services\BeritaService;
@@ -27,7 +24,7 @@ class DashboardController extends Controller
         $perangkatService = new PerangkatDesaService();
 
         $totalPenduduk = Penduduk::count();
-        $totalKepalaKeluarga = KepalaKeluarga::count();
+        $totalKepalaKeluarga = Penduduk::whereNull('id_kepalakeluarga')->count();
         if ($user) {
             $totalSuratMasuk = SuratMasuk::count();
             $totalDanaMasuk = $danaMasukService->getAll()->sum('jumlah');

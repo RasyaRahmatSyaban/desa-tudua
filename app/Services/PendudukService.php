@@ -9,11 +9,23 @@ class PendudukService
 {
     public function getAll()
     {
-        return Penduduk::select('id', 'nama', 'nik', 'alamat', 'tempat_lahir', 'tanggal_lahir', 'jenis_kelamin', 'agama', 'id_kepalakeluarga')->with('kepalaKeluarga')->get();
+        return Penduduk::select('id', 'nama', 'nik', 'nomor_kk', 'alamat', 'tempat_lahir', 'tanggal_lahir', 'jenis_kelamin', 'agama', 'id_kepalakeluarga')->get();
     }
+    public function getAllKepalaKeluarga($excludeId = null)
+    {
+        $query = Penduduk::select('id', 'nama', 'nik', 'nomor_kk', 'alamat', 'tempat_lahir', 'tanggal_lahir', 'jenis_kelamin', 'agama', 'id_kepalakeluarga')
+            ->whereNull('id_kepalakeluarga');
+
+        if ($excludeId) {
+            $query->where('id', '!=', $excludeId);
+        }
+
+        return $query->get();
+    }
+
     public function getPaginated($perPage = 10)
     {
-        return Penduduk::select('id', 'nama', 'nik', 'alamat', 'tempat_lahir', 'tanggal_lahir', 'jenis_kelamin', 'agama', 'id_kepalakeluarga')->with('kepalaKeluarga')->latest()->paginate($perPage);
+        return Penduduk::select('id', 'nama', 'nik', 'nomor_kk', 'alamat', 'tempat_lahir', 'tanggal_lahir', 'jenis_kelamin', 'agama', 'id_kepalakeluarga')->latest()->paginate($perPage);
     }
 
     public function getFiltered(Request $request)
@@ -31,7 +43,11 @@ class PendudukService
     }
     public function getById($id)
     {
-        return Penduduk::select('id', 'nama', 'nik', 'alamat', 'tempat_lahir', 'tanggal_lahir', 'jenis_kelamin', 'agama', 'id_kepalakeluarga')->findOrFail($id);
+        return Penduduk::select('id', 'nama', 'nik', 'nomor_kk', 'alamat', 'tempat_lahir', 'tanggal_lahir', 'jenis_kelamin', 'agama', 'id_kepalakeluarga')->findOrFail($id);
+    }
+    public function getByNik($nik)
+    {
+        return Penduduk::select('id', 'nama', 'nik', 'nomor_kk', 'alamat', 'tempat_lahir', 'tanggal_lahir', 'jenis_kelamin', 'agama', 'id_kepalakeluarga')->where('nik', $nik)->first();
     }
     public function getTotalLaki()
     {
@@ -68,7 +84,8 @@ class PendudukService
     }
     public function delete($id)
     {
-        return Penduduk::destroy($id);
+        $penduduk = Penduduk::findOrFail($id);
+        return $penduduk->destroy($id);
     }
 
 }

@@ -135,14 +135,14 @@
 
                         <!-- Nomor KK -->
                         <div id="nomorKKSelectWrapper" style="{{ $isKepalaKeluargaOld ? '' : 'display:none;' }}">
-                            <label for="nomorKK" class="block text-sm font-medium text-slate-700 mb-2">
+                            <label for="nomor_kk" class="block text-sm font-medium text-slate-700 mb-2">
                                 Nomor Kartu Keluarga <span class="text-red-500">*</span>
                             </label>
-                            <input type="text" id="nomorKK" name="nomorKK"
-                                value="{{ old('nomorKK', $nomor_kk->nomor_kk ?? '') }}"
-                                class="w-full px-4 py-2.5 bg-white border border-slate-300 rounded-lg text-sm placeholder-slate-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200 {{ $errors->has('nomorKK') ? 'border-red-300 focus:ring-red-500 focus:border-red-500' : '' }}"
+                            <input type="text" id="nomor_kk" name="nomor_kk"
+                                value="{{ old('nomor_kk', $nomor_kk->nomor_kk ?? '') }}"
+                                class="w-full px-4 py-2.5 bg-white border border-slate-300 rounded-lg text-sm placeholder-slate-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200 {{ $errors->has('nomor_kk') ? 'border-red-300 focus:ring-red-500 focus:border-red-500' : '' }}"
                                 placeholder="Masukkan Nomor Kartu Keluarga (16 digit)" maxlength="16" required>
-                            @error('nomorKK')
+                            @error('nomor_kk')
                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                             @enderror
                         </div>
@@ -198,7 +198,7 @@
             const checkbox = document.getElementById('isKepalaKeluarga');
             const kepKelWrapper = document.getElementById('kepalaKeluargaSelectWrapper');
             const nomorKKWrapper = document.getElementById('nomorKKSelectWrapper');
-            const nomorKKInput = document.getElementById('nomorKK');
+            const nomorKKInput = document.getElementById('nomor_kk');
 
             function toggleKepalaKeluarga() {
                 if (checkbox.checked) {
