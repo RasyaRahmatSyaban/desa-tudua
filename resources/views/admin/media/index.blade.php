@@ -126,11 +126,11 @@
                                     </div>
                                 @else
                                     <div class="relative w-full h-48 bg-slate-200 flex items-center justify-center">
-                                        <i class="fas fa-file-alt text-4xl text-slate-400"></i>
+                                        <i class="fas fa-fregular fa-file text-4xl text-slate-400"></i>
                                         <div class="absolute top-2 right-2">
                                             <span
                                                 class="inline-flex items-center px-2.5 py-1 bg-violet-100 text-violet-800 text-xs font-medium rounded-full">
-                                                <i class="fas fa-file-alt mr-1 text-xs"></i>
+                                                <i class="fas fa-fregular fa-file mr-1 text-xs"></i>
                                                 Dokumen
                                             </span>
                                         </div>

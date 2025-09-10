@@ -22,16 +22,16 @@ class SuratKeluarController extends Controller
 
         $hasFilter = $request->filled('search');
 
-        if($hasFilter){
+        if ($hasFilter) {
             $suratKeluar = $this->suratKeluarService->getFiltered($request);
-        }else{
+        } else {
             $suratKeluar = $this->suratKeluarService->getPaginated();
         }
 
         $user = auth()->user();
-        if($user){
+        if ($user) {
             return view('admin.surat-keluar.index', compact('suratKeluar'));
-        }else{
+        } else {
             return view('suratKeluar.index', compact('suratKeluar'));
         }
     }
@@ -43,7 +43,7 @@ class SuratKeluarController extends Controller
     }
     public function create()
     {
-        return view('admin.surat-keluar.create');   
+        return view('admin.surat-keluar.create');
     }
     public function store(Request $request)
     {
@@ -52,7 +52,7 @@ class SuratKeluarController extends Controller
             'penerima' => 'required|string|max:255',
             'perihal' => 'required|string|max:255',
             'tanggal_kirim' => 'required|date',
-            'file' => 'required|file|mimes:pdf,doc,docs|max:5120',
+            'file' => 'required|file|mimes:pdf,doc,docs,docx|max:5120',
         ]);
 
         if ($request->hasFile('file')) {
@@ -69,7 +69,7 @@ class SuratKeluarController extends Controller
     public function edit($id)
     {
         $suratKeluar = $this->suratKeluarService->getById($id);
-        return view('admin.surat-keluar.edit', compact('suratKeluar'));   
+        return view('admin.surat-keluar.edit', compact('suratKeluar'));
     }
     public function update(Request $request, $id)
     {
@@ -78,7 +78,7 @@ class SuratKeluarController extends Controller
             'penerima' => 'required|string|max:255',
             'perihal' => 'required|string|max:255',
             'tanggal_kirim' => 'required|date',
-            'file' => 'required|file|mimes:pdf,doc,docs|max:5120',
+            'file' => 'required|file|mimes:pdf,doc,docs,docx|max:5120',
         ]);
 
         if ($request->hasFile('file')) {

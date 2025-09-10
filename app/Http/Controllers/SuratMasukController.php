@@ -11,7 +11,8 @@ class SuratMasukController extends Controller
 
     public function __construct(SuratMasukService $suratMasukService)
     {
-        $this->suratMasukService = $suratMasukService;;
+        $this->suratMasukService = $suratMasukService;
+        ;
     }
 
     public function index(Request $request)
@@ -22,16 +23,16 @@ class SuratMasukController extends Controller
 
         $hasFilter = $request->filled('search');
 
-        if($hasFilter){
+        if ($hasFilter) {
             $suratMasuk = $this->suratMasukService->getFiltered($request);
-        }else{
+        } else {
             $suratMasuk = $this->suratMasukService->getPaginated();
         }
 
         $user = auth()->user();
-        if($user){
+        if ($user) {
             return view('admin.surat-masuk.index', compact('suratMasuk'));
-        }else{
+        } else {
             return view('suratmasuk.index', compact('suratMasuk'));
         }
     }
@@ -43,7 +44,7 @@ class SuratMasukController extends Controller
     }
     public function create()
     {
-        return view('admin.surat-masuk.create');   
+        return view('admin.surat-masuk.create');
     }
     public function store(Request $request)
     {
@@ -52,7 +53,7 @@ class SuratMasukController extends Controller
             'pengirim' => 'required|string|max:255',
             'perihal' => 'required|string|max:255',
             'tanggal_terima' => 'required|date',
-            'file' => 'required|file|mimes:pdf,doc,docs|max:5120',
+            'file' => 'required|file|mimes:pdf,doc,docs,docx|max:5120',
         ]);
 
         if ($request->hasFile('file')) {
@@ -69,7 +70,7 @@ class SuratMasukController extends Controller
     public function edit($id)
     {
         $suratMasuk = $this->suratMasukService->getById($id);
-        return view('admin.surat-masuk.edit', compact('suratMasuk'));   
+        return view('admin.surat-masuk.edit', compact('suratMasuk'));
     }
     public function update(Request $request, $id)
     {
@@ -78,7 +79,7 @@ class SuratMasukController extends Controller
             'pengirim' => 'required|string|max:255',
             'perihal' => 'required|string|max:255',
             'tanggal_terima' => 'required|date',
-            'file' => 'required|file|mimes:pdf,doc,docs|max:5120',
+            'file' => 'required|file|mimes:pdf,doc,docs,docx|max:5120',
         ]);
 
         if ($request->hasFile('file')) {

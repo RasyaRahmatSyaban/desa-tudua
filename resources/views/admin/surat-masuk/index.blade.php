@@ -121,10 +121,10 @@
                                 <tr class="hover:bg-slate-50 transition-colors duration-200">
                                     <td class="py-4 px-1">
                                         <a href="{{ asset('storage/' . $surat->file) }}" target="_blank" download
-                                            class="inline-flex items-center px-3 py-2 bg-red-50 hover:bg-red-100 text-red-700 text-sm font-medium rounded-lg transition-colors duration-200 group">
+                                            class="inline-flex items-center px-3 py-2 bg-slate-50 hover:bg-slate-200 text-slate-700 text-sm font-medium rounded-lg transition-colors duration-200 group">
                                             <i
-                                                class="fas fa-file-pdf mr-2 text-lg group-hover:scale-110 transition-transform duration-200"></i>
-                                            <span class="text-xs">Lihat PDF</span>
+                                                class="fas fa-fregular fa-file mr-2 text-lg transition-transform duration-200"></i>
+                                            <span class="text-xs">Lihat Surat</span>
                                         </a>
                                     </td>
                                     <td class="py-4 px-4">
