@@ -1,7 +1,5 @@
 <?php
-
 namespace App\Http\Controllers;
-
 use App\Services\UserService;
 use Illuminate\Http\Request;
 
@@ -14,16 +12,27 @@ class UserController extends Controller
         $this->userService = $userService;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $users = $this->userService->getAll();
-        return view('users.index', compact('users'));
+        $users = $this->userService->getPaginated();
+        return view('admin.users.index', compact('users'));
+    }
+
+    public function create()
+    {
+        return view('admin.users.create');
     }
 
     public function show($id)
     {
         $user = $this->userService->getById($id);
-        return view('users.show', compact('user'));
+        return view('admin.users.show', compact('user'));
+    }
+
+    public function edit($id)
+    {
+        $user = $this->userService->getById($id);
+        return view('admin.users.edit', compact('user'));
     }
 
     public function store(Request $request)
@@ -35,8 +44,7 @@ class UserController extends Controller
         ]);
 
         $this->userService->create($validated);
-
-        return redirect()->route('users.index')->with('success', 'User berhasil ditambahkan');
+        return redirect()->route('admin.users.index')->with('success', 'User berhasil ditambahkan');
     }
 
     public function update(Request $request, $id)
@@ -48,13 +56,16 @@ class UserController extends Controller
         ]);
 
         $this->userService->update($id, $validated);
-
-        return redirect()->route('users.index')->with('success', 'User berhasil diperbarui');
+        return redirect()->route('admin.users.index')->with('success', 'User berhasil diperbarui');
     }
 
     public function destroy($id)
     {
+        if ($id == auth()->id()) {
+            return redirect()->route('admin.users.index')->with('error', 'Anda tidak dapat menghapus akun sendiri');
+        }
+
         $this->userService->delete($id);
-        return redirect()->route('users.index')->with('success', 'User berhasil dihapus');
+        return redirect()->route('admin.users.index')->with('success', 'User berhasil dihapus');
     }
 }

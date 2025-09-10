@@ -112,14 +112,19 @@
 
             <!-- Logout Button -->
             <div class="absolute bottom-0 w-64 p-4 border-t border-slate-700">
-                <form method="POST" action="{{ route('logout') }}">
-                    @csrf
-                    <button type="submit"
-                        class="flex items-center w-full px-3 py-2.5 text-sm font-medium text-slate-300 rounded-lg hover:bg-slate-700 hover:text-white transition-all duration-200">
-                        <i class="fas fa-sign-out-alt w-5 text-center mr-3 text-slate-400"></i>
-                        <span>Logout</span>
-                    </button>
-                </form>
+                <div class="flex flex-row justify-between items-center">
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+                        <button type="submit"
+                            class="flex items-center w-full px-3 py-2.5 text-sm font-medium text-slate-300 rounded-lg hover:bg-slate-700 hover:text-white cursor-pointer transition-all duration-200">
+                            <i class="fas fa-sign-out-alt w-5 text-center mr-3 text-slate-400"></i>
+                            <span>Logout</span>
+                        </button>
+                    </form>
+                    <a href="{{ route('admin.users.index') }}"><i
+                            class="fa-solid fa-user-gear text-slate-400 px-3 py-2.5 rounded-lg hover:bg-slate-700 hover:text-white cursor-pointer"></i>
+                    </a>
+                </div>
             </div>
         </div>
 
@@ -137,9 +142,9 @@
                         </p>
                     </div>
 
-                    <div class="flex items-center space-x-4">
-                        <!-- User Profile -->
-                        <div class="flex items-center space-x-3 pl-4 border-l border-slate-200">
+                    <div class="relative flex items-center space-x-4 group">
+                        <!-- User Profile (Trigger) -->
+                        <div class="flex cursor-pointer items-center space-x-3 pl-4 border-l border-slate-200">
                             <div class="text-right">
                                 <p class="text-sm font-medium text-slate-800">
                                     {{ Auth::user()->name ?? 'Administrator' }}
@@ -150,6 +155,28 @@
                             </div>
                             <div class="w-8 h-8 rounded-lg flex items-center justify-center shadow-lg">
                                 <i class="fas fa-user text-black text-sm"></i>
+                            </div>
+                        </div>
+
+                        <div
+                            class="absolute right-0 top-full mt-2 min-w-[160px] bg-white border border-gray-200 rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                            <div class="py-1">
+                                <a href="{{ route('admin.users.edit', Auth::user()->id) }}"
+                                    class="flex items-center px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 hover:text-gray-900 transition-colors duration-150">
+                                    <i class="fa-solid fa-gear mr-3 text-gray-400"></i>
+                                    <span>Pengaturan</span>
+                                </a>
+
+                                <div class="border-t border-gray-100"></div>
+
+                                <form method="POST" action="{{ route('logout') }}">
+                                    @csrf
+                                    <button type="submit"
+                                        class="w-full flex cursor-pointer items-center px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 hover:text-gray-900 transition-colors duration-150 text-left">
+                                        <i class="fa-solid fa-right-from-bracket mr-3 text-gray-400"></i>
+                                        <span>Keluar</span>
+                                    </button>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -171,7 +198,6 @@
         <i class="fas fa-bars"></i>
     </button>
 
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             // SweetAlert configurations

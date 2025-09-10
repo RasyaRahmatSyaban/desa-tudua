@@ -213,9 +213,6 @@ Route::prefix('admin')->name('admin.')->middleware(['auth'])->group(function () 
         Route::get('/{id}/edit', [UserController::class, 'edit'])->name('edit');
         Route::put('/{id}', [UserController::class, 'update'])->name('update');
         Route::delete('/{id}', [UserController::class, 'destroy'])->name('destroy');
-        Route::get('/export/excel', [UserController::class, 'exportExcel'])->name('export.excel');
-        Route::get('/export/pdf', [UserController::class, 'exportPdf'])->name('export.pdf');
-        Route::put('/{id}/toggle-status', [UserController::class, 'toggleStatus'])->name('toggle-status');
         Route::put('/{id}/reset-password', [UserController::class, 'resetPassword'])->name('reset-password');
     });
 
