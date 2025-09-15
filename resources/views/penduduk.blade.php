@@ -164,10 +164,10 @@
                                 <div class="w-10 h-10 bg-purple-500/20 rounded-xl flex items-center justify-center">
                                     <i class="fas fa-church text-purple-400"></i>
                                 </div>
-                                <span class="font-medium text-white text-lg">Protestan</span>
+                                <span class="font-medium text-white text-lg">Kristen</span>
                             </div>
                             <div class="text-right">
-                                <p class="font-bold text-purple-400 text-lg">{{ $protestan }}</p>
+                                <p class="font-bold text-purple-400 text-lg">{{ $kristen }}</p>
                                 <p class="text-xs text-gray-400">Jiwa</p>
                             </div>
                         </div>

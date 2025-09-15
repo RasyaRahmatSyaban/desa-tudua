@@ -87,7 +87,7 @@ class PendudukController extends Controller
             $persenPerempuan = $totalPenduduk > 0 ? round($totalPerempuan / $totalPenduduk * 100, 1) : 0;
 
             $islam = $this->pendudukService->getCountByReligion('Islam');
-            $protestan = $this->pendudukService->getCountByReligion('Protestan');
+            $kristen = $this->pendudukService->getCountByReligion('Kristen');
             $katolik = $this->pendudukService->getCountByReligion('Katolik');
             $hindu = $this->pendudukService->getCountByReligion('Hindu');
             $buddha = $this->pendudukService->getCountByReligion('Buddha');
@@ -103,7 +103,7 @@ class PendudukController extends Controller
                 'persenPerempuan',
                 'ageGroups',
                 'islam',
-                'protestan',
+                'kristen',
                 'katolik',
                 'hindu',
                 'buddha'
