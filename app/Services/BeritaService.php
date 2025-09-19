@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\Berita;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class BeritaService
 {
@@ -54,20 +55,47 @@ class BeritaService
             ->get();
     }
 
-    public function create($data)
+    public function create($data, $request)
     {
+        if ($request->hasFile('foto')) {
+            $file = $request->file('foto');
+            $originalName = $file->getClientOriginalName();
+            $filename = now()->format('Ymd_His') . '_' . $originalName;
+            $path = $file->storeAs('uploads/berita', $filename, 'public');
+
+            $data['foto'] = $path;
+        }
+
         return Berita::create($data);
     }
-    public function update($id, array $data)
+    public function update($id, array $data, $request)
     {
         $berita = Berita::findOrFail($id);
+
+        if ($request->hasFile('foto')) {
+            if ($berita->foto && Storage::disk('public')->exists($berita->foto)) {
+                Storage::disk('public')->delete($berita->foto);
+            }
+            $file = $request->file('foto');
+            $originalName = $file->getClientOriginalName();
+            $filename = now()->format('Ymd_His') . '_' . $originalName;
+
+            $path = $file->storeAs('uploads/berita', $filename, 'public');
+            $data['foto'] = $path;
+        }
 
         $berita->update($data);
         return $berita;
     }
     public function delete($id)
     {
-        return Berita::destroy($id);
+        $berita = $this->getById($id);
+
+        if ($berita->foto && Storage::disk('public')->exists($berita->foto)) {
+            Storage::disk('public')->delete($berita->foto);
+        }
+
+        return $berita->delete();
     }
 
 }

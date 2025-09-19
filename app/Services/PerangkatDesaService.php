@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\PerangkatDesa;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 
 class PerangkatDesaService
@@ -47,20 +48,45 @@ class PerangkatDesaService
         return PerangkatDesa::select('id', 'nama', 'nip', 'jabatan', 'foto')
             ->where('jabatan', '=', 'kepala desa')->first();
     }
-    public function create($data)
+    public function create($data, $request)
     {
+        if ($request->hasFile('foto')) {
+            $foto = $request->foto('foto');
+            $originalName = $foto->getClientOriginalName();
+            $filename = now()->format('Ymd_His') . '_' . $originalName;
+            $path = $foto->storeAs('uploads/perangkat-desa', $filename, 'public');
+
+            $data['foto'] = $path;
+        }
         return PerangkatDesa::create($data);
     }
-    public function update($id, array $data)
+    public function update($id, array $data, $request)
     {
         $perangkatDesa = PerangkatDesa::findOrFail($id);
+
+        if ($request->hasFile('foto')) {
+            if ($perangkatDesa->foto && Storage::disk('public')->exists($perangkatDesa->foto)) {
+                Storage::disk('public')->delete($perangkatDesa->foto);
+            }
+            $foto = $request->foto('foto');
+            $originalName = $foto->getClientOriginalName();
+            $filename = now()->format('Ymd_His') . '_' . $originalName;
+
+            $path = $foto->storeAs('uploads/perangkat-desa', $filename, 'public');
+            $data['foto'] = $path;
+        }
 
         $perangkatDesa->update($data);
         return $perangkatDesa;
     }
     public function delete($id)
     {
-        return PerangkatDesa::destroy($id);
+        $perangkatDesa = $this->getById($id);
+
+        if ($perangkatDesa->foto && Storage::disk('public')->exists($perangkatDesa->foto)) {
+            Storage::disk('public')->delete($perangkatDesa->foto);
+        }
+        return $perangkatDesa->delete();
     }
 
 }

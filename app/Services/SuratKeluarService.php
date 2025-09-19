@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\SuratKeluar;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 
 class SuratKeluarService
@@ -37,20 +38,46 @@ class SuratKeluarService
     {
         return SuratKeluar::select('id', 'nomor_surat', 'penerima', 'perihal', 'tanggal_kirim', 'file')->findOrFail($id);
     }
-    public function create($data)
+    public function create($data, $request)
     {
+        if ($request->hasFile('file')) {
+            $file = $request->file('file');
+            $originalName = $file->getClientOriginalName();
+            $filename = now()->format('Ymd_His') . '_' . $originalName;
+            $path = $file->storeAs('uploads/surat-keluar', $filename, 'public');
+
+            $data['file'] = $path;
+        }
+
         return SuratKeluar::create($data);
     }
-    public function update($id, array $data)
+    public function update($id, array $data, $request)
     {
         $suratKeluar = SuratKeluar::findOrFail($id);
+
+        if ($request->hasFile('file')) {
+            if ($suratKeluar->file && Storage::disk('public')->exists($suratKeluar->file)) {
+                Storage::disk('public')->delete($suratKeluar->file);
+            }
+            $file = $request->file('file');
+            $originalName = $file->getClientOriginalName();
+            $filename = now()->format('Ymd_His') . '_' . $originalName;
+
+            $path = $file->storeAs('uploads/surat-keluar', $filename, 'public');
+            $data['file'] = $path;
+        }
 
         $suratKeluar->update($data);
         return $suratKeluar;
     }
     public function delete($id)
     {
-        return SuratKeluar::destroy($id);
+        $suratKeluar = $this->getById($id);
+
+        if ($suratKeluar->file && Storage::disk('public')->exists($suratKeluar->file)) {
+            Storage::disk('public')->delete($suratKeluar->file);
+        }
+        return $suratKeluar->delete();
     }
 
 }
