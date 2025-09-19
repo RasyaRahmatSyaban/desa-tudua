@@ -71,7 +71,7 @@ class SuratKeluarController extends Controller
             'penerima' => 'required|string|max:255',
             'perihal' => 'required|string|max:255',
             'tanggal_kirim' => 'required|date',
-            'file' => 'required|file|mimes:pdf,doc,docs,docx|max:5120',
+            'file' => 'nullable|file|mimes:pdf,doc,docs,docx|max:5120',
         ]);
 
         $this->suratKeluarService->update($id, $validated, $request);

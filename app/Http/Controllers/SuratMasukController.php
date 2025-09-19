@@ -72,7 +72,7 @@ class SuratMasukController extends Controller
             'pengirim' => 'required|string|max:255',
             'perihal' => 'required|string|max:255',
             'tanggal_terima' => 'required|date',
-            'file' => 'required|file|mimes:pdf,doc,docs,docx|max:5120',
+            'file' => 'nullable|file|mimes:pdf,doc,docs,docx|max:5120',
         ]);
 
         $this->suratMasukService->update($id, $validated, $request);
