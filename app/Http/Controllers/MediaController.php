@@ -54,14 +54,7 @@ class MediaController extends Controller
             'deskripsi' => 'nullable|string',
         ]);
 
-        if ($request->hasFile('file')) {
-            $file = $request->file('file');
-            $originalName = $file->getClientOriginalName();
-            $path = $file->storeAs('uploads/media', $originalName, 'public');
-            $validated['file'] = $path;
-        }
-
-        $this->mediaService->create($validated);
+        $this->mediaService->create($validated, $request);
         return redirect()->route('admin.media.index')->with('success', 'Media berhasil ditambahkan');
     }
     public function edit($id)
@@ -78,14 +71,7 @@ class MediaController extends Controller
             'deskripsi' => 'nullable|string',
         ]);
 
-        if ($request->hasFile('file')) {
-            $file = $request->file('file');
-            $originalName = $file->getClientOriginalName();
-            $path = $file->storeAs('uploads/media', $originalName, 'public');
-            $validated['file'] = $path;
-        }
-
-        $this->mediaService->update($id, $validated);
+        $this->mediaService->update($id, $validated, $request);
         return redirect()->route('admin.media.index')->with('success', 'Media berhasil diperbarui');
     }
 

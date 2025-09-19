@@ -56,14 +56,7 @@ class SuratMasukController extends Controller
             'file' => 'required|file|mimes:pdf,doc,docs,docx|max:5120',
         ]);
 
-        if ($request->hasFile('file')) {
-            $file = $request->file('file');
-            $originalName = $file->getClientOriginalName(); // nama asli file
-            $path = $file->storeAs('uploads/surat-masuk', $originalName, 'public');
-            $validated['file'] = $path;
-        }
-
-        $this->suratMasukService->create($validated);
+        $this->suratMasukService->create($validated, $request);
 
         return redirect()->route('admin.surat-masuk.index')->with('success', 'Data surat masuk berhasil ditambahkan');
     }
@@ -82,14 +75,7 @@ class SuratMasukController extends Controller
             'file' => 'required|file|mimes:pdf,doc,docs,docx|max:5120',
         ]);
 
-        if ($request->hasFile('file')) {
-            $file = $request->file('file');
-            $originalName = $file->getClientOriginalName(); // nama asli file
-            $path = $file->storeAs('uploads/surat-masuk', $originalName, 'public');
-            $validated['file'] = $path;
-        }
-
-        $this->suratMasukService->update($id, $validated);
+        $this->suratMasukService->update($id, $validated, $request);
 
         return redirect()->route('admin.surat-masuk.index')->with('success', 'Data surat masuk berhasil diperbarui');
     }

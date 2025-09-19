@@ -53,14 +53,7 @@ class PerangkatDesaController extends Controller
             'foto' => 'required|image|mimes:jpg,jpeg,png,webp|max:2048',
         ]);
 
-        if ($request->hasFile('foto')) {
-            $file = $request->file('foto');
-            $originalName = $file->getClientOriginalName();
-            $path = $file->storeAs('uploads/perangkat-desa', $originalName, 'public');
-            $validated['foto'] = $path;
-        }
-
-        $this->perangkatDesaService->create($validated);
+        $this->perangkatDesaService->create($validated, $request);
 
         return redirect()->route('admin.perangkat-desa.index')->with('success', 'Data perangkat desa berhasil ditambahkan');
     }
@@ -78,14 +71,7 @@ class PerangkatDesaController extends Controller
             'foto' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
         ]);
 
-        if ($request->hasFile('foto')) {
-            $file = $request->file('foto');
-            $originalName = $file->getClientOriginalName();
-            $path = $file->storeAs('uploads/perangkat-desa', $originalName, 'public');
-            $validated['foto'] = $path;
-        }
-
-        $this->perangkatDesaService->update($id, $validated);
+        $this->perangkatDesaService->update($id, $validated, $request);
 
         return redirect()->route('admin.perangkat-desa.index')->with('success', 'Data perangkat desa berhasil diperbarui');
     }

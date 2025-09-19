@@ -67,14 +67,7 @@ class BeritaController extends Controller
             'status' => 'required|in:Draft,Dipublikasi',
         ]);
 
-        if ($request->hasFile('foto')) {
-            $file = $request->file('foto');
-            $originalName = $file->getClientOriginalName(); // nama asli file
-            $path = $file->storeAs('uploads/berita', $originalName, 'public');
-            $validated['foto'] = $path;
-        }
-
-        $this->beritaService->create($validated);
+        $this->beritaService->create($validated, $request);
 
         return redirect()->route('admin.berita.index')->with('success', 'Berita berhasil ditambahkan');
     }
@@ -94,13 +87,7 @@ class BeritaController extends Controller
             'status' => 'required|in:Draft,Dipublikasi',
         ]);
 
-        if ($request->hasFile('foto')) {
-            $file = $request->file('foto');
-            $path = $file->store('uploads/berita', 'public'); // disimpan di storage/app/public/uploads/berita
-            $validated['foto'] = $path;
-        }
-
-        $this->beritaService->update($id, $validated);
+        $this->beritaService->update($id, $validated, $request);
 
         return redirect()->route('berita.index')->with('success', 'Berita berhasil diperbarui');
     }
