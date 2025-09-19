@@ -51,7 +51,7 @@ class PerangkatDesaService
     public function create($data, $request)
     {
         if ($request->hasFile('foto')) {
-            $foto = $request->foto('foto');
+            $foto = $request->file('foto');
             $originalName = $foto->getClientOriginalName();
             $filename = now()->format('Ymd_His') . '_' . $originalName;
             $path = $foto->storeAs('uploads/perangkat-desa', $filename, 'public');
@@ -68,7 +68,7 @@ class PerangkatDesaService
             if ($perangkatDesa->foto && Storage::disk('public')->exists($perangkatDesa->foto)) {
                 Storage::disk('public')->delete($perangkatDesa->foto);
             }
-            $foto = $request->foto('foto');
+            $foto = $request->file('foto');
             $originalName = $foto->getClientOriginalName();
             $filename = now()->format('Ymd_His') . '_' . $originalName;
 
